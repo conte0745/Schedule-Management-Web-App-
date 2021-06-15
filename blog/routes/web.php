@@ -16,3 +16,4 @@
 // });
 
 Route::get('/', 'PostController@index');
+Route::get('/detail', 'PostController@show');
