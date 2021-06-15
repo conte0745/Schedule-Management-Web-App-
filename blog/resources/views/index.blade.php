@@ -22,9 +22,6 @@
                     <th>{{ $data->title }}</th>
                     <th>{{ $data->body }}</th>
                 </tr>
-                @if ($loop -> index == 10)
-                    @break
-                @endif
             @endforeach
         </table>
         
