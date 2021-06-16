@@ -7,17 +7,20 @@
         <meta name="description" content="simple_blog" />
         <title>blog_view</title>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     </head>
     
-    <body>
+    <body style="background-color:#fffafa">
         <h1>blog</h1>
         <p>this is a sample blog</p>
         
-        <div class = 'posts'>
-            <table border="1" style="border-collapse: collapse">
+        <div class = "contains">
+            <table class = "table table-bordered">
                 <tr>
-                    <td>title</td>
-                    <td>contents</td>
+                    
+                    <td class = "text-center">title</td>
+                    <td class = "text-center">contents</td>
+                   
             
                 </tr>
                 
