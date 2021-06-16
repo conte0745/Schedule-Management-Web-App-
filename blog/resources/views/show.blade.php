@@ -14,6 +14,5 @@
         <h3>更新日</h3>
         <p>{{ $data->updated_at }}</p>
         <a href="/posts">return</a>
-        
     </body>
 </html>
