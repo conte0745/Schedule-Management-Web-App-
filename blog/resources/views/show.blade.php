@@ -9,8 +9,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
     </head>
     <body>
-        <h1>{{ $data -> title }}</h1>
-        <p>{{ $data -> body }}</p>
-        <p>{{ $data -> updataed_at }}</p>
+        <h1>{{ $data->title }}</h1>
+        <p>{{ $data->body }}</p>
+        <h3>更新日</h3>
+        <p>{{ $data->updated_at }}</p>
+        <a href="/posts">return</a>
     </body>
 </html>

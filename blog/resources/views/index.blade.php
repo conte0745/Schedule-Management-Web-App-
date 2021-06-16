@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8"/>
@@ -17,12 +18,15 @@
                 <tr>
                     <td>title</td>
                     <td>contents</td>
+            
                 </tr>
                 
                 @foreach($datas as $data)
                     <tr>
-                        <th>{{ $data->title }}</th>
-                        <th>{{ $data->body }}</th>
+           
+                        <th><a href="/posts/{{ $data->id}}">{{ $data->title }}</a></th>
+                        <th><a href="/posts/{{ $data->id}}">{{ $data->body }}</a></th>
+            
                     </tr>
                 @endforeach
                 <div class = 'pagenate'>
