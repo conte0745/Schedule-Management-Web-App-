@@ -30,21 +30,14 @@ class PostController extends Controller
     {
         $post = new Post;
         
-        $post->title = $req->title;
-        $post->body = $req->body;
-        $post->save();
-        
+        $input = $req['post'];
+        $post->fill($input)->save();
+        return redirect('/posts/' . $post->id);        
         
         /*
         part1
-        $input = $request['post'];
+        $input = $req['post'];
         $post->fill($input)->save();
-        
-        part2
-        $post->title = $requenst['post']->title;
-        $post->body = $requenst['post']->body;
-        $post->save();
-        
 
         */
         
