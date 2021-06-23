@@ -16,7 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('/posts', 'PostController@index');
+// ブログの最初の画面
+Route::get('/posts/create', 'PostController@create');
+// create 
 Route::get('/posts/{post}','PostController@show');
-
-
-// Route::get('/show', 'PostController@show');
+// 投稿内容の詳細画面
+Route::post('posts', 'PostController@store');
