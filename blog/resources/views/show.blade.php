@@ -10,11 +10,10 @@
     </head>
     <body style = "background-color:#fffafa">
         <div class = "border">
-            <p class = "h1 text-primary">{{ $data->title }}</p>
-            <p class ="border">{{ $data->body }}</p>
-            <p class = "h4 ">更新日</p>
-            <p>{{ $data->updated_at }}</p>
-            <a href="/posts">return</a>
+            <p class = "h1 text-primary border">{{ $data->title }}</p>
+            <p class ="body">{{ $data->body }}</p>
+            <p class = "text-muted">更新日 ({{ $data->updated_at }})</p>
         </div>
+            <a href="/posts">[[return]]</a>
     </body>
 </html>
