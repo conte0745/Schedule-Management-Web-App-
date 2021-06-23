@@ -15,21 +15,18 @@
         <p>this is a sample blog</p>
         
         <div class = "contains">
+            
+            <a href="posts/create">新規作成</a>
             <table class = "table table-bordered">
                 <tr>
-                    
                     <td class = "text-center">title</td>
                     <td class = "text-center">contents</td>
-                   
-            
                 </tr>
                 
                 @foreach($datas as $data)
                     <tr>
-           
                         <th><a href="/posts/{{ $data->id}}">{{ $data->title }}</a></th>
                         <th><a href="/posts/{{ $data->id}}">{{ $data->body }}</a></th>
-            
                     </tr>
                 @endforeach
                 <div class = 'pagenate'>

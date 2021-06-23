@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Post;
+use App\Http\Requests\PostRequest;
 
 
 class PostController extends Controller
@@ -19,6 +19,36 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return view('show')->with(['data' => $post]);   
+    }
+    
+    public function create()
+    {
+        return view('create');
+    }
+    
+    public function store(PostRequest $req)
+    {
+        $post = new Post;
+        
+        $post->title = $req->title;
+        $post->body = $req->body;
+        $post->save();
+        
+        
+        /*
+        part1
+        $input = $request['post'];
+        $post->fill($input)->save();
+        
+        part2
+        $post->title = $requenst['post']->title;
+        $post->body = $requenst['post']->body;
+        $post->save();
+        
+
+        */
+        
+        return redirect('/posts/' . $post->id );
     }
     
    
