@@ -21,12 +21,14 @@
                 <tr>
                     <td class = "text-center">title</td>
                     <td class = "text-center">contents</td>
+                    <td class = "text-center">task</td>
                 </tr>
                 
                 @foreach($datas as $data)
                     <tr>
                         <th><a href="/posts/{{ $data->id}}">{{ $data->title }}</a></th>
                         <th><a href="/posts/{{ $data->id}}">{{ $data->body }}</a></th>
+                        <th><a href="/posts/{{ $data->id}}/edit">edit</a></th>
                     </tr>
                 @endforeach
                 <div class = 'pagenate'>

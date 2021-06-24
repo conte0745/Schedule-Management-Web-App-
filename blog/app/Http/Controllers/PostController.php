@@ -13,12 +13,16 @@ class PostController extends Controller
         //$datas = $post->latest()->get();
         // https://blog.capilano-fw.com/?p=665#latest
         
-        return view('index')->with(['datas' => $post ->getPaginateByLimit(5)]);
+        return view('index')->with(['datas' => $post ->getPaginateByLimit()]);
         // https://qiita.com/ryo2132/items/63ced19601b3fa30e6de
     }
     public function show(Post $post)
     {
         return view('show')->with(['data' => $post]);   
+    }
+    public function edit(Post $post)
+    {
+        return view('edit')->with(['data' => $post]);
     }
     
     public function create()
@@ -34,14 +38,14 @@ class PostController extends Controller
         $post->fill($input)->save();
         return redirect('/posts/' . $post->id);        
         
-        /*
-        part1
+    }
+    
+    
+    public function update(PostRequest $req,Post $post)
+    {
         $input = $req['post'];
         $post->fill($input)->save();
-
-        */
-        
-        return redirect('/posts/' . $post->id );
+        return redirect('/posts/' . $post->id);   
     }
     
    
