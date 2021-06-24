@@ -23,6 +23,8 @@ Route::post('/posts', 'PostController@store');
 // DBへの保存
 Route::get('/posts/create', 'PostController@create');
 // create 
+Route::delete('/posts/delete/{post}', 'PostController@del');
+// 投稿内容の削除
 Route::get('/posts/{post}','PostController@show');
 // 投稿内容の詳細画面
 Route::put('/posts/{post}', 'PostController@update');
