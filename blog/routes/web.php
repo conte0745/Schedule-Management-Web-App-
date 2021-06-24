@@ -31,3 +31,6 @@ Route::put('/posts/{post}', 'PostController@update');
 // 投稿内容の修正
 Route::get('/posts/{post}/edit','PostController@edit');
 // 投稿内容の編集
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
