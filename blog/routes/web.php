@@ -19,11 +19,13 @@ Route::get('/', function () {
 
 Route::get('/posts', 'PostController@index');
 // ブログの最初の画面
+Route::post('/posts', 'PostController@store');
+// DBへの保存
 Route::get('/posts/create', 'PostController@create');
 // create 
 Route::get('/posts/{post}','PostController@show');
 // 投稿内容の詳細画面
+Route::put('/posts/{post}', 'PostController@update');
+// 投稿内容の修正
 Route::get('/posts/{post}/edit','PostController@edit');
 // 投稿内容の編集
-Route::post('/posts', 'PostController@store');
-// DBへの保存

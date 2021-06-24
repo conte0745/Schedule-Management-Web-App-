@@ -9,8 +9,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
     </head>
     <body style = "background-color:#fffafa">
-        <form action="/posts" method="post">
+        <form action="/posts/{{ $data->id }}" method="post">
             @csrf
+            @method('PUT')
     	        <p>タイトル：<br>
         	<input type="text" name="post[title]" value="{{ $data->title }}" placeholder="title" class="@error('post.title') is-invalid @enderror"></p>
     	    @error('post.title')
@@ -21,7 +22,7 @@
     	    @error('post.body')
     	        <div class="alert alert-danger">{{ $message }} </div>
     	    @enderror           
-    	    <p><button type="submit" value="add" class="button">save</button></p>
+    	    <p><button type="submit" value="add" class="button">update</button></p>
         </form>
         
         <p><a href="/posts">[[return]]</a></p>
