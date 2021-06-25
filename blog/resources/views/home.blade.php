@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <p>You are logged in!</p>
+                    <p><a href="/posts" >go to posts</a></p>
                 </div>
             </div>
         </div>
