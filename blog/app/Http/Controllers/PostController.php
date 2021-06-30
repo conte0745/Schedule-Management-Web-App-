@@ -13,21 +13,21 @@ class PostController extends Controller
         //$datas = $post->latest()->get();
         // https://blog.capilano-fw.com/?p=665#latest
         
-        return view('index')->with(['datas' => $post ->getPaginateByLimit()]);
+        return view('blog/index')->with(['datas' => $post ->getPaginateByLimit()]);
         // https://qiita.com/ryo2132/items/63ced19601b3fa30e6de
     }
     public function show(Post $post)
     {
-        return view('show')->with(['data' => $post]);   
+        return view('blog/show')->with(['data' => $post]);   
     }
     public function edit(Post $post)
     {
-        return view('edit')->with(['data' => $post]);
+        return view('blog/edit')->with(['data' => $post]);
     }
     
     public function create()
     {
-        return view('create');
+        return view('blog/create');
     }
     
     public function store(PostRequest $req)
