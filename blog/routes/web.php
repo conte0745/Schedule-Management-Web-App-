@@ -34,3 +34,5 @@ Route::get('/posts/{post}/edit','PostController@edit');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/calendar','CalendarController@index');
