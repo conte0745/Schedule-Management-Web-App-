@@ -1,0 +1,52 @@
+.day-blank {
+	background-color: #efefef;
+}
+.day-sun .day{
+	color:red;
+}
+.day-holi .day{
+	color:red;
+}
+.day-sat .day{
+	color: blue;
+}
+.sun {
+	color: red;
+}
+.sat {
+	color: blue;
+}
+.calendar table {
+	table-layout: fixed;
+}
+.calendar table td {	
+	padding: 3px;
+	border: solid 1px #999;
+}
+.calendar table td:before {
+	display: block;
+	float: left;
+	height: 60px;
+	content: "";
+}
+.calendar table td .day {
+	margin-bottom: 0;
+}
+.calendar table th {
+	text-align: center;
+	border: solid 1px #999;
+}
+
+.calendar_show {
+	margin: 10px;
+	background-color: white;
+}
+
+.calendar_title {
+	margin: 10px;
+}
+
+.JobTime {
+	background-color: #fff8dc;
+	text-align: center;
+}

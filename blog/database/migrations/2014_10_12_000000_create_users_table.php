@@ -1,5 +1,5 @@
 <?php
-
+//https://readouble.com/laravel/6.x/ja/migrations.html
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
