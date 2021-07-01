@@ -1,10 +1,13 @@
 @extends('layouts.standard')
+@section('call_css')
+<link rel="stylesheet" href="css/board.css">
+@endsection
 
 @section('contains')    
         <h1>blog</h1>
         <p>this is a sample blog</p>
         
-        <div class = "contains">
+        <div class = "MainBoard">
             
             <a href="/posts/create">新規作成</a>
             <table class = "table table-bordered">
@@ -16,6 +19,7 @@
                    
                 </tr>
                 
+                @php dump($datas) @endphp
                 @foreach($datas as $data)
                     <tr>
                         <th><a href="/posts/{{ $data->id}}">{{ $data->title }}</a></th>

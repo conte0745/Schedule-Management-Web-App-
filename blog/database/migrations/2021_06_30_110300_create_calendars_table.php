@@ -20,6 +20,7 @@ class CreateCalendarsTable extends Migration
         Schema::create('calendars', function (Blueprint $table) {
             $table->bigIncrements('calendar_id');
             $table->unsignedInteger('personal_id');
+            $table->date('date');
             $table->timeTz('start_time', 0);
             $table->timeTz('finish_time', 0);
             $table->unsignedInteger('group_id');

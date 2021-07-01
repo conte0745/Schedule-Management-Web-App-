@@ -10,6 +10,7 @@ class PostController extends Controller
 {
     public function index(Post $post)
     {
+        //dd($post);
         //$datas = $post->latest()->get();
         // https://blog.capilano-fw.com/?p=665#latest
         
@@ -18,7 +19,7 @@ class PostController extends Controller
     }
     public function show(Post $post)
     {
-        return view('blog/show')->with(['data' => $post]);   
+        return view('blog/show')->with(['data' => $post]);
     }
     public function edit(Post $post)
     {
@@ -30,10 +31,8 @@ class PostController extends Controller
         return view('blog/create');
     }
     
-    public function store(PostRequest $req)
+    public function store(Post $post,PostRequest $req)
     {
-        $post = new Post;
-        
         $input = $req['post'];
         $post->fill($input)->save();
         return redirect('/posts/' . $post->id);        
