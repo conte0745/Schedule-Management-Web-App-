@@ -8,8 +8,8 @@ class CalendarView {
 	private $carbon;
 
 	function __construct($date,$job_data){
-	    $this->jobs = $job_data; 
 		$this->carbon = new Carbon($date);
+	    $this->jobs = $job_data; 
 	
 	}
 	
@@ -40,7 +40,6 @@ class CalendarView {
 		$html[] = '</tr>';
 		$html[] = '</thead>';
 		
-		$html[] = '<today>';
 		
 		$weeks = $this->getWeeks();
 	
@@ -54,7 +53,7 @@ class CalendarView {
 		        $html[] = '<td class="' . $day->getClassName() . '">';
 		        $html[] = $day->render(); // day = new CalendarWeekDays;
 		        
-		        
+		        // login_user_idに対する勤務時間を出力
 		        for($i=0;$i<count($this->jobs);$i++)
 		        {
 		            if($this->jobs[$i]['date'] == $day->getDate())
@@ -65,14 +64,14 @@ class CalendarView {
 		                $html[] = '</div>';
 		            }
 		        }
+		        
 		        $html[] = '</td>';
+		        
 		    }
 		    
 		    $html[] = '</tr>
 		    ';
 		}
-		
-		$html[] = '</today>';
 		
 		$html[] = '</table>';
 		$html[] = '</div>';
