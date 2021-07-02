@@ -19,13 +19,12 @@
                    
                 </tr>
                 
-                @php dump($datas) @endphp
                 @foreach($datas as $data)
                     <tr>
-                        <th><a href="/posts/{{ $data->id}}">{{ $data->title }}</a></th>
-                        <th><a href="/posts/{{ $data->id}}">{{ $data->body }}</a></th>
-                        <th><a href="/posts/{{ $data->id }}/edit" class="btn btn-primary btn-sm">edit</a></th>
-                        <th><form action="/posts/delete/{{$data->id}}" method="POST">
+                        <th class="width30"><a href="/posts/{{ $data->id}}">{{ $data->title }}</a></th>
+                        <th class="width50"><a href="/posts/{{ $data->id}}">{{ $data->body }}</a></th>
+                        <th class="width10"><a href="/posts/{{ $data->id }}/edit" class="btn btn-primary btn-sm">edit</a></th>
+                        <th class="width10"><form action="/posts/delete/{{$data->id}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <input type="submit" value="削除" class="btn btn-danger btn-sm btn-dell" onclick="return confirm('削除しますか？')">
