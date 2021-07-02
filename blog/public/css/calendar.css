@@ -23,6 +23,9 @@
 	padding: 3px;
 	border: solid 1px #999;
 }
+.calendar table td a{	
+	color: black;
+}
 .calendar table td:before {
 	display: block;
 	float: left;

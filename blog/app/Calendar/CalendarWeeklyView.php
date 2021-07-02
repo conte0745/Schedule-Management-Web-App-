@@ -3,45 +3,24 @@ namespace App\Calendar;
 
 use Carbon\Carbon;
 
-class CalendarView {
+class CalendarWeeklyView {
 
 	private $carbon;
 
-	function __construct($date,$job_data){
+	function __construct($date,$work_datas,$week_counter){
 		$this->carbon = new Carbon($date);
-	    $this->jobs = $job_data; 
-	
+	    $this->works = $work_datas; 
+		$week_counter = substr($week_counter,4,1);
+		$this->week_counter = (int)$week_counter;
+		
 	}
 	
 	
-	/**
-	 * タイトル
-	 */
-	public function getTitle(){
-		return $this->carbon->format('Y年n月');
-	}
-
 	/**
 	 * カレンダーを出力する
 	 */
 	function render(){
-		$html = [];
-		$html[] = '<div class="calendar">';
-		$html[] = '<table class="table">';
-		$html[] = '<thead>';
-		$html[] = '<tr>';
-        $html[] = '<th class="sun">日</th>';
-		$html[] = '<th>月</th>';
-		$html[] = '<th>火</th>';
-		$html[] = '<th>水</th>';
-		$html[] = '<th>木</th>';
-		$html[] = '<th>金</th>';
-		$html[] = '<th class="sat">土</th>';
-		$html[] = '</tr>';
-		$html[] = '</thead>';
-		
-		
-		$weeks = $this->getWeeks();
+	    $weeks = $this->getWeeks();
 	
 		foreach($weeks as $week)
 		{
@@ -51,16 +30,20 @@ class CalendarView {
 		    foreach($days as $day)
 		    {
 		        $html[] = '<td class="' . $day->getClassName() . '">';
+		        $html[] = '<a href="/calendar/show/';
+		        $html[] = $week->getUrlName(); 
+		        $html[] = '">';
 		        $html[] = $day->render(); // day = new CalendarWeekDays;
+		        $html[] = '</a>';
 		        
 		        // login_user_idに対する勤務時間を出力
-		        for($i=0;$i<count($this->jobs);$i++)
+		        for($i=0;$i<count($this->works);$i++)
 		        {
-		            if($this->jobs[$i]['date'] == $day->getDate())
+		            if($this->works[$i]['date'] == $day->getDate())
 		            {
 		                $html[] = '<div class="JobTime">';
-		                $html[] = substr($this->jobs[$i]['start_time'], 0, 5) . '~';
-		                $html[] = substr($this->jobs[$i]['finish_time'], 0, 5) . '<br>';
+		                $html[] = substr($this->works[$i]['start_time' ], 0, 5) . '~';
+		                $html[] = substr($this->works[$i]['finish_time'], 0, 5) . '<br>';
 		                $html[] = '</div>';
 		            }
 		        }
@@ -96,11 +79,24 @@ class CalendarView {
 	        $week = new CalendarWeek($tmpDay,count($weeks));
 	        $weeks[] = $week;
 	        
+	        
 	        $tmpDay->addDay(7);
 	    }
+	    //dd($weeks);
 	    
 	    return $weeks;
 	    
 	}
+	
+	/**
+	 * タイトル
+	 */
+	public function getTitle(){
+	    $firstDay = $this->carbon->copy()->StartOfWeek()->subDays(1);
+	    $lastDay = $this->carbon->copy()->endOfWeek()->subDays(1);
+	    $tmp = substr($firstDay,5,6) . ' ~ ' .substr($lastDay,5,6);
+		return $tmp;
+	}
+
 	
 }
