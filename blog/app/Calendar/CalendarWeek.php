@@ -59,4 +59,5 @@ class CalendarWeek {
 		
 		return $days;
 	}
+	
 }

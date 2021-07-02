@@ -21,42 +21,40 @@ class CalendarWeeklyView {
 	 */
 	function render(){
 	    $weeks = $this->getWeeks();
+	    $week = $weeks[$this->week_counter - 1];
 	
-		foreach($weeks as $week)
-		{
-		    $html[] = '<tr class="' . $week->getClassName() . '">';
-		    $days = $week->getDays();
-		    
-		    foreach($days as $day)
-		    {
-		        $html[] = '<td class="' . $day->getClassName() . '">';
-		        $html[] = '<a href="/calendar/show/';
-		        $html[] = $week->getUrlName(); 
-		        $html[] = '">';
-		        $html[] = $day->render(); // day = new CalendarWeekDays;
-		        $html[] = '</a>';
-		        
-		        // login_user_idに対する勤務時間を出力
-		        for($i=0;$i<count($this->works);$i++)
-		        {
-		            if($this->works[$i]['date'] == $day->getDate())
-		            {
-		                $html[] = '<div class="JobTime">';
-		                $html[] = substr($this->works[$i]['start_time' ], 0, 5) . '~';
-		                $html[] = substr($this->works[$i]['finish_time'], 0, 5) . '<br>';
-		                $html[] = '</div>';
-		            }
-		        }
-		        
-		        $html[] = '</td>';
-		        
-		    }
-		    
-		    $html[] = '</tr>
-		    ';
-		}
 		
-		$html[] = '</table>';
+	    $html[] = '<p class="' . $week->getClassName() . '">';
+		$days = $week->getDays();
+		$html[] = '</p>';
+		    
+		foreach($days as $day)
+		{
+		    $html[] = '<p class="' . $day->getClassName() . '">';
+		    $html[] = $day->render(); // day = new CalendarWeekDays;
+		    $html[] = '</p>';
+		        
+		        
+		        // 全員の勤務時間を出力
+		    for($i=0;$i<count($this->works);$i++)
+		    {
+		        if($this->works[$i]['date'] == $day->getDate())
+		        {
+		            $html[] = '<div class="JobTime">user_id::';
+		            $html[] = $this->works[$i]['personal_id'] . '  work_time::';
+		            $html[] = substr($this->works[$i]['start_time' ], 0, 5) . '~';
+		            $html[] = substr($this->works[$i]['finish_time'], 0, 5) . '<br>';
+		            $html[] = '</div>';
+		        }
+		    }
+		        
+		    $html[] = '</td>';
+		        
+        }
+		    
+		$html[] = '</tr>
+		';
+		
 		$html[] = '</div>';
 		return implode("", $html);
 	}
@@ -82,7 +80,6 @@ class CalendarWeeklyView {
 	        
 	        $tmpDay->addDay(7);
 	    }
-	    //dd($weeks);
 	    
 	    return $weeks;
 	    
@@ -92,10 +89,16 @@ class CalendarWeeklyView {
 	 * タイトル
 	 */
 	public function getTitle(){
-	    $firstDay = $this->carbon->copy()->StartOfWeek()->subDays(1);
-	    $lastDay = $this->carbon->copy()->endOfWeek()->subDays(1);
-	    $tmp = substr($firstDay,5,6) . ' ~ ' .substr($lastDay,5,6);
-		return $tmp;
+	    
+	    $weeks = $this->getWeeks();
+	    $week = $weeks[$this->week_counter - 1]->getDays();
+	    $tmp = $week[0];
+	    //var_dump(($week[0]));
+	    //var_export(($week[0]));
+	    //print_r($week[0]);
+	    //dd(($week[0]));
+	    
+		return 'けんしょうちゅう';
 	}
 
 	
