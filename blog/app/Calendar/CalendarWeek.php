@@ -17,6 +17,13 @@ class CalendarWeek {
 
 	function getClassName(){
 		return "week-" . $this->index;
+		// zero index
+	}
+
+	function getUrlName(){
+		$counter = $this->index + 1;
+		return "week" . $counter;
+		// one index
 	}
 
 	/**

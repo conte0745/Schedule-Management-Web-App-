@@ -1,6 +1,6 @@
 @extends('layouts.standard')
 @section('call_css')
-<link rel="stylesheet" href="css/board.css">
+<link rel="stylesheet" href="{{ asset('css/board.css') }}">
 @endsection
 
 @section('contains')    

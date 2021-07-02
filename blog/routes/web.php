@@ -33,6 +33,10 @@ Route::get('/posts/{post}/edit','PostController@edit');
 // 投稿内容の編集
 Auth::routes();
 
+// --calendar--
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/calendar','CalendarController@index');
+
+Route::get('/calendar/show/{week_counter}','CalendarController@show');
+

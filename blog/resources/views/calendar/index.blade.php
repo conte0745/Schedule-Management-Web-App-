@@ -1,15 +1,13 @@
 @extends('layouts.standard')
 
 @section('call_css')
-<link rel="stylesheet" href="css/calendar.css">
+<link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
 @endsection
 
 @section('contains')
 
-    <h1>Calendar</h1>
-    
-    <!--<input type="date" min="2021-07-01" max="2021-10-01"></input>-->
-    <div class="calendar_title" ><p>{{ $calendar_table->getTitle() }}</p></div>
+    <h1>Monthly Calendar</h1>
+    <div class="calendar_title">{{ $calendar_table->getTitle() }}</div>
     <div class="calendar_show"><p>{!! $calendar_table->render() !!}</p></div>
 
     
