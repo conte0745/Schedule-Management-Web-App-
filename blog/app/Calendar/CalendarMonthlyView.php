@@ -51,11 +51,21 @@ class CalendarMonthlyView {
 		    foreach($days as $day)
 		    {
 		        $html[] = '<td class="' . $day->getClassName() . '">';
+		        $html[] = '<div class="url"><div class="url1">';
 		        $html[] = '<a href="/calendar/show/';
 		        $html[] = $week->getUrlName(); 
 		        $html[] = '">';
 		        $html[] = $day->render(); // day = new CalendarWeekDays;
 		        $html[] = '</a>';
+		        $html[] = '</div>';
+		        
+		        $html[] = '<div class="url2">';
+		        $html[] = '<a href="/calendar/create/';
+		        $html[] = $day->getUrlName(); 
+		        $html[] = '">+</a>';
+		        $html[] = '</div></div>';
+		        
+		       
 		        
 		        // login_user_idに対する勤務時間を出力
 		        for($i=0;$i<count($this->works);$i++)

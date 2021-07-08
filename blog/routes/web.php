@@ -38,5 +38,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/calendar','CalendarController@index');
 
+Route::get('/calendar/mypage','CalendarController@mypage');
+
 Route::get('/calendar/show/{week_counter}','CalendarController@show');
+
+Route::get('/calendar/create/{date}','CalendarController@create');
 

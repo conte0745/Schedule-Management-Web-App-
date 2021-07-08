@@ -53,3 +53,15 @@
 	background-color: #fff8dc;
 	text-align: center;
 }
+
+.url1 {
+	float: left;
+}
+
+.url2 {
+	float: right
+}
+
+.url{
+	overflow:hidden
+}

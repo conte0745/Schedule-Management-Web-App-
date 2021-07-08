@@ -21,13 +21,6 @@ class CalendarController extends Controller
         return view('calendar/index')->with(['calendar_table' => $calendar_table]);
     }
     
-   
-    
-    public function create()
-    {
-        //
-    }
-    
     public function show(Calendar $calendar,$week_counter)
     {
         $group_id = 1;
@@ -35,10 +28,21 @@ class CalendarController extends Controller
         $query = $calendar->select('personal_id','date','start_time','finish_time')->where('group_id',$group_id)->get();
         $query_array = $query->toArray();
         
-        
         $calendar_table = new CalendarWeeklyView(time(),$query_array,$week_counter);
         return view('calendar/show')->with(['calendar_table' => $calendar_table]);
         
+    }
+    
+    public function create($date)
+    {
+        $calendar = new Calendar;
+        return view('calendar/create')->with(['calendar' => $calendar, 'date' => $date]);
+        
+    }
+    
+    public function mypage()
+    {
+        return view('calendar/mypage');
     }
 
 }

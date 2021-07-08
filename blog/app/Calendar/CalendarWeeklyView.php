@@ -92,13 +92,11 @@ class CalendarWeeklyView {
 	    
 	    $weeks = $this->getWeeks();
 	    $week = $weeks[$this->week_counter - 1]->getDays();
-	    $tmp = $week[0];
+	   
 	    //var_dump(($week[0]));
 	    //var_export(($week[0]));
-	    //print_r($week[0]);
-	    //dd(($week[0]));
 	    
-		return 'けんしょうちゅう';
+		return $week[0]->carbon->format('m-d');
 	}
 
 	

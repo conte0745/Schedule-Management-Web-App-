@@ -5,11 +5,12 @@ use Yasumi\Yasumi;
 
 class CalendarWeekDay
 {
-	protected $carbon;
+	public $carbon;
 
 	function __construct($date)
 	{
 		$this->carbon = new Carbon($date);
+		//dd($this->carbon);
 	}
 
 
@@ -21,6 +22,11 @@ class CalendarWeekDay
 	function render()
 	{
 		return '<p class="day">' . $this->carbon->format('j'). '</p>';
+	}
+	
+	function getUrlName()
+	{
+		return $this->carbon->format('j');
 	}
 	
 	function getDate()
