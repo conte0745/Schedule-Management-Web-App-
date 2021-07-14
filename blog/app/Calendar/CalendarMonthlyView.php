@@ -119,4 +119,14 @@ class CalendarMonthlyView {
 	    
 	}
 	
+	protected function InputWorkTimes()
+	{
+		$html = []; 
+
+	    
+	    
+	    return implode("", $html);;
+	    
+	}
+	
 }

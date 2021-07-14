@@ -40,6 +40,15 @@ class CalendarController extends Controller
         
     }
     
+    public function store(Request $request, Calendar $calendar)
+    {
+        $input = $request['calendar'];
+        $calendar->fill($input)->save();
+        return redirect('/calendar');
+        
+    }
+    
+    
     public function mypage()
     {
         return view('calendar/mypage');
