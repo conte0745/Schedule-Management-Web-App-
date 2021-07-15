@@ -26,7 +26,7 @@ class CalendarWeekDay
 	
 	function getUrlName()
 	{
-		return $this->carbon->format('j');
+		return $this->carbon->format('d');
 	}
 	
 	function getDate()

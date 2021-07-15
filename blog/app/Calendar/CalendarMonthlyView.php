@@ -9,7 +9,7 @@ class CalendarMonthlyView {
 
 	function __construct($date,$work_datas){
 		$this->carbon = new Carbon($date);
-	    $this->works = $work_datas; 
+	    $this->works = $work_datas;
 	
 	}
 	
@@ -51,7 +51,7 @@ class CalendarMonthlyView {
 		    foreach($days as $day)
 		    {
 		        $html[] = '<td class="' . $day->getClassName() . '">';
-		        $html[] = '<div class="url"><div class="url1">';
+		        $html[] = '<div class="url"><div class="week">';
 		        $html[] = '<a href="/calendar/show/';
 		        $html[] = $week->getUrlName(); 
 		        $html[] = '">';
@@ -59,7 +59,7 @@ class CalendarMonthlyView {
 		        $html[] = '</a>';
 		        $html[] = '</div>';
 		        
-		        $html[] = '<div class="url2">';
+		        $html[] = '<div class="create">';
 		        $html[] = '<a href="/calendar/create/';
 		        $html[] = $day->getUrlName(); 
 		        $html[] = '">+</a>';
@@ -72,9 +72,10 @@ class CalendarMonthlyView {
 		        {
 		            if($this->works[$i]['date'] == $day->getDate())
 		            {
-		                $html[] = '<div class="JobTime">';
+		                $html[] = '<div class="workTimeZone"><div class="workTime">';
 		                $html[] = substr($this->works[$i]['start_time' ], 0, 5) . '~';
-		                $html[] = substr($this->works[$i]['finish_time'], 0, 5) . '<br>';
+		                $html[] = substr($this->works[$i]['finish_time'], 0, 5) . '</div>';
+		                $html[] = $this->del2($this->works[$i]['calendar_id']);
 		                $html[] = '</div>';
 		            }
 		        }
@@ -119,14 +120,56 @@ class CalendarMonthlyView {
 	    
 	}
 	
-	protected function InputWorkTimes()
+	protected function del($calendar_id)
 	{
+		// 削除の確認
+		
 		$html = []; 
-
+		$html[] = '<div class="delete">';
+		$html[] = '<a href="javascript:confirm("ok");"';
+	    $html[] = '">-</a>';
+	    $html[] = '</div>';
+	
+	    return implode("", $html);
+	}
+	
+	protected function del1($calendar_id)
+	{
+		// getメゾットでdelするから直すべしだけどわからん
+		
+		$html = []; 
+		$html[] = '<div class="delete">';
+		$html[] = '<a href="/calendar/delete/';
+		$html[] = $calendar_id;
+	    $html[] = '">-</a>';
+	    $html[] = '</div>';
+	
+	    return implode("", $html);
+	}
+	
+	protected function del2($calendar_id)
+	{
+		
+		//未完成 エラーを吐く。
+		
+		$html = []; 
+		$html[] = '<div class="delete">';
+		$html[] = '<form action="/calendar/delete/' . $calendar_id .'" ';
+	    $html[] = 'name="form1" method="POST">@csrf';
 	    
+	    //$html[] = '@method("DELETE")';
+	    $html[] = '<input type="hidden" name="calendar_id">';
+	    $html[] = '<a href="javascript:form1.submit()">-</a>';
+	    $html[] = '</div>';
 	    
-	    return implode("", $html);;
-	    
+		// aタグからPOSTする方法
+	    // https://qiita.com/next1ka2u/items/9736ce2f9c7f3aa69d61
+	    return implode("", $html);
+	}
+	
+	public function delete()
+	{
+		
 	}
 	
 }
