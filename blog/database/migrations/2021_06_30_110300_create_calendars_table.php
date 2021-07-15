@@ -25,7 +25,7 @@ class CreateCalendarsTable extends Migration
             $table->timeTz('finish_time', 0);
             $table->unsignedInteger('group_id');
             $table->timestampsTz(0);
-            $table->softDeletes('deleted_at')->nullable();
+            $table->softDeletes();
             //integer
         });
     }

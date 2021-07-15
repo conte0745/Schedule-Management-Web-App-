@@ -1,67 +1,75 @@
-.day-blank {
-	background-color: #efefef;
+.blank {
+	background-color: #C0C0C0;
 }
-.day-sun .day{
-	color:red;
-}
-.day-holi .day{
-	color:red;
-}
-.day-sat .day{
-	color: blue;
-}
+
 .sun {
 	color: red;
 }
 .sat {
 	color: blue;
 }
-.calendar table {
+.table {
 	table-layout: fixed;
 }
-.calendar table td {	
+.table td {	
 	padding: 3px;
 	border: solid 1px #999;
+	background-color: white;
 }
-.calendar table td a{	
+.table td a{	
 	color: black;
 }
-.calendar table td:before {
+.table td:before {
 	display: block;
 	float: left;
 	height: 60px;
 	content: "";
 }
-.calendar table td .day {
+.table td .day {
 	margin-bottom: 0;
 }
-.calendar table th {
-	text-align: center;
+.table td {
+	text-align: left;
 	border: solid 1px #999;
 }
+.table th {
+	text-align: center;
+	border: solid 1px #999;
+	background-color: white;
+}
+
 
 .calendar_show {
-	margin: 10px;
-	background-color: white;
+	margin: 15px;
 }
 
 .calendar_title {
 	margin: 10px;
 }
 
-.JobTime {
+.workTimeZone {
 	background-color: #fff8dc;
 	text-align: center;
+	overflow:hidden;
 }
 
-.url1 {
+.workTime {
 	float: left;
 }
 
-.url2 {
-	float: right
+.week {
+	float: left;
+}
+
+.create {
+	float: right;
 }
 
 .url{
-	overflow:hidden
+	overflow:hidden;
 }
+
+.delete{
+	text-align: right;
+}
+

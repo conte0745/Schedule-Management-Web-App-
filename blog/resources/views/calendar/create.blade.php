@@ -1,21 +1,32 @@
 @extends('layouts.standard')
 
 @section('contains') 
-        <h1>新規作成</h1>
-        <form action="/posts" method="post">
+        <h1>勤務時間の登録</h1>
+        <div class="input">
+        <form action="/calendar" method="POST">
             @csrf
-    	        <p>タイトル：<br>
-        	<input type="text" name="calendar[start_time]" value="{{ old('calendar.start_time') }}" placeholder="title" class="@error('post.title') is-invalid @enderror"></p>
-    	    @error('post.title')
-    	        <div class="alert alert-danger">{{ $message }} </div>
-    	    @enderror 
-    	        <p>本文：<br>
-    	    <textarea name="post[body]" cols="30" rows="5" placeholder="body" class="@error('post.body') is-invalid @enderror">{{ old('post.body') }}</textarea></p>
-    	    @error('post.body')
-    	        <div class="alert alert-danger">{{ $message }} </div>
-    	    @enderror           
-    	    <p><button type="submit" value="add" class="button">save</button></p>
+            <div class="input">
+                <label for="date">日付</label>
+                <input type="date" value="{{ $date }}" name="calendar[date]"><br>
+                @error('calendar.date')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <label for="start_time">開始時間</label>
+                <input type="time" id="start_time" name="calendar[start_time]" value="{{ old('calendar.start_time') }}"><br>
+                    @error('calendar.start_time')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror   
+                <label for="finish_time">終了時間</label>
+                <input type="time" id="finish_time" name="calendar[finish_time]" value="{{ old('calendar.finish_time') }}">
+                    @error('calendar.finish_time')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    
+                    <br>
+                <input id="save" type="submit" value="保存">
+            </div>
         </form>
+        </div>
         
-        <p><a href="/calendar">[[return]]</a></p>
+        <p><a href="/calendar">カレンダーに戻る</a></p>
 @endsection
