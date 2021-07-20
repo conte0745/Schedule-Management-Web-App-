@@ -13,9 +13,9 @@ class UsersTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for($i=0;$i<10;$i++){
+        
+        for($i=0;$i<20;$i++){
             DB::table('users')->insert([
-            'unique_name' => Str::random(10),
             'name' => $faker->name,
             'email' => $faker->unique()->safeEmail,
             'email_verified_at' => now(),
@@ -23,9 +23,9 @@ class UsersTableSeeder extends Seeder
             'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),
-            'deleted_at' =>NULL,
         ]);
         }
+        
     }
 }
 

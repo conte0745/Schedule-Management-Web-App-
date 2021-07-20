@@ -7,22 +7,42 @@ class calendarShow
 {
     private $carbon;
 
-	function __construct($date,$work_datas){
+	function __construct($date, $work_datas, $cnt = 0){
 		$this->carbon = new Carbon($date);
 	    $this->works = $work_datas;
+	    $this->cnt = $cnt;
 	}
 	
 	public function getdays()
 	{
 	    $weeks = [];
 	    $week = [];
-	   
-	    $firstDay = $this->carbon->copy()->firstOfMonth();
-	    $lastDay = $this->carbon->copy()->lastOfMonth();
-	    //dd($firstDay->formatLocalized('%Y年%m月%d日(%a)'));
+		
+		if($this->cnt == 0)
+		{
+			$firstDay = $this->carbon->copy()->firstOfMonth();
+	    	$lastDay = $this->carbon->copy()->lastOfMonth();
+		}
+		else if($this->cnt > 0)
+		{
+			$firstDay = $this->carbon->copy()->addMonthsNoOverflow()->firstOfMonth();
+			$lastDay = $this->carbon->copy()->addMonthsNoOverflow()->lastOfMonth();
+		}
+		else if($this->cnt < 0)
+		{
+			$firstDay = $this->carbon->copy()->subMonthsNoOverflow()->firstOfMonth();
+			$lastDay = $this->carbon->copy()->subMonthsNoOverflow()->lastOfMonth();
+		}
+		
+		
 	    $tmp = $firstDay->copy()->startOfWeek()->subDay();
 	    $last = $lastDay->copy()->endOfWeek()->subDay();
 	    
+	    if($tmp->copy()->addDays(7)->format('j') == '1')
+	    {
+	    	$tmp->addDays(7);
+	    }
+
 	    while($tmp->lte($last))
 	    {
 	       
@@ -44,6 +64,6 @@ class calendarShow
 	
 	public function getmonth()
 	{
-	    return $this->carbon->format('Y年n月');
+	    return $this->carbon->addMonths($this->cnt)->format('Y年n月');
 	}
 }

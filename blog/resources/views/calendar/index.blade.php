@@ -1,14 +1,26 @@
-@extends('layouts.standard')
+@extends('layouts.app')
 
 @section('call_css')
 <link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
 @endsection
+@section('drop-box')
+<a class="dropdown-item card" href="{{ url('calendar/mypage')}}">{{ __('Mypage') }}</a>
+@endsection
 
 @section('contains')
-
-    <div class="calendar_title"><h1>{{ $month }}のカレンダー</h1></div>
-    
-    
+    <div class="flexible">
+        <div class="calendar_title"><h1>{{ $month }}のカレンダー</h1></div>
+        <div class="move flexible under">
+            @if(request()->path() == "calendar/prev")
+                <a href="/calendar/"> [次の月へ] </a>
+            @elseif(request()->path() == "calendar/next")
+                <a href="/calendar/"> [前の月へ] </a>
+            @elseif(request()->path() == "calendar")
+                <a href="/calendar/prev"> [前の月へ] </a>
+                <a href="/calendar/next"> [次の月へ] </a>
+            @endif
+        </div>
+    </div>
     <div class="calendar_show">
         <table class="table">
             <thead>
@@ -31,9 +43,9 @@
                             @endif
                             <div class="url">
                                 @if($loop->index%7==0)
-                                    <td class="sun_date">
+                                    <td class="sun">
                                 @elseif($loop->index%7==6)
-                                    <td class="sat_date">
+                                    <td class="sat">
                                 @else
                                     <td class="every_date">
                                 @endif
@@ -53,14 +65,18 @@
                                 @for($i=0;$i<count($query);$i++)
                                     @if($query[$i]['date'] == substr($day,0,10))
                                         <div class="workTime">
-                                        {{ substr($query[$i]['start_time'],0,5) }} ~ {{ substr($query[$i]['finish_time'],0,5) }}
+                                            <a href="/calendar/edit/{{ $query[$i]['calendar_id'] }}">
+                                                {{ substr($query[$i]['start_time'],0,5) }} ~ {{ substr($query[$i]['finish_time'],0,5) }}
+                                                </a>
+                                                <!--//https://qiita.com/next1ka2u/items/9736ce2f9c7f3aa69d61-->
+                                            </form>
                                         </div>
                                         <div class="delete">
-                                            <form action="/calendar/delete/{{ $query[$i]['calendar_id']}}" method="post" name="form">
+                                            <form action="/calendar/delete/{{ $query[$i]['calendar_id']}}" method="post" name="form{{ $query[$i]['calendar_id'] }}">
                                                 @csrf
                                                 @method('delete')
-                                                <input type="hidden" name="calendar_id">
-                                                <a href="javascript:form.submit()">-</a>
+                                                <input type="hidden" name="delete">
+                                                <a href="javascript:form{{ $query[$i]['calendar_id'] }}.submit()" onclick="return confirm('削除しますか?')">-</a>
                                                 <!--//https://qiita.com/next1ka2u/items/9736ce2f9c7f3aa69d61-->
                                             </form>
                                         </div>

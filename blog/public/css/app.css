@@ -222,6 +222,9 @@ svg {
 table {
   border-collapse: collapse;
 }
+.inline-block {
+  display: inline-block;
+}
 
 caption {
   padding-top: 0.75rem;
@@ -4602,6 +4605,13 @@ input[type=button].btn-block {
   overflow-y: auto;
 }
 
+.flexible {
+  display: flex;
+}
+.under {
+  margin-top: auto;
+}
+
 @media (max-width: 575.98px) {
   .navbar-expand-sm > .container,
   .navbar-expand-sm > .container-fluid,
@@ -4655,6 +4665,7 @@ input[type=button].btn-block {
     display: none;
   }
 }
+
 
 @media (max-width: 767.98px) {
   .navbar-expand-md > .container,
