@@ -24,7 +24,7 @@ class CalendarsTableSeeder extends Seeder
     {
         for($i=0;$i<100;$i++){
             DB::table('calendars')->insert([
-            'personal_id' => $faker->NumberBetween($min = 0, $max = 4),
+            'personal_id' => $faker->NumberBetween($min = 20, $max = 23),
             'date' => $faker->date($format = '2021-7-d', $max = now()),
             'start_time' => $faker->dateTimeBetween($startDate = '00:00:00', $endDate = '11:59:59'),
             'finish_time' => $faker->dateTimeBetween($startDate = '12:00:00', $endDate ='23:59:59'),

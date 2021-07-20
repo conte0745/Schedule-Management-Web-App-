@@ -40,6 +40,14 @@ Route::get('/calendar','CalendarController@index');
 
 Route::post('/calendar/','CalendarController@store');
 
+Route::patch('/calendar/','CalendarController@update');
+
+Route::get('/calendar/edit/{calendar_id}','CalendarController@edit');
+
+Route::get('/calendar/prev','CalendarController@index_prev');
+
+Route::get('/calendar/next','CalendarController@index_next');
+
 Route::get('/calendar/show/{week_counter}','CalendarController@show');
 
 Route::get('/calendar/create/{date}','CalendarController@create');
@@ -49,3 +57,4 @@ Route::delete('/calendar/delete/{calendar_id}','CalendarController@del');
 Route::get('/calendar/mypage','CalendarController@mypage');
 
 Route::get('/calendar/delete/{calendar_id}','CalendarController@del');
+
