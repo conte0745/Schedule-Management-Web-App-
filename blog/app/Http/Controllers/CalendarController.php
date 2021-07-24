@@ -42,7 +42,12 @@ class CalendarController extends Controller
         
         $query = $calendar->select('calendar_id','date','date_fin','start_time','finish_time')->where('personal_id',$personal_id)->where('group_id',$group_id)->get();
         
-        $calendar = new calendarShow($month);
+        if(preg_match('/^(2[0-1][0-9]{2})-(0[1-9]{1}|1[0-2]{1})$/', $month)){
+            $calendar = new calendarShow($month);
+        }else{
+            return redirect('calendar');
+        }
+            
         
         $url = $calendar->geturl();
         $weeks = $calendar->getdays();
@@ -52,14 +57,20 @@ class CalendarController extends Controller
     }
     
     
-    public function show(Calendar $calendar,$counter)
+    public function show(Calendar $calendar, $month, $counter)
     {
         $group_id = 1;
         
         $query = $calendar->select('personal_id','date','date_fin','start_time','finish_time')->where('group_id',$group_id)->get();
         $query_array = $query->toArray();
         
-        $week = new CalendarWeek(time(),$counter);
+        if(preg_match('/^(2[0-1][0-9]{2})-(0[1-9]{1}|1[0-2]{1})$/', $month)){
+            $calendar = new calendarShow($month);
+        }else{
+            return redirect('calendar');
+        }
+        
+        $week = new CalendarWeek($month,$counter);
         $days = $week->getWeekDays();
         $title = $week->getweek();
         

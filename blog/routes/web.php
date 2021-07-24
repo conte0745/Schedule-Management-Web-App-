@@ -48,7 +48,7 @@ Route::get('/calendar/edit/{calendar_id}','CalendarController@edit');
 
 Route::get('/calendar/move/{month}','CalendarController@index_move');
 
-Route::get('/calendar/{counter}','CalendarController@show');
+Route::get('/calendar/show/{month}/{counter}','CalendarController@show');
 
 Route::get('/calendar/create/{date}','CalendarController@create');
 

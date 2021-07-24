@@ -23,7 +23,7 @@
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" id="week" href="">ウィークリー</a>
                 <div class="dropdown-menu">
                     @foreach($weeks as $week)
-                    <a class="dropdown-item" href="/calendar/week{{ $loop->iteration }}">第{{ $loop->iteration }}週({{ $weeks[$loop->index][0]->format('n/j') }}~{{$weeks[$loop->index][6]->format('n/j') }})</a>
+                    <a class="dropdown-item" href="/calendar/show/{{ $url->format('Y-m') }}/week{{ $loop->iteration }}">第{{ $loop->iteration }}週({{ $weeks[$loop->index][0]->format('n/j') }}~{{$weeks[$loop->index][6]->format('n/j') }})</a>
                     @endforeach
                 </div>
             </li>
