@@ -40,6 +40,8 @@ Route::get('/calendar','CalendarController@index');
 
 Route::post('/calendar/','CalendarController@store');
 
+Route::get('/calendar/mypage','CalendarController@mypage');
+
 Route::put('/calendar/update/{calendar_id}','CalendarController@update');
 
 Route::get('/calendar/edit/{calendar_id}','CalendarController@edit');
@@ -52,7 +54,6 @@ Route::get('/calendar/create/{date}','CalendarController@create');
 
 Route::delete('/calendar/delete/{calendar_id}','CalendarController@del');
 
-Route::get('/calendar/mypage','CalendarController@mypage');
 
 Route::get('/calendar/delete/{calendar_id}','CalendarController@del');
 

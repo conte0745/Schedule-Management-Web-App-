@@ -10,20 +10,24 @@
 @section('contains')
     <div class="flexible">
         <div class="calendar_title"><h1>{{ $month }}のカレンダー</h1></div>
-        <div class="nav nav-tabs under">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" href="">月の移動</a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="/calendar/move/{{ $url->addMonths(1)->format('Y-m') }}">次の月</a>
-                <a class="dropdown-item" href="/calendar/move/{{ $url->subMonths(1)->format('Y-m') }}">前の月</a>
-                <a class="dropdown-item" href="/calendar">現在の月</a>
-            </div>
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" href="">ウィークリー</a>
-            <div class="dropdown-menu">
-                @foreach($weeks as $week)
-                <a class="dropdown-item" href="/calendar/week{{ $loop->iteration }}">第{{ $loop->iteration }}週({{ $weeks[$loop->index][0]->format('n/j') }}~{{$weeks[$loop->index][6]->format('n/j') }})</a>
-                @endforeach
-            </div></a>
-        </div>
+        <ul class="nav nav-pills  under">
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" role="button" id="month" href="">月の移動</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/calendar/move/{{ $url->copy()->subMonths(1)->format('Y-m') }}">前の月</a>
+                    <a class="dropdown-item" href="/calendar/move/{{ $url->copy()->addMonths(1)->format('Y-m') }}">次の月</a>
+                    <a class="dropdown-item" href="/calendar">現在の月</a>
+                </div>
+            </li>
+            <li>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" id="week" href="">ウィークリー</a>
+                <div class="dropdown-menu">
+                    @foreach($weeks as $week)
+                    <a class="dropdown-item" href="/calendar/week{{ $loop->iteration }}">第{{ $loop->iteration }}週({{ $weeks[$loop->index][0]->format('n/j') }}~{{$weeks[$loop->index][6]->format('n/j') }})</a>
+                    @endforeach
+                </div>
+            </li>
+        </ul>
     </div>
     
     <div class="calendar_show">

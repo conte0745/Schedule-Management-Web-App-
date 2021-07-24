@@ -48,7 +48,6 @@ class CalendarController extends Controller
         $weeks = $calendar->getdays();
         $month = $calendar->getmonth();
         
-        //return redirect('/calendar')->with(['weeks' => $weeks,'month' => $month,'query' => $query->toArray()]);
         return view('calendar/index')->with(['weeks' => $weeks,'url' => $url,'month' => $month,'query' => $query->toArray()]);
     }
     
