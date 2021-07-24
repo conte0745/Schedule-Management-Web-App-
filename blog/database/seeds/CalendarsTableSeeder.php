@@ -23,15 +23,19 @@ class CalendarsTableSeeder extends Seeder
     public function run(Faker $faker)
     {
         for($i=0;$i<100;$i++){
+            $tmp = $faker->date($format = '2021-7-d', $max = now());
+        
             DB::table('calendars')->insert([
-            'personal_id' => $faker->NumberBetween($min = 20, $max = 23),
-            'date' => $faker->date($format = '2021-7-d', $max = now()),
-            'start_time' => $faker->dateTimeBetween($startDate = '00:00:00', $endDate = '11:59:59'),
-            'finish_time' => $faker->dateTimeBetween($startDate = '12:00:00', $endDate ='23:59:59'),
-            'group_id' => 1,
-            'created_at' =>now(),
-            'updated_at' =>now(),
-            'deleted_at' =>NULL,
+                
+                'personal_id' => $faker->NumberBetween($min = 20, $max = 23),
+                'date' => $tmp,
+                'start_time' => $faker->dateTimeBetween($startDate = '00:00:00', $endDate = '11:59:59'),
+                'date_fin' => $tmp,
+                'finish_time' => $faker->dateTimeBetween($startDate = '12:00:00', $endDate ='23:59:59'),
+                'group_id' => 1,
+                'created_at' =>now(),
+                'updated_at' =>now(),
+                'deleted_at' =>NULL,
             ]);
         }
     }

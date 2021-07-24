@@ -40,15 +40,13 @@ Route::get('/calendar','CalendarController@index');
 
 Route::post('/calendar/','CalendarController@store');
 
-Route::patch('/calendar/','CalendarController@update');
+Route::put('/calendar/update/{calendar_id}','CalendarController@update');
 
 Route::get('/calendar/edit/{calendar_id}','CalendarController@edit');
 
-Route::get('/calendar/prev','CalendarController@index_prev');
+Route::get('/calendar/move/{month}','CalendarController@index_move');
 
-Route::get('/calendar/next','CalendarController@index_next');
-
-Route::get('/calendar/show/{week_counter}','CalendarController@show');
+Route::get('/calendar/{counter}','CalendarController@show');
 
 Route::get('/calendar/create/{date}','CalendarController@create');
 

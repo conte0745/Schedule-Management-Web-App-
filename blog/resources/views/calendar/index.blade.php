@@ -10,17 +10,22 @@
 @section('contains')
     <div class="flexible">
         <div class="calendar_title"><h1>{{ $month }}のカレンダー</h1></div>
-        <div class="move flexible under">
-            @if(request()->path() == "calendar/prev")
-                <a href="/calendar/"> [次の月へ] </a>
-            @elseif(request()->path() == "calendar/next")
-                <a href="/calendar/"> [前の月へ] </a>
-            @elseif(request()->path() == "calendar")
-                <a href="/calendar/prev"> [前の月へ] </a>
-                <a href="/calendar/next"> [次の月へ] </a>
-            @endif
+        <div class="nav nav-tabs under">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" href="">月の移動</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/calendar/move/{{ $url->addMonths(1)->format('Y-m') }}">次の月</a>
+                <a class="dropdown-item" href="/calendar/move/{{ $url->subMonths(1)->format('Y-m') }}">前の月</a>
+                <a class="dropdown-item" href="/calendar">現在の月</a>
+            </div>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" href="">ウィークリー</a>
+            <div class="dropdown-menu">
+                @foreach($weeks as $week)
+                <a class="dropdown-item" href="/calendar/week{{ $loop->iteration }}">第{{ $loop->iteration }}週({{ $weeks[$loop->index][0]->format('n/j') }}~{{$weeks[$loop->index][6]->format('n/j') }})</a>
+                @endforeach
+            </div></a>
         </div>
     </div>
+    
     <div class="calendar_show">
         <table class="table">
             <thead>
@@ -42,14 +47,15 @@
                                 <div class="blank">
                             @endif
                             <div class="url">
+                                <!--曜日のクラス処理-->
                                 @if($loop->index%7==0)
                                     <td class="sun">
                                 @elseif($loop->index%7==6)
                                     <td class="sat">
                                 @else
-                                    <td class="every_date">
+                                    <td class="weekday">
                                 @endif
-                                
+                                <!--日付の入力-->
                                 @if(substr($day,8,1) != 0)
                                     {{ substr($day,8,2) }}
                                 @else
@@ -65,11 +71,15 @@
                                 @for($i=0;$i<count($query);$i++)
                                     @if($query[$i]['date'] == substr($day,0,10))
                                         <div class="workTime">
+                                            @if($query[$i]['date_fin'] != substr($day,0,10))
+                                            <a href="/calendar/edit/{{ $query[$i]['calendar_id'] }}">
+                                                {{ substr($query[$i]['start_time'],0,5) }} ~ (翌){{ substr($query[$i]['finish_time'],0,5) }}
+                                            </a>
+                                            @else
                                             <a href="/calendar/edit/{{ $query[$i]['calendar_id'] }}">
                                                 {{ substr($query[$i]['start_time'],0,5) }} ~ {{ substr($query[$i]['finish_time'],0,5) }}
-                                                </a>
-                                                <!--//https://qiita.com/next1ka2u/items/9736ce2f9c7f3aa69d61-->
-                                            </form>
+                                            </a>
+                                            @endif
                                         </div>
                                         <div class="delete">
                                             <form action="/calendar/delete/{{ $query[$i]['calendar_id']}}" method="post" name="form{{ $query[$i]['calendar_id'] }}">

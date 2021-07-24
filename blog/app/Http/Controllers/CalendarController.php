@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Calendar;
 use App\Http\Requests\CalendarRequest;
 use App\Calendar\calendarShow;
+use App\Calendar\CalendarWeek;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
 
 
 class CalendarController extends Controller
@@ -24,54 +24,47 @@ class CalendarController extends Controller
         $personal_id = Auth::id();
         $group_id = 1;
         
-        $query = $calendar->select('calendar_id','date','start_time','finish_time')->where('personal_id',$personal_id)->where('group_id',$group_id)->get();
+        $query = $calendar->select('calendar_id','date','date_fin','start_time','finish_time')->where('personal_id',$personal_id)->where('group_id',$group_id)->get();
+
+        $calendar = new calendarShow(time());
         
-        $calendar = new calendarShow(time(),$query->toArray());
-        
+        $url = $calendar->geturl();
         $weeks = $calendar->getdays();
         $month = $calendar->getmonth();
-        
-        return view('calendar/index')->with(['weeks' => $weeks,'month' => $month,'query' => $query->toArray()]);
+    
+        return view('calendar/index')->with(['weeks' => $weeks,'month' => $month,'url' => $url,'query' => $query->toArray()]);
     }
     
-    public function index_prev(Calendar $calendar)
+    public function index_move(Calendar $calendar, $month)
     {
         $personal_id = Auth::id();
         $group_id = 1;
         
-        $query = $calendar->select('calendar_id','date','start_time','finish_time')->where('personal_id',$personal_id)->where('group_id',$group_id)->get();
+        $query = $calendar->select('calendar_id','date','date_fin','start_time','finish_time')->where('personal_id',$personal_id)->where('group_id',$group_id)->get();
         
-        $calendar = new calendarShow(time(),$query->toArray(),-1);
+        $calendar = new calendarShow($month);
         
+        $url = $calendar->geturl();
         $weeks = $calendar->getdays();
         $month = $calendar->getmonth();
         
-        return view('calendar/index')->with(['weeks' => $weeks,'month' => $month,'query' => $query->toArray()]);
+        //return redirect('/calendar')->with(['weeks' => $weeks,'month' => $month,'query' => $query->toArray()]);
+        return view('calendar/index')->with(['weeks' => $weeks,'url' => $url,'month' => $month,'query' => $query->toArray()]);
     }
     
-    public function index_next(Calendar $calendar)
-    {
-        $personal_id = Auth::id();
-        $group_id = 1;
-        
-        $query = $calendar->select('calendar_id','date','start_time','finish_time')->where('personal_id',$personal_id)->where('group_id',$group_id)->get();
-        
-        $calendar = new calendarShow(time(),$query->toArray(),1);
-        $weeks = $calendar->getdays();
-        $month = $calendar->getmonth();
-        
-        return view('calendar/index')->with(['weeks' => $weeks,'month' => $month,'query' => $query->toArray()]);
-    }
     
-    public function show(Calendar $calendar,$week_counter)
+    public function show(Calendar $calendar,$counter)
     {
         $group_id = 1;
         
-        $query = $calendar->select('personal_id','date','start_time','finish_time')->where('group_id',$group_id)->get();
+        $query = $calendar->select('personal_id','date','date_fin','start_time','finish_time')->where('group_id',$group_id)->get();
         $query_array = $query->toArray();
         
-        $calendar_table = new CalendarWeeklyView(time(),$query_array,$week_counter);
-        return view('calendar/show')->with(['calendar_table' => $calendar_table]);
+        $week = new CalendarWeek(time(),$counter);
+        $days = $week->getWeekDays();
+        $title = $week->getweek();
+        
+        return view('calendar/show')->with(['days' => $days, 'title' => $title,'works' => $query_array]);
         
     }
     
@@ -96,21 +89,14 @@ class CalendarController extends Controller
     
     public function edit(Calendar $calendar,$calendar_id)
     {
-        $query = $calendar->select('date','start_time','finish_time')->where('calendar_id',$calendar_id)->get();
-        $query = $query->toArray();
-        return view('calendar/edit')->with(['calendar' => $query[0]]);
+        return view('calendar/edit')->with(['calendar' => $calendar->find($calendar_id)]);
     }
     
     
-    public function update(CalendarRequest $request, Calendar $calendar)
+    public function update(CalendarRequest $request, $calendar_id)
     {
-        $personal_id = Auth::id();
-        $group_id = 1;
-       
-        $input = $request['calendar'];
-        $calendar->fill($input);
-        $calendar->group_id=$group_id;
-        $calendar->personal_id=$personal_id;
+        $calendar = Calendar::find($calendar_id);
+        $calendar->fill($request['calendar']);
         $calendar->save();
         return redirect('/calendar');
         
@@ -118,7 +104,7 @@ class CalendarController extends Controller
     
     public function del($calendar_id)
     {
-        Calendar::where('calendar_id',$calendar_id)->delete();
+        Calendar::find($calendar_id)->delete();
         return redirect('/calendar');
     }
     

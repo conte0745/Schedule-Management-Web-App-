@@ -12,10 +12,19 @@ class Calendar extends Model
     
     protected $fillable = [
     'date',
+    'date_fin',
     'start_time',
     'finish_time',
     
     ];
+    
+    /**
+     * テーブルの主キー
+     *
+     * @var string
+    */
+     
+    protected $primaryKey = 'calendar_id';
     
 }
 

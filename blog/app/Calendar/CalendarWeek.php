@@ -3,23 +3,24 @@ namespace App\Calendar;
 
 use Carbon\Carbon;
 
-class calendarShow
+class CalendarWeek
 {
     private $carbon;
 
-	function __construct($date){
+	function __construct($date,$counter){
 		$this->carbon = new Carbon($date);
+	    $this->counter = substr($counter,4,1) - 1;
+	   
 	}
 	
-	public function getdays()
+	private function getMonthDays()
 	{
 	    $weeks = [];
 	    $week = [];
-		
-	
-		$firstDay = $this->carbon->copy()->firstOfMonth();
+	    
+	    $firstDay = $this->carbon->copy()->firstOfMonth();
 	    $lastDay = $this->carbon->copy()->lastOfMonth();
-		
+	
 	    $tmp = $firstDay->copy()->startOfWeek()->subDay();
 	    $last = $lastDay->copy()->endOfWeek()->subDay();
 	    
@@ -46,12 +47,19 @@ class calendarShow
 	    return $weeks;
 	}
 	
-	public function getmonth()
+	public function getweek()
 	{
-	    return $this->carbon->format('Y年n月');
+	    $MonthDays = $this->getMonthDays();
+
+	    $WeekDay = $MonthDays[$this->counter];
+	    
+	    return $WeekDay[0]->format('n/j') . '~' . $WeekDay[6]->format('n/j');
 	}
-	public function geturl()
+	
+	public function getWeekDays()
 	{
-	    return $this->carbon;
+	    $MonthDays = $this->getMonthDays();
+	    
+	    return $MonthDays[$this->counter];
 	}
 }

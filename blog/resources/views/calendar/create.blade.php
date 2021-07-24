@@ -7,32 +7,45 @@
 <a class="dropdown-item card" href="{{ url('calendar/mypage')}}">{{ __('Mypage') }}</a>
 @endsection
 @section('contains') 
-        <h1>勤務時間の登録</h1>
-        <div class="input">
+<h1>勤務時間の登録</h1>
+<div class="input">
+    <div class="card">
         <form action="/calendar" method="POST">
-            @csrf
-            <div class="input">
-                <label for="date">日付</label>
-                <input type="date" value="{{ $date }}" name="calendar[date]"><br>
-                @error('calendar.date')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                <label for="start_time">開始時間</label>
-                <input type="time" id="start_time" name="calendar[start_time]" value="{{ old('calendar.start_time') }}"><br>
+        @csrf
+        <div class="card">
+            <div class="card flexible">
+                <div class="item">
+                    <label for="date">開始日付</label>
+                    <input type="date" value="{{ $date }}" name="calendar[date]"><br>
+                    @error('calendar.date')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <label for="start_time">開始時間</label>
+                    <input type="time" id="start_time" name="calendar[start_time]" value="{{ old('calendar.start_time') }}"><br>
                     @error('calendar.start_time')
                         <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror   
-                <label for="finish_time">終了時間</label>
-                <input type="time" id="finish_time" name="calendar[finish_time]" value="{{ old('calendar.finish_time') }}">
+                    @enderror  
+                </div>
+            </div>
+            <div class="card flexible">
+                <div class="item">
+                    <label for="date_fin">終了日付</label>
+                    <input type="date" value="{{ $date }}" name="calendar[date_fin]"><br>
+                    @error('calendar.date')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <label for="finish_time">終了時間</label>
+                    <input type="time" id="finish_time" name="calendar[finish_time]" value="{{ old('calendar.finish_time') }}">
                     @error('calendar.finish_time')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                    
-                    <br>
-                <input id="save" type="submit" value="保存">
+                </div>
             </div>
+        </div><br>
+        <input id="save" type="submit" value="保存" class="btn btn-primary">
         </form>
-        </div>
-        <br>
-        <p><a href="/calendar">カレンダーに戻る</a></p>
+    </div>
+</div>
+<br>
+<p><a href="/calendar">カレンダーに戻る</a></p>
 @endsection
