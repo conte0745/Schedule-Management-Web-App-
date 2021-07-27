@@ -7,10 +7,8 @@ class calendarShow
 {
     private $carbon;
 
-	function __construct($date, $work_datas, $cnt = 0){
+	function __construct($date){
 		$this->carbon = new Carbon($date);
-	    $this->works = $work_datas;
-	    $this->cnt = $cnt;
 	}
 	
 	public function getdays()
@@ -18,22 +16,9 @@ class calendarShow
 	    $weeks = [];
 	    $week = [];
 		
-		if($this->cnt == 0)
-		{
-			$firstDay = $this->carbon->copy()->firstOfMonth();
-	    	$lastDay = $this->carbon->copy()->lastOfMonth();
-		}
-		else if($this->cnt > 0)
-		{
-			$firstDay = $this->carbon->copy()->addMonthsNoOverflow()->firstOfMonth();
-			$lastDay = $this->carbon->copy()->addMonthsNoOverflow()->lastOfMonth();
-		}
-		else if($this->cnt < 0)
-		{
-			$firstDay = $this->carbon->copy()->subMonthsNoOverflow()->firstOfMonth();
-			$lastDay = $this->carbon->copy()->subMonthsNoOverflow()->lastOfMonth();
-		}
-		
+	
+		$firstDay = $this->carbon->copy()->firstOfMonth();
+	    $lastDay = $this->carbon->copy()->lastOfMonth();
 		
 	    $tmp = $firstDay->copy()->startOfWeek()->subDay();
 	    $last = $lastDay->copy()->endOfWeek()->subDay();
@@ -57,13 +42,17 @@ class calendarShow
 	        $tmp->addDay(1);
 	        
 	    }
-	    $weeks[] = $week;
-    
+	    
 	    return $weeks;
 	}
 	
 	public function getmonth()
 	{
-	    return $this->carbon->addMonths($this->cnt)->format('Y年n月');
+	    return $this->carbon->format('Y年n月');
 	}
+	public function geturl()
+	{
+	    return $this->carbon;
+	}
+	
 }

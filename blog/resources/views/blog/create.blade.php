@@ -1,4 +1,4 @@
-@extends('layouts.standard')
+@extends('layouts.app')
 
 @section('contains') 
         <h1>新規作成</h1>

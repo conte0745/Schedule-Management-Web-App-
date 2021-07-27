@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/register/select', function() {
+    return view('auth/select');  
+});
+
+// -------
 Route::get('/posts', 'PostController@index');
 // ブログの最初の画面
 Route::post('/posts', 'PostController@store');
@@ -40,21 +45,20 @@ Route::get('/calendar','CalendarController@index');
 
 Route::post('/calendar/','CalendarController@store');
 
-Route::patch('/calendar/','CalendarController@update');
+Route::get('/calendar/mypage','CalendarController@mypage');
+
+Route::put('/calendar/update/{calendar_id}','CalendarController@update');
 
 Route::get('/calendar/edit/{calendar_id}','CalendarController@edit');
 
-Route::get('/calendar/prev','CalendarController@index_prev');
+Route::get('/calendar/move/{month}','CalendarController@index_move');
 
-Route::get('/calendar/next','CalendarController@index_next');
-
-Route::get('/calendar/show/{week_counter}','CalendarController@show');
+Route::get('/calendar/show/{month}/{counter}','CalendarController@show');
 
 Route::get('/calendar/create/{date}','CalendarController@create');
 
 Route::delete('/calendar/delete/{calendar_id}','CalendarController@del');
 
-Route::get('/calendar/mypage','CalendarController@mypage');
 
 Route::get('/calendar/delete/{calendar_id}','CalendarController@del');
 

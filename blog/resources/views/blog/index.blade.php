@@ -1,4 +1,4 @@
-@extends('layouts.standard')
+@extends('layouts.app')
 @section('call_css')
 <link rel="stylesheet" href="{{ asset('css/board.css') }}">
 @endsection

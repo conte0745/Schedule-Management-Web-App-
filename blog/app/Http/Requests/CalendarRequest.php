@@ -25,19 +25,22 @@ class CalendarRequest extends FormRequest
     {
         return [
             'calendar.date' => 'required | date',
+            'calendar.date_fin' => 'required | date',
             'calendar.start_time' => 'required ',
-            'calendar.finish_time' => 'required | after:calendar.start_time',
+            'calendar.finish_time' => 'required',
         ];
     }
     
     public function messages()
     {
         return [
-            'calendar.date.required' => '勤務日を入力してください',
+            'calendar.date.required' => '勤務開始日を入力してください',
+            'calendar.date_fin.required' => '勤務終了日を入力してください',
             'calendar.date.date' => '勤務日を入力してください',
+            'calendar.date_fin.date' => '勤務日を入力してください',
             'calendar.start_time.required'  => '勤務開始時刻を入力してください',
             'calendar.finish_time.required'  => '勤務終了時刻を入力してください',
-            'calendar.finish_time.after'  => '開始時刻より終了時刻のほうが早いです',
+            // 'calendar.finish_time.after'  => '開始時刻より終了時刻のほうが早いです',
         ];
     }
 }
