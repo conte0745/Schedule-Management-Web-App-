@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/register/select', function() {
+    return view('auth/select');  
+});
+
+// -------
 Route::get('/posts', 'PostController@index');
 // ブログの最初の画面
 Route::post('/posts', 'PostController@store');

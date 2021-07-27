@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Calendar;
+use App\Models\User;
 use App\Http\Requests\CalendarRequest;
 use App\Calendar\calendarShow;
 use App\Calendar\CalendarWeek;
@@ -61,8 +62,8 @@ class CalendarController extends Controller
     {
         $group_id = 1;
         
-        $query = $calendar->select('personal_id','date','date_fin','start_time','finish_time')->where('group_id',$group_id)->get();
-        $query_array = $query->toArray();
+        $query = $calendar->select('personal_id','date','date_fin','start_time','finish_time')->where('group_id',$group_id)->get()->toArray();
+        
         
         if(preg_match('/^(2[0-1][0-9]{2})-(0[1-9]{1}|1[0-2]{1})$/', $month)){
             $calendar = new calendarShow($month);
@@ -70,11 +71,24 @@ class CalendarController extends Controller
             return redirect('calendar');
         }
         
+        
+        
+        $tmps = User::select('id','name')->where('group_id',$group_id)->get()->toArray();
+        $users = array();
+        
+        for($i=0;$i<count($tmps);$i++){
+            $users[$tmps[$i]['id']] = $tmps[$i]['name'];
+        }
+    
+        
         $week = new CalendarWeek($month,$counter);
+        
+        $weeks = $week->getMonth();
+        $url = $week->geturl();
         $days = $week->getWeekDays();
         $title = $week->getweek();
         
-        return view('calendar/show')->with(['days' => $days, 'title' => $title,'works' => $query_array]);
+        return view('calendar/show')->with(['days' => $days, 'url' => $url, 'weeks' => $weeks,'title' => $title,'works' => $query,'users' => $users]);
         
     }
     

@@ -70,4 +70,16 @@ class CalendarWeek
 	    	return $MonthDays[1];
 	    }
 	}
+	
+	public function getMonth()
+	{
+		return $this->getMonthDays();
+	}
+	
+	public function geturl()
+	{
+	    return $this->carbon;
+	}
+	
+	
 }

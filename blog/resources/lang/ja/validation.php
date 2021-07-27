@@ -40,6 +40,7 @@ return [
     'dimensions' => ':attributeの画像サイズが不正です。',
     'distinct' => ':attributeが重複しています。',
     'email' => ':attributeを正しい形式で入力してください。',
+    'shop' => ':attributeを正しい形式で入力してください。',
     'ends_with' => ':attributeを:valuesで終わるよう入力してください。',
     'exists' => '選択した値が不正です。',
     'file' => ':attributeはファイルを選択してください。',

@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
         for($i=0;$i<20;$i++){
             DB::table('users')->insert([
             'name' => $faker->name,
+            'group_id' => 1,
             'email' => $faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'password' => '00000000', // password
