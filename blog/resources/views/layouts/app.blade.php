@@ -70,10 +70,12 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('contains')
         </main>
     </div>
+    
+    
+    
 </body>
 </html>

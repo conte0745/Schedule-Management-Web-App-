@@ -7,13 +7,14 @@ class CalendarWeek
 {
     private $carbon;
 
-	function __construct($date,$counter)
+	function __construct($date, $counter = 1)
 	{
 		$this->carbon = new Carbon($date);
-	    $this->counter = substr($counter,4,1) - 1;
+		$this->counter = $counter - 1;
+		
 	}
 	
-	private function getMonthDays()
+	private function createCalendar()
 	{
 	    $weeks = [];
 	    $week = [];
@@ -47,39 +48,41 @@ class CalendarWeek
 	    return $weeks;
 	}
 	
-	public function getweek()
+	public function getWeekTitle()
 	{
-	    $MonthDays = $this->getMonthDays();
+	    $MonthDays = $this->createCalendar();
 	    
-		if((0 < $this->counter) and ($this->counter < count($MonthDays))){
+		if((0 <= $this->counter) and ($this->counter < count($MonthDays))){
 	    	$WeekDay = $MonthDays[$this->counter];
 	    }else{
-	    	$WeekDay = $MonthDays[1];
+	    	$WeekDay = $MonthDays[0];
 	    }
 	    return $WeekDay[0]->format('n/j') . '~' . $WeekDay[6]->format('n/j');
 	}
 	
 	public function getWeekDays()
 	{
-	    $MonthDays = $this->getMonthDays();
-	    //dd((0 < $this->counter) and ($this->counter < count($MonthDays)));
+	    $MonthDays = $this->createCalendar();
 	    
-	    if((0 < $this->counter) and ($this->counter < count($MonthDays))){
+	    if((0 <= $this->counter) and ($this->counter < count($MonthDays))){
 	    	return $MonthDays[$this->counter];
 	    }else{
-	    	return $MonthDays[1];
+	    	return $MonthDays[0];
 	    }
 	}
 	
-	public function getMonth()
+	public function getMonthDays()
 	{
-		return $this->getMonthDays();
+		return $this->createCalendar();
 	}
 	
-	public function geturl()
+	public function getUrl()
 	{
 	    return $this->carbon;
 	}
 	
-	
+	public function getMonthTitle()
+	{
+	    return $this->carbon->format('Y年n月');
+	}
 }

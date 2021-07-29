@@ -15,6 +15,7 @@ class CreateShopsTable extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('group_id');
             $table->string('shop', 20)->unique();
             $table->timestamps();
         });

@@ -45,20 +45,18 @@ Route::get('/calendar','CalendarController@index');
 
 Route::post('/calendar/','CalendarController@store');
 
-Route::get('/calendar/mypage','CalendarController@mypage');
-
 Route::put('/calendar/update/{calendar_id}','CalendarController@update');
 
 Route::get('/calendar/edit/{calendar_id}','CalendarController@edit');
 
-Route::get('/calendar/move/{month}','CalendarController@index_move');
+Route::get('/calendar/show/{month}','CalendarController@index_move')->name('calendar');
 
-Route::get('/calendar/show/{month}/{counter}','CalendarController@show');
+Route::get('/calendar/show/{month}/week{counter}','CalendarController@show');
 
 Route::get('/calendar/create/{date}','CalendarController@create');
 
 Route::delete('/calendar/delete/{calendar_id}','CalendarController@del');
 
-
-Route::get('/calendar/delete/{calendar_id}','CalendarController@del');
-
+Route::get('/calendar/mypage', function() {
+    return view('mypage/index');
+});

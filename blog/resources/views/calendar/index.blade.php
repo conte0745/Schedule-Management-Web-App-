@@ -9,13 +9,13 @@
 
 @section('contains')
     <div class="flexible">
-        <div class="calendar_title"><h1>{{ $month }}のカレンダー</h1></div>
+        <div class="calendar_title"><h1>{{ $title }}</h1></div>
         <ul class="nav nav-pills  under">
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" role="button" id="month" href="">月の移動</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/calendar/move/{{ $url->copy()->subMonths(1)->format('Y-m') }}">前の月</a>
-                    <a class="dropdown-item" href="/calendar/move/{{ $url->copy()->addMonths(1)->format('Y-m') }}">次の月</a>
+                    <a class="dropdown-item" href="/calendar/show/{{ $url->copy()->subMonths(1)->format('Y-m') }}">前の月({{ $url->copy()->subMonths(1)->format('n') }}月)</a>
+                    <a class="dropdown-item" href="/calendar/show/{{ $url->copy()->addMonths(1)->format('Y-m') }}">次の月({{ $url->copy()->addMonths(1)->format('n') }}月)</a>
                     <a class="dropdown-item" href="/calendar">現在の月</a>
                 </div>
             </li>
@@ -47,7 +47,7 @@
                 @foreach($weeks as $week)
                     <tr>
                         @foreach($week as $day)
-                            @if(mb_substr($month,5,1) != substr($day,6,1))
+                            @if(mb_substr($title,5,1) != substr($day,6,1))
                                 <div class="blank">
                             @endif
                             <div class="url">
@@ -59,11 +59,19 @@
                                 @else
                                     <td class="weekday">
                                 @endif
+                                
+                                @if($holiday->isHoliday($day))
+                                    <div class="holiday">
+                                @endif
                                 <!--日付の入力-->
                                 @if(substr($day,8,1) != 0)
                                     {{ substr($day,8,2) }}
                                 @else
                                     {{ substr($day,9,1) }}
+                                @endif
+                                
+                                @if($holiday->isHoliday($day))
+                                    </div>
                                 @endif
                                 
                                 <div class="create">
@@ -99,7 +107,7 @@
                             </div>        
                             </td>
                                 
-                            @if(mb_substr($month,5,1) != substr($day,6,1))
+                            @if(mb_substr($title,5,1) != substr($day,6,1))
                                 </div>
                             @endif
                             
