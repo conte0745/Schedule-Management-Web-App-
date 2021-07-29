@@ -35,7 +35,7 @@
     @foreach($days as $day)
     
     @if($holiday->isHoliday($day))
-        <div class="holiday">
+        <div class="holiday">{{}}
     @endif
     
     @if($loop->index==0)
