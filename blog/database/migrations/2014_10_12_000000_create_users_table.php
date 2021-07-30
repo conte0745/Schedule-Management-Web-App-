@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name')->unique();
             $table->integer('group_id')->default($value = 1);
             $table->integer('state')->nullable($value = true);
+            $table->integer('color')->nullable($value = NULL);
             $table->boolean('permission')->default(False);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at');
