@@ -16,5 +16,10 @@ class StatesTableSeeder extends Seeder
             'created_at' =>now(),
             'updated_at' =>now(),
         ]);
+        DB::table('states')->insert([
+            'state' => 'sad',
+            'created_at' =>now(),
+            'updated_at' =>now(),
+        ]);
     }
 }

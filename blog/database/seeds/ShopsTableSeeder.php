@@ -13,12 +13,16 @@ class ShopsTableSeeder extends Seeder
     {
         
         DB::table('shops')->insert([
-            'shop' => 'laravel1',
+            'shop_name' => 'laravel1',
+            'group_id' => '1',
+            'shop' => 'def',
             'created_at' =>now(),
             'updated_at' =>now(),
         ]);
         DB::table('shops')->insert([
-            'shop' => 'laravel2',
+            'shop_name' => 'laravel2',
+            'group_id' => '1',
+            'shop' => 'abc',
             'created_at' =>now(),
             'updated_at' =>now(),
         ]);

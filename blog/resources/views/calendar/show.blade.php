@@ -57,29 +57,51 @@
     @if($holiday->isHoliday($day))
         </div>
     @endif
-    <table class="table table-hover table-sm">
+    <table class="table table-sm">
         <tr>
-        @foreach($works as $work)
-            @if($work['date'] == $day->format('Y-m-d'))
-                <tr>
-                    <td style="width: 40%">{{ $users[$work['personal_id']] }}</td>
-                    <td style="width: 40%">{{ substr($work['start_time'],0,5) }} ~ {{ substr($work['finish_time'],0,5) }}</td>
-                    @if($id == $work['personal_id'])
-                    <td style="width: 20%">
-                        <form action="/calendar/delete/{{ $work['calendar_id']}}" method="post" name="form{{ $work['calendar_id'] }}">
-                        @csrf
-                        @method('delete')
-                            <input type="hidden" name="delete">
-                            <a href="javascript:form{{ $work['calendar_id'] }}.submit()" onclick="return confirm('削除しますか?')">-</a>
-                        </form>
-            
-                    </td>
-                    @else<td style="width: 20%"></td>
-                    @endif
-                </tr>
+        @for($i=0;$i<48;$i++)
+            @if($i%6==0)
+                <th>{{ $i/2 }}</th>
+            @else
+                <th></th>
             @endif
-        @endforeach
+        @endfor
+        <th>0</th>
         </tr>
+        @foreach($works as $work)
+        @if($work['date'] == $day->format('Y-m-d'))
+        <tr>
+            @php $tmp = strtotime('23:30'); $isDisplay = 0; @endphp
+            @for($i=0;$i<48;$i++)
+                @php
+                    $time = date('H:i',strtotime('+30 minute' ,$tmp));
+                    $tmp = strtotime($time);
+                @endphp
+                
+            @if((substr($work['start_time'],0,5) <= $time) && $isDisplay == 0)
+                @php $isDisplay += 1; @endphp
+    
+                <td colspan="24"><div class="flexible" style="background-color:yellow">{{ $users[$work['personal_id']] }}   
+                    @if($id == $work['personal_id'])
+                            <form action="/calendar/delete/{{ $work['calendar_id']}}" method="post" name="form{{ $work['calendar_id'] }}">
+                            @csrf
+                            @method('delete')
+                                <input type="hidden" name="delete">
+                                <div class="right"><a href="javascript:form{{ $work['calendar_id'] }}.submit()" onclick="return confirm('削除しますか?')">del</a></div>
+                            </form>
+                    @endif
+                    
+                </div><div style="background-color:yellow">{{ substr($work['start_time'],0,5) }} ~ {{ substr($work['finish_time'],0,5) }}</div></td>
+                    
+            @else
+                <td></td>
+            @endif
+            @endfor
+          
+            </tr>
+        @endif
+        @endforeach
+        
     </table>
     @endforeach
     </div>   

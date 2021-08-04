@@ -57,6 +57,4 @@ Route::get('/calendar/create/{date}','CalendarController@create');
 
 Route::delete('/calendar/delete/{calendar_id}','CalendarController@del');
 
-Route::get('/calendar/mypage', function() {
-    return view('mypage/index');
-});
+Route::get('/calendar/mypage','ProfilerController@index');

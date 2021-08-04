@@ -23,7 +23,7 @@ class CalendarsTableSeeder extends Seeder
     public function run(Faker $faker)
     {
         for($i=0;$i<100;$i++){
-            $tmp = $faker->date($format = '2021-7-d', $max = now());
+            $tmp = $faker->date($format = '2021-8-d', $max = now());
         
             DB::table('calendars')->insert([
                 

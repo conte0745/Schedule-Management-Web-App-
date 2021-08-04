@@ -152,6 +152,7 @@ class CalendarController extends Controller
     
     public function del($calendar_id)
     {
+        
         Calendar::find($calendar_id)->delete();
         return back();
     }

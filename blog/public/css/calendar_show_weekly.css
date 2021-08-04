@@ -34,3 +34,19 @@
 	background-color: #fff8dc;
 	text-align: center;
 }
+
+table th {
+	width: 2%;
+}
+table td {
+	width: 2%;
+	text-align: center;
+	
+}
+
+table td{
+	table-layout: fixed;
+}
+.right {
+	text-align: right;
+}
