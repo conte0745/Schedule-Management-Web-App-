@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Calendar;
 use App\Models\User;
+use App\Models\Profiler;
 use App\Http\Requests\CalendarRequest;
 use App\Calendar\CalendarWeek;
 use Carbon\Carbon;
@@ -23,7 +24,7 @@ class CalendarController extends Controller
     {
         
         $personal_id = Auth::id();
-        $group_id = 1;
+        $group_id = User::find($personal_id)->group_id;
         
         $firstDay = Carbon::today()->copy()->firstOfMonth()->startOfWeek()->subDay()->format('Y-m-d');
         $lastDay = Carbon::today()->copy()->lastOfMonth()->endOfWeek()->subDay()->format('Y-m-d');
@@ -38,8 +39,8 @@ class CalendarController extends Controller
         $title = $calendar->getMonthTitle();
         
         $holidays = \Yasumi\Yasumi::create('Japan', $url->format('Y'), 'ja_JP');
-    
-        return view('calendar/index')->with(['weeks' => $weeks,'title' => $title,'url' => $url,'query' => $query,'holiday' => $holidays]);
+        
+        return view('calendar/index')->with(['weeks' => $weeks,'title' => $title,'url' => $url,'query' => $query,'holiday' => $holidays,'color' =>User::select('color')->find(Auth::id()) ]);
     }
     
     public function index_move(Calendar $calendar, $month)
@@ -48,7 +49,7 @@ class CalendarController extends Controller
             return redirect('calendar');
             
         $personal_id = Auth::id();
-        $group_id = 1;
+        $group_id = User::find($personal_id)->group_id;
         
         $firstDay = Carbon::parse($month)->copy()->firstOfMonth()->startOfWeek()->subDay()->format('Y-m-d');
         $lastDay = Carbon::parse($month)->copy()->lastOfMonth()->endOfWeek()->subDay()->format('Y-m-d');
@@ -63,7 +64,7 @@ class CalendarController extends Controller
         $title = $calendar->getMonthTitle();
         $holidays = \Yasumi\Yasumi::create('Japan', $url->format('Y'), 'ja_JP');
         
-        return view('calendar/index')->with(['weeks' => $weeks,'url' => $url,'title' => $title,'query' => $query,'holiday' => $holidays]);
+        return view('calendar/index')->with(['weeks' => $weeks,'url' => $url,'title' => $title,'query' => $query,'holiday' => $holidays,'color' => User::select('color')->find(Auth::id())] );
     }
     
     
@@ -78,11 +79,11 @@ class CalendarController extends Controller
         if($counter < 1 or $counter > count($weeks))
             return redirect('calendar');
         
-        $group_id = 1;
+        $group_id = User::find(Auth::id())->group_id;
         $firstDay = $weeks[$counter-1][0]->format('Y-m-d');
         $lastDay = $weeks[$counter-1][6]->format('Y-m-d');
         
-        $query = $calendar->select('calendar_id','personal_id','date','date_fin','start_time','finish_time')->where('group_id',$group_id)->whereDate('date','>=', $firstDay)->whereDate('date','<=', $lastDay)->get();
+        $query = $calendar->select('calendar_id','personal_id','date','date_fin','start_time','finish_time','block')->where('group_id',$group_id)->whereDate('date','>=', $firstDay)->whereDate('date','<=', $lastDay)->get();
         $query = $query->toArray();
         
         $volume  = array_column($query, 'date');
@@ -90,13 +91,13 @@ class CalendarController extends Controller
         array_multisort($volume, SORT_ASC, $edition, SORT_ASC, $query);
         // https://www.yoheim.net/blog.php?q=20191104 (多次元連想配列のソート)
         
-        $tmps = User::select('id','name')->where('group_id',$group_id)->get()->toArray();
+        $tmps = User::select('id','name','color')->where('group_id',$group_id)->get()->toArray();
         $users = array();
         
         for($i=0;$i<count($tmps);$i++){
-            $users[$tmps[$i]['id']] = $tmps[$i]['name'];
+            $users[$tmps[$i]['id']] = [$tmps[$i]['name'],$tmps[$i]['color']];
         }
-    
+        
         $title = $week->getWeekTitle();
         $url = $week->getUrl();
         $days = $week->getWeekDays();
@@ -113,31 +114,58 @@ class CalendarController extends Controller
     
     public function store(CalendarRequest $request)
     {
-        $group_id = 1;
+        $group_id = User::find(Auth::id())->group_id;
         
         $input = $request['calendar'];
         $startDate = Carbon::parse($input['date']);
         $finishDate = Carbon::parse($input['date_fin']);
         
         for($i=0;$i<$input['loopWeek'];$i++){
-            $calendar = new Calendar;
             
-            $calendar->date = $startDate->copy()->addWeeks($i)->format('Y-m-d');
-            $calendar->date_fin = $finishDate->copy()->addWeeks($i)->format('Y-m-d');
-            $calendar->start_time = $input['start_time'];
-            $calendar->finish_time = $input['finish_time'];
-            $calendar->group_id=$group_id;
-            $calendar->personal_id=Auth::id();
-            $calendar->save();
+            if($startDate->eq($finishDate))
+            {
+                $calendar = new Calendar;
+                $calendar->date = $startDate->copy()->addWeeks($i)->format('Y-m-d');
+                $calendar->date_fin = $finishDate->copy()->addWeeks($i)->format('Y-m-d');
+                $calendar->start_time = $input['start_time'];
+                $calendar->finish_time = $input['finish_time'];
+                $calendar->block = abs((strtotime($request['calendar.finish_time'])-strtotime($request['calendar.start_time']))/1800);
+                $calendar->group_id = $group_id;
+                $calendar->personal_id = Auth::id();
+                $calendar->save();
+            }
+            else
+            {
+                $calendar = new Calendar;
+                $calendar->date = $startDate->copy()->addWeeks($i)->format('Y-m-d');
+                $calendar->date_fin = $finishDate->copy()->addWeeks($i)->format('Y-m-d');
+                $calendar->start_time = $input['start_time'];
+                $calendar->finish_time = '23:59:59';
+                $calendar->block = round((strtotime('23:59:59')-strtotime($request['calendar.start_time']))/1800);
+                $calendar->group_id = $group_id;
+                $calendar->personal_id = Auth::id();
+                $calendar->save();   
+                
+                $calendar = new Calendar;
+                $calendar->date = $finishDate->copy()->addWeeks($i)->format('Y-m-d');
+                $calendar->date_fin = $finishDate->copy()->addWeeks($i)->format('Y-m-d');
+                $calendar->start_time = '00:00:00';
+                $calendar->finish_time = $input['finish_time'];
+                $calendar->block = round((strtotime($request['calendar.finish_time'])-strtotime('00:00:00'))/1800);
+                $calendar->group_id = $group_id;
+                $calendar->personal_id = Auth::id();
+                $calendar->save(); 
+            }
+            
         }    
         
         return redirect('/calendar');
         
     }
     
-    public function edit(Calendar $calendar,$calendar_id)
+    public function edit(Calendar $calendar,Request $req)
     {
-        return view('calendar/edit')->with(['calendar' => $calendar->find($calendar_id)]);
+        return view('calendar/edit')->with(['calendar' => $calendar->find($req->input('calendar_id'))]);
     }
     
     
@@ -145,6 +173,7 @@ class CalendarController extends Controller
     {
         $calendar = Calendar::find($calendar_id);
         $calendar->fill($request['calendar']);
+        $calendar->block = round((strtotime($request['calendar.finish_time'])-strtotime($request['calendar.start_time']))/1800);
         $calendar->save();
         return redirect('/calendar');
         
@@ -152,7 +181,11 @@ class CalendarController extends Controller
     
     public function del($calendar_id)
     {
-        Calendar::find($calendar_id)->delete();
+        $calendar = Calendar::find($calendar_id);
+        if($calendar->personal_id == Auth::id())
+        {
+            $calendar->delete();    
+        }
         return back();
     }
 }

@@ -12,10 +12,6 @@ class CalendarWeek
 		$this->carbon = new Carbon($date);
 		$this->counter = $counter - 1;
 		
-	}
-	
-	private function createCalendar()
-	{
 	    $weeks = [];
 	    $week = [];
 	    
@@ -45,12 +41,12 @@ class CalendarWeek
 	        
 	    }
 	    
-	    return $weeks;
+	    $this->html = $weeks;
 	}
 	
 	public function getWeekTitle()
 	{
-	    $MonthDays = $this->createCalendar();
+	    $MonthDays = $this->html;
 	    
 		if((0 <= $this->counter) and ($this->counter < count($MonthDays))){
 	    	$WeekDay = $MonthDays[$this->counter];
@@ -62,7 +58,7 @@ class CalendarWeek
 	
 	public function getWeekDays()
 	{
-	    $MonthDays = $this->createCalendar();
+	    $MonthDays = $this->html;
 	    
 	    if((0 <= $this->counter) and ($this->counter < count($MonthDays))){
 	    	return $MonthDays[$this->counter];
@@ -73,7 +69,7 @@ class CalendarWeek
 	
 	public function getMonthDays()
 	{
-		return $this->createCalendar();
+		return $this->html;
 	}
 	
 	public function getUrl()

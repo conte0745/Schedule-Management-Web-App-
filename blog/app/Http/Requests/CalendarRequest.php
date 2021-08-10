@@ -25,7 +25,7 @@ class CalendarRequest extends FormRequest
     {
         return [
             'calendar.date' => 'required | date',
-            'calendar.date_fin' => 'required | date',
+            'calendar.date_fin' => 'required | date | after_or_equal:calendar.date' ,
             'calendar.start_time' => 'required ',
             'calendar.finish_time' => 'required',
         ];
@@ -40,7 +40,7 @@ class CalendarRequest extends FormRequest
             'calendar.date_fin.date' => '勤務日を入力してください',
             'calendar.start_time.required'  => '勤務開始時刻を入力してください',
             'calendar.finish_time.required'  => '勤務終了時刻を入力してください',
-            // 'calendar.finish_time.after'  => '開始時刻より終了時刻のほうが早いです',
+            'calendar.date_fin.after'  => '値が不正です',
         ];
     }
 }

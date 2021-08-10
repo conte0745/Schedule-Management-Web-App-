@@ -50026,3 +50026,7 @@ function check(){
     }
 window.onload = check;
 }
+
+function buttonclick(){
+  document.getElementById("text").innerHTML = "save";
+}
