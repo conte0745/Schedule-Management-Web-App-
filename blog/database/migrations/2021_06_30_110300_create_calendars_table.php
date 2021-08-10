@@ -19,12 +19,13 @@ class CreateCalendarsTable extends Migration
     {
         Schema::create('calendars', function (Blueprint $table) {
             $table->bigIncrements('calendar_id');
-            $table->unsignedInteger('personal_id');
+            $table->integer('personal_id');
             $table->date('date');
             $table->timeTz('start_time', 0);
             $table->date('date_fin');
             $table->timeTz('finish_time', 0);
             $table->integer('group_id');
+            $table->integer('block');
             $table->timestampsTz(0);
             $table->softDeletes();
             //integer

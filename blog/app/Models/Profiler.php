@@ -13,11 +13,7 @@ class Profiler extends Model
     
     public function user()
     {
-        return $this->belongsTO(User::class);
+        return $this->belongsTO('App\Models\User');
     }
     
-    public function states()
-    {
-        return $this->hasMany(State::class);
-    }
 }

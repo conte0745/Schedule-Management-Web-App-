@@ -15,13 +15,11 @@ class CreateProfilersTable extends Migration
     {
         Schema::create('profilers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('personal_id');
-            $table->integer('group_id');
-            $table->integer('state')->nullable($value = true);
-            $table->integer('color')->nullable($value = NULL);
-            $table->boolean('permission')->default(False);
+            
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->foreign("id")->references("id")->on("users");
         });
     }
 

@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/calendar_show_weekly.css') }}">
 @endsection
 @section('drop-box')
-<a class="dropdown-item card" href="{{ url('calendar/') }}">マンスリー</a>
+<a class="dropdown-item card" href="{{ route('calendar') }}">マンスリー</a>
 @endsection
 
 @section('contains')
@@ -14,16 +14,16 @@
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" role="button" id="month" href="">月の移動</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/calendar/show/{{ $url->copy()->subMonths(1)->format('Y-m') }}">前の月({{ $url->copy()->subMonths(1)->format('n') }}月)</a>
-                    <a class="dropdown-item" href="/calendar/show/{{ $url->copy()->addMonths(1)->format('Y-m') }}">次の月({{ $url->copy()->addMonths(1)->format('n') }}月)</a>
-                    <a class="dropdown-item" href="/calendar">現在の月</a>
+                    <a class="dropdown-item" href="{{ route('calendar.index.move', ['month' =>$url->copy()->subMonths(1)->format('Y-m')]) }}">前の月({{ $url->copy()->subMonths(1)->format('n') }}月)</a>
+                    <a class="dropdown-item" href="{{ route('calendar.index.move', ['month' =>$url->copy()->addMonths(1)->format('Y-m')]) }}">次の月({{ $url->copy()->addMonths(1)->format('n') }}月)</a>
+                    <a class="dropdown-item" href="{{ route('calendar') }}">現在の月</a>
                 </div>
             </li>
             <li>
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" id="week" href="">ウィークリー</a>
                 <div class="dropdown-menu">
                     @foreach($weeks as $week)
-                    <a class="dropdown-item" href="/calendar/show/{{ $url->format('Y-m') }}/week{{ $loop->iteration }}">第{{ $loop->iteration }}週({{ $weeks[$loop->index][0]->format('n/j') }}~{{$weeks[$loop->index][6]->format('n/j') }})</a>
+                    <a class="dropdown-item" href="{{ route('calendar.show',['month' =>$url->format('Y-m'),'counter' => $loop->iteration]) }}">第{{ $loop->iteration }}週({{ $weeks[$loop->index][0]->format('n/j') }}~{{$weeks[$loop->index][6]->format('n/j') }})</a>
                     @endforeach
                 </div>
             </li>
@@ -72,7 +72,7 @@
         @if($work['date'] == $day->format('Y-m-d'))
         <tr>
             @php $tmp = strtotime('23:30'); $isDisplay = 0; @endphp
-            @for($i=0;$i<48;$i++)
+            @for($i=0;$i<48-$work['block'];$i++)
                 @php
                     $time = date('H:i',strtotime('+30 minute' ,$tmp));
                     $tmp = strtotime($time);
@@ -80,10 +80,10 @@
                 
             @if((substr($work['start_time'],0,5) <= $time) && $isDisplay == 0)
                 @php $isDisplay += 1; @endphp
-    
-                <td colspan="24"><div class="flexible" style="background-color:yellow">{{ $users[$work['personal_id']] }}   
+                <!--colspan edit-->
+                <td colspan="{{ $work['block']}}"><div class="flexible" style="background-color:{{ $users[$work['personal_id']][1] }}">{{ $users[$work['personal_id']][0] }}   
                     @if($id == $work['personal_id'])
-                            <form action="/calendar/delete/{{ $work['calendar_id']}}" method="post" name="form{{ $work['calendar_id'] }}">
+                            <form action="{{ route('calendar.del',['calendar_id'=> $work['calendar_id']]) }}" method="post" name="form{{ $work['calendar_id'] }}">
                             @csrf
                             @method('delete')
                                 <input type="hidden" name="delete">
@@ -91,7 +91,7 @@
                             </form>
                     @endif
                     
-                </div><div style="background-color:yellow">{{ substr($work['start_time'],0,5) }} ~ {{ substr($work['finish_time'],0,5) }}</div></td>
+                </div><div style="background-color:{{ $users[$work['personal_id']][1] }}">{{ substr($work['start_time'],0,5) }} ~ {{ substr($work['finish_time'],0,5) }}</div></td>
                     
             @else
                 <td></td>

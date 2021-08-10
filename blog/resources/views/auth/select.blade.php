@@ -1,6 +1,7 @@
 @extends('layouts.app')
-
-
+@section('call_css')
+<link rel="stylesheet" href="{{ asset('js/select.js') }}">
+@endsection
 @section('contains')
 <div class="container">
     <div class="row justify-content-center">
@@ -15,13 +16,13 @@
                         <label class="form-check-label" for="flexRadioDefault1">お店に参加する</label>
                     </div>
                     
-                    <form method="POST" action="{{ route('register') }}" id="check1">
+                    <form method="post" action="{{ route('select.already') }}" id="check1">
                         @csrf
                         <div class="form-group row">
                             <label for="shop_id" class="col-md-4 col-form-label text-md-right">お店のID</label>
 
                             <div class="col-md-6">
-                                <input id="shop_id" type="text" class="form-control @error('shop_id') is-invalid @enderror" name="shop_id" value="{{ old('shop_id') }}" required autocomplete="shop_id" />
+                                <input id="shop_id" type="text" class="form-control @error('shop_id') is-invalid @enderror" name="shop_id" value="{{ old('shop_id') }}" />
 
                                 @error('shop_id')
                                     <span class="invalid-feedback" role="alert">
@@ -43,14 +44,14 @@
                         <label class="form-check-label" for="flexRadioDefault2">新しくお店を作る</label>
                     </div>
                     
-                    <form method="POST" action="{{ route('register') }}" id="check2" style="visibility: hidden">
+                    <form method="post" action="{{ route('select.new') }}" id="check2" style="visibility: hidden">
                         @csrf
 
                         <div class="form-group row">
                             <label for="shop" class="col-md-4 col-form-label text-md-right">お店の名前</label>
 
                             <div class="col-md-6">
-                                <input id="shop" type="text" class="form-control @error('shop') is-invalid @enderror" name="shop" value="{{ old('shop') }}" required autocomplete="shop" autofocus>
+                                <input id="shop" type="text" class="form-control @error('shop') is-invalid @enderror" name="shop" value="{{ old('shop') }}" >
 
                                 @error('shop')
                                     <span class="invalid-feedback" role="alert">

@@ -4,26 +4,27 @@
 <link rel="stylesheet" href="{{ asset('css/calendar.css') }}">
 @endsection
 @section('drop-box')
-<a class="dropdown-item card" href="{{ url('calendar/mypage')}}">{{ __('Mypage') }}</a>
+<a class="dropdown-item card" href="{{ route('calendar.mypage') }}">{{ __('Mypage') }}</a>
 @endsection
 
 @section('contains')
+
     <div class="flexible">
         <div class="calendar_title"><h1>{{ $title }}</h1></div>
         <ul class="nav nav-pills  under">
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" role="button" id="month" href="">月の移動</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/calendar/show/{{ $url->copy()->subMonths(1)->format('Y-m') }}">前の月({{ $url->copy()->subMonths(1)->format('n') }}月)</a>
-                    <a class="dropdown-item" href="/calendar/show/{{ $url->copy()->addMonths(1)->format('Y-m') }}">次の月({{ $url->copy()->addMonths(1)->format('n') }}月)</a>
-                    <a class="dropdown-item" href="/calendar">現在の月</a>
+                    <a class="dropdown-item" href="{{ route('calendar.index.move', ['month' =>$url->copy()->subMonths(1)->format('Y-m')]) }}">前の月({{ $url->copy()->subMonths(1)->format('n') }}月)</a>
+                    <a class="dropdown-item" href="{{ route('calendar.index.move', ['month' =>$url->copy()->addMonths(1)->format('Y-m')]) }}">次の月({{ $url->copy()->addMonths(1)->format('n') }}月)</a>
+                    <a class="dropdown-item" href="{{ route('calendar') }}">現在の月</a>
                 </div>
             </li>
             <li>
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" id="week" href="">ウィークリー</a>
                 <div class="dropdown-menu">
                     @foreach($weeks as $week)
-                    <a class="dropdown-item" href="/calendar/show/{{ $url->format('Y-m') }}/week{{ $loop->iteration }}">第{{ $loop->iteration }}週({{ $weeks[$loop->index][0]->format('n/j') }}~{{$weeks[$loop->index][6]->format('n/j') }})</a>
+                    <a class="dropdown-item" href="{{ route('calendar.show', ['month' =>$url->format('Y-m'),'counter' => $loop->iteration]) }}">第{{ $loop->iteration }}週({{ $weeks[$loop->index][0]->format('n/j') }}~{{$weeks[$loop->index][6]->format('n/j') }})</a>
                     @endforeach
                 </div>
             </li>
@@ -61,7 +62,7 @@
                                 @endif
                                 
                                 @if($holiday->isHoliday($day))
-                                    <div class="holiday">
+                                    <span class="holiday">
                                 @endif
                                 <!--日付の入力-->
                                 @if(substr($day,8,1) != 0)
@@ -71,35 +72,33 @@
                                 @endif
                                 
                                 @if($holiday->isHoliday($day))
-                                    </div>
+                                    </span>
                                 @endif
                                 
                                 <div class="create">
-                                    <a href="/calendar/create/{{ substr($day,0,10) }}">+</a>
+                                    <a href="{{ route('calendar.create', ['date' => substr($day,0,10)]) }}">+</a>
                                 </div>
                             </div>
-                            
-                            <div class="workTimeZone">
+            
+                            <div class="workTimeZone" style="background-color:{{ $color['color'] }}">
                                 @for($i=0;$i<count($query);$i++)
                                     @if($query[$i]['date'] == substr($day,0,10))
                                         <div class="workTime">
+                                            <a href="{{ route('calendar.edit',['calendar_id' => $query[$i]['calendar_id']]) }}">
                                             @if($query[$i]['date_fin'] != substr($day,0,10))
-                                            <a href="/calendar/edit/{{ $query[$i]['calendar_id'] }}">
                                                 {{ substr($query[$i]['start_time'],0,5) }} ~ (翌){{ substr($query[$i]['finish_time'],0,5) }}
-                                            </a>
                                             @else
-                                            <a href="/calendar/edit/{{ $query[$i]['calendar_id'] }}">
                                                 {{ substr($query[$i]['start_time'],0,5) }} ~ {{ substr($query[$i]['finish_time'],0,5) }}
-                                            </a>
                                             @endif
+                                            </a>
                                         </div>
                                         <div class="delete">
-                                            <form action="/calendar/delete/{{ $query[$i]['calendar_id']}}" method="post" name="form{{ $query[$i]['calendar_id'] }}">
+                                            <form action="{{ route('calendar.del', [ 'calendar_id' =>$query[$i]['calendar_id']]) }}" method="post" name="form{{ $query[$i]['calendar_id'] }}">
                                                 @csrf
                                                 @method('delete')
                                                 <input type="hidden" name="delete">
                                                 <a href="javascript:form{{ $query[$i]['calendar_id'] }}.submit()" onclick="return confirm('削除しますか?')">-</a>
-                                                <!--//https://qiita.com/next1ka2u/items/9736ce2f9c7f3aa69d61-->
+                                                
                                             </form>
                                         </div>
                                     @endif

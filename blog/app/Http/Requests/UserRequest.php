@@ -13,7 +13,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,18 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+           
+            'user.name' => 'required',
+            
+        ];
+    }
+    
+    public function messages()
+    {
+        return [
+            'user.name.required' => '名前を入力してください',
+            'user.mail.required' => 'メールアドレスを入力してください',
+            
         ];
     }
 }

@@ -21,6 +21,9 @@ Route::get('/register/select', function() {
     return view('auth/select');  
 });
 
+Route::post('/register/select/new' , 'ShopController@new_create')->name('select.new');
+Route::post('/register/select/already' , 'ShopController@already_create')->name('select.already');
+
 // -------
 Route::get('/posts', 'PostController@index');
 // ブログの最初の画面
@@ -41,20 +44,33 @@ Auth::routes();
 // --calendar--
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/calendar','CalendarController@index');
+Route::get('/calendar','CalendarController@index')->name('calendar');
 
-Route::post('/calendar/','CalendarController@store');
+Route::post('/calendar','CalendarController@store')->name('calendar.store');
 
-Route::put('/calendar/update/{calendar_id}','CalendarController@update');
+Route::put('/calendar/update/{calendar_id}','CalendarController@update')->name('calendar.update');
 
-Route::get('/calendar/edit/{calendar_id}','CalendarController@edit');
+Route::get('/calendar/edit','CalendarController@edit')->name('calendar.edit');
 
-Route::get('/calendar/show/{month}','CalendarController@index_move')->name('calendar');
+Route::get('/calendar/show/{month}','CalendarController@index_move')->name('calendar.index.move');
 
-Route::get('/calendar/show/{month}/week{counter}','CalendarController@show');
+Route::get('/calendar/show/{month}/week{counter}','CalendarController@show')->name('calendar.show');
 
-Route::get('/calendar/create/{date}','CalendarController@create');
+Route::get('/calendar/create/{date}','CalendarController@create')->name('calendar.create');
 
-Route::delete('/calendar/delete/{calendar_id}','CalendarController@del');
+Route::delete('/calendar/delete/{calendar_id}','CalendarController@del')->name('calendar.del');
 
-Route::get('/calendar/mypage','ProfilerController@index');
+
+// ----mypage-----
+Route::get('/calendar/mypage','UserController@index')->name('calendar.mypage');
+
+Route::get('/calendar/mypage/profile/edit','UserController@edit')->name('calendar.mypage.edit');
+
+Route::put('/calendar/mypage/profile/update','UserController@update')->name('calendar.mypage.update');
+
+Route::get('/calendar/root','ShopController@index')->name('calendar.root');
+
+Route::get('/calendar/root/edit','ShopController@edit')->name('calendar.root.edit');
+
+Route::put('/calendar/root/update/{id}','ShopController@update')->name('calendar.root.update');
+

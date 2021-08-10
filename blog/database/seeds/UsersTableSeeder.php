@@ -22,6 +22,9 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '00000000', // password
             'remember_token' => Str::random(10),
+            'color' => '#fff8dc',
+            'state' => 'happy',
+            'permission' => 0,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

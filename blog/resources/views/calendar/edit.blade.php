@@ -1,17 +1,16 @@
 @extends('layouts.app')
 @section('call_css')
-<!--<link rel="stylesheet" href="{{ asset('css/calendar_regist.css') }}">-->
 @endsection
 @section('drop-box')
-<a class="dropdown-item card" href="{{ url('calendar/')}}">カレンダー</a>
-<a class="dropdown-item card" href="{{ url('calendar/mypage')}}">{{ __('Mypage') }}</a>
+<a class="dropdown-item card" href="{{ route('calendar') }}">カレンダー</a>
+<a class="dropdown-item card" href="{{ route('calendar.mypage') }}">{{ __('Mypage') }}</a>
 @endsection
 @section('contains') 
 <div class="input">
     <div class="card">
         <h1 class="card-title">勤務時間の修正</h1>
         <div class="card-body">
-        <form action="/calendar/update/{{ $calendar['calendar_id'] }}" method="POST">
+        <form action="{{ route('calendar.update',['calendar_id'=> $calendar['calendar_id'] ]) }}" method="POST">
         @csrf
         @method('PUT')
             <div class="list-group flexible">
@@ -49,5 +48,5 @@
     </div>
 </div>
 <br>
-<p><a href="/calendar">カレンダーに戻る</a></p>
+<p><a href="{{ route('calendar') }}">カレンダーに戻る</a></p>
 @endsection
