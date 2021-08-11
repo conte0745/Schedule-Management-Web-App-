@@ -28,12 +28,12 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         
         Gate::define('isAdmin',function($user){
-           return $user->permission == 1 or 2;
+           return $user->permission == (1 or 2);
            // 2=作成者、1=共同管理者、0=メンバー
         });
         
-        Gate::define('isUser',function($user){
-           return ($user->permission == 1 or 2) ;
+        Gate::define('isOwn',function($user,$personal){
+           return ($user->permission == (1 or 2)) or ($personal == Auth::id());
         });
 
         //

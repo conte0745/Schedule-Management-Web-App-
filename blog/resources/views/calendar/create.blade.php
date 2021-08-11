@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('call_css')
-<!--<link rel="stylesheet" href="{{ asset('css/calendar_regist.css') }}">-->
+<link rel="stylesheet" href="{{ asset('css/calendar_create.css') }}">
 @endsection
 @section('drop-box')
 <a class="dropdown-item card" href="{{ route('calendar')}}">カレンダー</a>

@@ -192,11 +192,7 @@ class CalendarController extends Controller
     
     public function del($calendar_id)
     {
-        $calendar = Calendar::find($calendar_id);
-        if($calendar->personal_id == Auth::id())
-        {
-            $calendar->delete();    
-        }
+        $calendar = Calendar::find($calendar_id)->delete();
         return back();
     }
 }
