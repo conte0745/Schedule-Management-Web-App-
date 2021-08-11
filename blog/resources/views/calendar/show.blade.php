@@ -86,8 +86,9 @@
                 @php $isDisplay += 1; @endphp
                 <!--colspan edit-->
                 <td colspan="{{ $work['block']}}">
-                    <div class="flexible" style="background-color:{{ $users[$work['personal_id']][1] }}">{{ $users[$work['personal_id']][0] }}   
-                    @can('isAdmin')
+                    <div class="flexible" style="background-color:{{ $users[$work['personal_id']][1] }}">{{ $users[$work['personal_id']][0] }}
+                    
+                    @can('isOwn',$work['personal_id'])
                     <div class="right">
                         <form action="{{ route('calendar.del',['calendar_id'=> $work['calendar_id']]) }}" method="post" name="form{{ $work['calendar_id'] }}">
                         @csrf
@@ -98,6 +99,8 @@
                         <a href="{{ route('calendar.edit2',['calendar_id'=> $work['calendar_id'],'url'=> $_SERVER["REQUEST_URI"]]) }}" >edit</a>
                     </div>
                     @endcan
+                    
+                    
                     </div>
                     <div class="" style="background-color:{{ $users[$work['personal_id']][1] }}">{{ substr($work['start_time'],0,5) }} ~ {{ substr($work['finish_time'],0,5) }}</div>
                 </td>

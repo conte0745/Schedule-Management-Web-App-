@@ -46,7 +46,11 @@ class ShopController extends Controller
         return redirect()->action('CalendarController@index');
     }
     
-    public function index(){
+    public function index()
+    {
+        if(User::find(Auth::id())->permission == 0){
+            return redirect('calendar');
+        }
         $user = User::find(Auth::id());
         $shop = Shop::find($user->group_id)->toArray();
         $members = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission',0)->get()->toArray();
@@ -57,6 +61,9 @@ class ShopController extends Controller
     }
 
     public function edit(){
+        if(User::find(Auth::id())->permission == 0){
+            return redirect('calendar');
+        }
         $user = User::find(Auth::id());
         $shop = Shop::find($user->group_id)->toArray();
         $members = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission',0)->get()->toArray();
@@ -68,6 +75,9 @@ class ShopController extends Controller
     
     public function update(ShopRequest $req,$id)
     {
+        if(User::find(Auth::id())->permission == 0){
+            return redirect('calendar');
+        }
        
         $shop = Shop::find($id);
         $shop->shop_name = $req['edit_name'];
