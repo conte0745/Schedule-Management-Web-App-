@@ -49,10 +49,9 @@ class ShopController extends Controller
     public function index(){
         $user = User::find(Auth::id());
         $shop = Shop::find($user->group_id)->toArray();
-        $user = User::select('name')->where('group_id',$user->group_id);
-        $members = $user->where('permission', 0)->get()->toArray();
-        $users = $user->where('permission', 1)->get()->toArray();
-        $one_user = $user->where('permission', 2)->first();
+        $members = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission',0)->get()->toArray();
+        $users = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 1)->get()->toArray();
+        $one_user = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 2)->get()->toArray();
         
         return view('root/index')->with(['users' => $users, 'shop'=> $shop,'one_user' => $one_user,'members'=> $members]);
     }
@@ -60,30 +59,34 @@ class ShopController extends Controller
     public function edit(){
         $user = User::find(Auth::id());
         $shop = Shop::find($user->group_id)->toArray();
-        $members = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission',0)->get();
-        $one_user = $members->where('permission', 2)->toArray();
-        $users = $members->where('permission', 1)->toArray();
-        return view('root/edit')->with(['members'=>$members->toArray(),'users' => $users,'one_user' => $one_user, 'shop'=> $shop]);
+        $members = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission',0)->get()->toArray();
+        $users = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 1)->get()->toArray();
+        $one_user = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 2)->get()->toArray();
+
+        return view('root/edit')->with(['members'=>$members,'users' => $users,'one_user' => $one_user, 'shop'=> $shop]);
     }
     
     public function update(ShopRequest $req,$id)
     {
        
         $shop = Shop::find($id);
-        $shop->shop_name = $req['shop.name'];
-        $shop->shop = $req['shop.shop'];
+        $shop->shop_name = $req['edit_name'];
+        $shop->shop = $req['edit_shop'];
         $shop->save();
-        $user = User::find($req['shop.add_root']);
-        if($user != null){
+        
+        if($req['shop.add_root'] != 'none'){
+            $user = User::find($req['shop.add_root']);
             $user->permission = 1;
-            $user->save();
+            
         }
-        $user = User::find($req['shop.del_root']);
-        if($user != null){
+        if($req['shop.del_root'] != 'none'){
+            $user = User::find($req['shop.del_root']);
             $user->permission = 0;
-            $user->save();
+            
         }
        
+        $user->save();
+
         return redirect('calendar/root');
     }
     

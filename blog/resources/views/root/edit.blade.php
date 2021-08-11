@@ -17,24 +17,24 @@
         @method('put')
             <div class="list-group-item">
                 <label for="edit_name">お店の名前 (表示用)</label><br>
-                <input type="text" value="{{ $shop['shop_name'] }}" name="shop[name]" id="edit_name" class="@error('shop.name') is-invalid @enderror">
-                @error('shop.name')
+                <input type="text" value="{{ $shop['shop_name'] }}" name="edit_name" id="edit_name" class="@error('edit_name') is-invalid @enderror">
+                @error('edit_name')
                         <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="list-group-item">
                 <label for="edit_shop">お店のID (検索用)</label><br>
-                <input type="text" value="{{ $shop['shop'] }}" name="shop[shop]" id="edit_shop" class="@error('shop.shop') is-invalid @enderror">
-                @error('shop.shop')
+                <input type="text" value="{{ $shop['shop'] }}" name="edit_shop" id="edit_shop" class="@error('edit_shop') is-invalid @enderror">
+                @error('edit_shop')
                         <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="list-group-item">
                 <p>共同管理者の一覧</p>
                 @foreach($users as $user)
-                    <span>{{ $user['name'] }}</span>
+                    <span>({{ $user['name'] }}) </span>
                 @endforeach
-                <label for="root">共同管理者の追加</label><br>
+                <br><label for="root">共同管理者の追加</label><br>
                 <select name="shop[add_root]">
                     <option value="none" selected>設定しない</option>
                 @foreach($members as $member)
@@ -56,7 +56,7 @@
                 <input id="save" type="submit" value="保存" class="btn btn-primary">
             </div>
             <div class="list-group-item" >
-                <a href="{{ route('calendar.mypage' )}}">保存せずに戻る</a>
+                <a href="{{ route('calendar.root' )}}">保存せずに戻る</a>
             </div>
         </form>
     </div>

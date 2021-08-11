@@ -13,6 +13,22 @@
         <h1 class="card-title">勤務時間の登録</h1>
         <form action="{{ route('calendar')}}" method="POST">
         @csrf
+        @can('isAdmin')
+            <div class="list-group flexible">
+                <div class="list-group-item">
+                    <label for="who">登録する人</label>
+                    <select name="member" id="who">
+                        @foreach($users as $user)
+                        @if($own == $user['id'])
+                            <option  value="{{ $user['id']}}" selected>{{ $user['name'] }} </option>
+                        @else
+                            <option value="{{ $user['id'] }}">{{ $user['name'] }}</option>
+                        @endif
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        @endcan    
             <div class="list-group flexible">
                 <div class="list-group-item">
                     <label for="date">開始日付</label>

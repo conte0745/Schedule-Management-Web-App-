@@ -48,5 +48,5 @@ table td{
 	table-layout: fixed;
 }
 .right {
-	text-align: right;
+	margin: 0 0 0 auto;
 }

@@ -23,20 +23,29 @@
             </div>
             <div class="list-group-item">
                 <p>作成者</p>
-                <span> </span>
+                <table class="table table-sm table-borderless"><tr><td>{{ $one_user[0]['name'] }}</td></tr></table>
+            </div>
+            <div class="list-group-item">
                 <p>共同管理者一覧</p>
+                <table class="table table-sm table-borderless">
                 @foreach($users as $user)
-                    <span>{{ $user['name'] }}</span>
+                    <tr><td>{{ $user['name'] }}</td></tr>
                 @endforeach
+                </table>
             </div>
             <div class="list-group-item">
                 <p>メンバー一覧</p>
+                <table class="table table-sm table-borderless">
                 @foreach($members as $member)
-                    <span>{{ $member['name'] }}</span>
+                    <tr><td>{{ $member['name'] }}</td></tr>
                 @endforeach
+                </table>
             </div>
             <div class="list-group-item">
                 <a href="{{ route('calendar.root.edit') }}">編集</a>
+            </div>
+            <div class="list-group-item">
+                <a href="{{ route('calendar.mypage') }}">マイページへ戻る</a>
             </div>
         </div>
     </div>

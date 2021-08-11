@@ -26,9 +26,9 @@ class ShopRequest extends FormRequest
         return [
             'shop' => 'required_without:shop_id|unique:shops',
             'shop_id' => 'required_without:shop|exists:shops,shop',
-            'shop.shop' => 'required|unique:shops,shop',
-            'shop.shop' => 'required',
-            'shop.name' => 'required',
+            //'edit_shop' => 'required',
+            //'edit_name' => 'required',
+            //'shop.name' => 'required',
             
             ];
     }
@@ -40,8 +40,8 @@ class ShopRequest extends FormRequest
             'shop_id.exists'  => '入力された店名は存在しません',
             'shop.required_without'  => '登録してない店名を入力してください',
             'shop_id.required_without'  => '登録されてある店名を入力してください',
-            'shop.shop.required'  => '検索用の店名を入力してください',
-            'shop.name.required'  => '表示用の店名を入力してください',
+            'edit_shop.required'  => '検索用の店名を入力してください',
+            'edit_name.required'  => '表示用の店名を入力してください',
             
         ];
     }

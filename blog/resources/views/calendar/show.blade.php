@@ -29,7 +29,11 @@
             </li>
         </ul>
 </div>
-
+<table class="table-sm table-bordered ">
+@foreach($days as $day)
+<td><a href="#index{{ $loop->index }}">{{ $day->format('n/j') }}</a></td>
+@endforeach
+</table>
 <div class="card">
     <div class="card-body">
     @foreach($days as $day)
@@ -39,19 +43,19 @@
     @endif
     
     @if($loop->index==0)
-    <div class="card-title">{{ $day->format('n/j') }}<span class="sun">(日)</span></div>
+    <div class="card-title"><a id="index0">{{ $day->format('n/j') }}<span class="sun">(日)</span></a><a href="{{ route('calendar.create', ['date' => substr($day,0,10)]) }}"> 新規作成</a></div>
     @elseif($loop->index==1)
-    <div class="card-title">{{ $day->format('n/j') }}(月)</div>
+    <div class="card-title"><a id="index1">{{ $day->format('n/j') }}(月)</a><a href="{{ route('calendar.create', ['date' => substr($day,0,10)]) }}"> 新規作成</a></div>
     @elseif($loop->index==2)
-    <div class="card-title">{{ $day->format('n/j') }}(火)</div>
+    <div class="card-title"><a id="index2">{{ $day->format('n/j') }}(火)</a><a href="{{ route('calendar.create', ['date' => substr($day,0,10)]) }}"> 新規作成</a></div>
     @elseif($loop->index==3)
-    <div class="card-title">{{ $day->format('n/j') }}(水)</div>
+    <div class="card-title"><a id="index3">{{ $day->format('n/j') }}(水)</a><a href="{{ route('calendar.create', ['date' => substr($day,0,10)]) }}"> 新規作成</a></div>
     @elseif($loop->index==4)
-    <div class="card-title">{{ $day->format('n/j') }}(木)</div>
+    <div class="card-title"><a id="index4">{{ $day->format('n/j') }}(木)</a><a href="{{ route('calendar.create', ['date' => substr($day,0,10)]) }}"> 新規作成</a></div>
     @elseif($loop->index==5)
-    <div class="card-title">{{ $day->format('n/j') }}(金)</div>
+    <div class="card-title"><a id="index5">{{ $day->format('n/j') }}(金)</a><a href="{{ route('calendar.create', ['date' => substr($day,0,10)]) }}"> 新規作成</a></div>
     @elseif($loop->index==6)
-    <div class="card-title">{{ $day->format('n/j') }}<span class="sat">(土)</span></div>
+    <div class="card-title"><a id="index6">{{ $day->format('n/j') }}<span class="sat">(土)</span></a><a href="{{ route('calendar.create', ['date' => substr($day,0,10)]) }}"> 新規作成</a></div>
     @endif
     
     @if($holiday->isHoliday($day))
@@ -81,17 +85,22 @@
             @if((substr($work['start_time'],0,5) <= $time) && $isDisplay == 0)
                 @php $isDisplay += 1; @endphp
                 <!--colspan edit-->
-                <td colspan="{{ $work['block']}}"><div class="flexible" style="background-color:{{ $users[$work['personal_id']][1] }}">{{ $users[$work['personal_id']][0] }}   
-                    @if($id == $work['personal_id'])
-                            <form action="{{ route('calendar.del',['calendar_id'=> $work['calendar_id']]) }}" method="post" name="form{{ $work['calendar_id'] }}">
-                            @csrf
-                            @method('delete')
-                                <input type="hidden" name="delete">
-                                <div class="right"><a href="javascript:form{{ $work['calendar_id'] }}.submit()" onclick="return confirm('削除しますか?')">del</a></div>
-                            </form>
-                    @endif
-                    
-                </div><div style="background-color:{{ $users[$work['personal_id']][1] }}">{{ substr($work['start_time'],0,5) }} ~ {{ substr($work['finish_time'],0,5) }}</div></td>
+                <td colspan="{{ $work['block']}}">
+                    <div class="flexible" style="background-color:{{ $users[$work['personal_id']][1] }}">{{ $users[$work['personal_id']][0] }}   
+                    @can('isAdmin')
+                    <div class="right">
+                        <form action="{{ route('calendar.del',['calendar_id'=> $work['calendar_id']]) }}" method="post" name="form{{ $work['calendar_id'] }}">
+                        @csrf
+                        @method('delete')
+                            <input type="hidden" name="delete">
+                            <a href="javascript:form{{ $work['calendar_id'] }}.submit()" onclick="return confirm('削除しますか?')">del</a>
+                        </form>
+                        <a href="{{ route('calendar.edit2',['calendar_id'=> $work['calendar_id'],'url'=> $_SERVER["REQUEST_URI"]]) }}" >edit</a>
+                    </div>
+                    @endcan
+                    </div>
+                    <div class="" style="background-color:{{ $users[$work['personal_id']][1] }}">{{ substr($work['start_time'],0,5) }} ~ {{ substr($work['finish_time'],0,5) }}</div>
+                </td>
                     
             @else
                 <td></td>
