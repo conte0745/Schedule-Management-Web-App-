@@ -51,6 +51,7 @@ Route::post('/calendar','CalendarController@store')->name('calendar.store');
 Route::put('/calendar/update/{calendar_id}','CalendarController@update')->name('calendar.update');
 
 Route::get('/calendar/edit','CalendarController@edit')->name('calendar.edit');
+Route::get('/calendar/show/edit','CalendarController@edit2')->name('calendar.edit2');
 
 Route::get('/calendar/show/{month}','CalendarController@index_move')->name('calendar.index.move');
 

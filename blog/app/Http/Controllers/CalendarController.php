@@ -109,13 +109,16 @@ class CalendarController extends Controller
     
     public function create($date)
     {
-        return view('calendar/create')->with(['date' => $date]);
+        $group_id = User::find(Auth::id())->group_id;
+        $users = User::select('name','id')->where('group_id',$group_id)->get()->toArray();
+        return view('calendar/create')->with(['date' => $date, 'users' => $users, 'own' => User::find(Auth::id())->id]);
     }
     
     public function store(CalendarRequest $request)
     {
         $group_id = User::find(Auth::id())->group_id;
-        
+        $personal_id = $request['member'];
+    
         $input = $request['calendar'];
         $startDate = Carbon::parse($input['date']);
         $finishDate = Carbon::parse($input['date_fin']);
@@ -131,7 +134,7 @@ class CalendarController extends Controller
                 $calendar->finish_time = $input['finish_time'];
                 $calendar->block = abs((strtotime($request['calendar.finish_time'])-strtotime($request['calendar.start_time']))/1800);
                 $calendar->group_id = $group_id;
-                $calendar->personal_id = Auth::id();
+                $calendar->personal_id = $personal_id;
                 $calendar->save();
             }
             else
@@ -143,7 +146,7 @@ class CalendarController extends Controller
                 $calendar->finish_time = '23:59:59';
                 $calendar->block = round((strtotime('23:59:59')-strtotime($request['calendar.start_time']))/1800);
                 $calendar->group_id = $group_id;
-                $calendar->personal_id = Auth::id();
+                $calendar->personal_id = $personal_id;
                 $calendar->save();   
                 
                 $calendar = new Calendar;
@@ -153,7 +156,7 @@ class CalendarController extends Controller
                 $calendar->finish_time = $input['finish_time'];
                 $calendar->block = round((strtotime($request['calendar.finish_time'])-strtotime('00:00:00'))/1800);
                 $calendar->group_id = $group_id;
-                $calendar->personal_id = Auth::id();
+                $calendar->personal_id = $personal_id;
                 $calendar->save(); 
             }
             
@@ -168,6 +171,12 @@ class CalendarController extends Controller
         return view('calendar/edit')->with(['calendar' => $calendar->find($req->input('calendar_id'))]);
     }
     
+    public function edit2(Calendar $calendar,Request $req)
+    {
+        $group_id = User::find(Auth::id())->group_id;
+        $user = User::find($calendar->find($req->input('calendar_id'))->personal_id)->name;
+        return view('calendar/edit2')->with(['calendar' => $calendar->find($req->input('calendar_id')),'user' => $user, 'url'=>$req['url']]);
+    }
     
     public function update(CalendarRequest $request, $calendar_id)
     {
@@ -178,6 +187,8 @@ class CalendarController extends Controller
         return redirect('/calendar');
         
     }
+   
+    
     
     public function del($calendar_id)
     {

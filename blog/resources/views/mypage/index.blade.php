@@ -29,6 +29,9 @@
             <div class="list-group-item">
                 <a href="{{ route('calendar.mypage.edit') }}">編集</a>
             </div>
+            <div class="list-group-item">
+                <a href="{{ route('calendar') }}">戻る</a>
+            </div>
             @can('isAdmin')
             <div class="list-group-item">
                 <a href="{{ route('calendar.root') }}">管理者のページへ</a>
@@ -38,11 +41,5 @@
     </div>
 </div>
     
-
-
-<br>
-@can('isAdmin')
-<a href="{{ route('calendar.root') }}">管理者のページへ</a>
-@endcan
 
 @endsection
