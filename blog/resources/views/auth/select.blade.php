@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('call_css')
-<link rel="stylesheet" href="{{ asset('js/select.js') }}">
+<script type="text/javascript" src="{{ asset('js/select.js') }}"></script>
 @endsection
 @section('contains')
 <div class="container">
