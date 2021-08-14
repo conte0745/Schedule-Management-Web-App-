@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Calendar;
 use App\Models\User;
-use App\Models\Profiler;
 use App\Http\Requests\CalendarRequest;
 use App\Calendar\CalendarWeek;
 use Carbon\Carbon;
@@ -118,7 +117,8 @@ class CalendarController extends Controller
     {
         $group_id = User::find(Auth::id())->group_id;
         $personal_id = $request['member'];
-    
+        if($personal_id == null) $personal_id = Auth::id();
+        
         $input = $request['calendar'];
         $startDate = Carbon::parse($input['date']);
         $finishDate = Carbon::parse($input['date_fin']);
