@@ -132,7 +132,7 @@ class CalendarController extends Controller
                 $calendar->date_fin = $finishDate->copy()->addWeeks($i)->format('Y-m-d');
                 $calendar->start_time = $input['start_time'];
                 $calendar->finish_time = $input['finish_time'];
-                $calendar->block = abs((strtotime($request['calendar.finish_time'])-strtotime($request['calendar.start_time']))/1800);
+                $calendar->block = round((strtotime($request['calendar.finish_time'])-strtotime($request['calendar.start_time']))/1800);
                 $calendar->group_id = $group_id;
                 $calendar->personal_id = $personal_id;
                 $calendar->save();
