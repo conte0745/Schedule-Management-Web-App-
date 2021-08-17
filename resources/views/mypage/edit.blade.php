@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('call_css')
-<!--<link rel="stylesheet" href="{{ asset('css/mypage.css') }}">-->
+<link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
 @endsection
 @section('drop-box')
 <a class="dropdown-item card" href="{{ route('calendar') }}">カレンダー</a>

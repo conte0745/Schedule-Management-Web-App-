@@ -79,3 +79,7 @@
 .under {
 	align-items: flex-end;
 }
+
+.flexible {
+	display: flex;
+}

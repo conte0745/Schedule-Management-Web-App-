@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('state')->default('happy');
             $table->string('color')->default('yellow');
-            $table->integer('permission')->default(False);
+            $table->integer('permission')->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

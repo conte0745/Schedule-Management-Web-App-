@@ -1,3 +1,7 @@
 .input {
     margin: 1%;
 }
+
+.flexible {
+	display: flex;
+}
