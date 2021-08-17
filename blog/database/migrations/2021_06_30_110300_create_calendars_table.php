@@ -24,7 +24,7 @@ class CreateCalendarsTable extends Migration
             $table->timeTz('start_time', 0);
             $table->date('date_fin');
             $table->timeTz('finish_time', 0);
-            $table->integer('parent_id')->default(null);
+            $table->integer('parent_id')->nullable()->default(null);
             $table->integer('group_id');
             $table->integer('block');
             $table->timestampsTz(0);

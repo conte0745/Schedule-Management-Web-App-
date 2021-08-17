@@ -39,6 +39,7 @@
             @endcan
         </div>
     </div>
+    <a href="{{route('calendar.chat')}}">チャット</a>
 </div>
     
 

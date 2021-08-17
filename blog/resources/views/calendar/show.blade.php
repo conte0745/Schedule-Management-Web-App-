@@ -5,12 +5,13 @@
 @endsection
 @section('drop-box')
 <a class="dropdown-item card" href="{{ route('calendar') }}">マンスリー</a>
+<a class="dropdown-item card" href="{{ route('calendar.mypage') }}">マイページ</a>
 @endsection
 
 @section('contains')
-<div class="flexible">
-    <div class="calendar_title"><h1>{{ $title }}のカレンダー</h1></div>
-        <ul class="nav nav-pills  under">
+<div class="nav nav-pills under">
+    <div class="calendar_title"><h1>{{ $title }}</h1></div>
+        <ul class="nav nav-pills">
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" role="button" id="month" href="">月の移動</a>
                 <div class="dropdown-menu">
@@ -63,20 +64,19 @@
     @endif
     <table class="table table-sm">
         <tr>
-        @for($i=0;$i<48;$i++)
+        @for($i=0;$i<49;$i++)
             @if($i%6==0)
                 <th>{{ $i/2 }}</th>
             @else
                 <th></th>
             @endif
         @endfor
-        <th>0</th>
         </tr>
         @foreach($works as $work)
         @if($work['date'] == $day->format('Y-m-d'))
         <tr>
             @php $tmp = strtotime('23:30'); $isDisplay = 0; @endphp
-            @for($i=0;$i<48-$work['block'];$i++)
+            @for($i=0;$i<49-$work['block'];$i++)
                 @php
                     $time = date('H:i',strtotime('+30 minute' ,$tmp));
                     $tmp = strtotime($time);
@@ -110,7 +110,7 @@
             @endif
             @endfor
           
-            </tr>
+        </tr>
         @endif
         @endforeach
         

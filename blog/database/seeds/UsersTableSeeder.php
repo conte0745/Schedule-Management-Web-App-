@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
             'updated_at' => now()
         ]);
         
-        for($i=0;$i<15;$i++){
+        for($i=0;$i<20;$i++){
             DB::table('users')->insert([
             'name' => $faker->name,
             'group_id' => 1,

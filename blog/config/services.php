@@ -29,5 +29,13 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
+    
+    
+    'line_notify' => [
+        'client_id' => env('LINE_NOTIFY_CLIENT_ID'),
+        'secret'    => env('LINE_NOTIFY_CLIENT_SECRET'),
+        'redirect_uri' => env('LINE_NOTIFY_CLIENT_CALLBACK_URI')
+    ]
 ];
+
+

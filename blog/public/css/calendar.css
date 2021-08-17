@@ -76,3 +76,6 @@
 	text-align: right;
 }
 
+.under {
+	align-items: flex-end;
+}

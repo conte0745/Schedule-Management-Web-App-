@@ -50,3 +50,7 @@ table td{
 .right {
 	margin: 0 0 0 auto;
 }
+
+.under {
+	align-items: flex-end;
+}

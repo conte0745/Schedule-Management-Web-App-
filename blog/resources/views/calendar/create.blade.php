@@ -37,6 +37,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <label for="start_time">開始時間</label>
+                    <!--<time-component></time-component>-->
                     <input type="time" id="start_time" name="calendar[start_time]" value="{{ old('calendar.start_time') }}"><br>
                     @error('calendar.start_time')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -71,11 +72,11 @@
                 </div>
             </div>
             <br>
-            <input id="save" type="submit" value="保存" class="btn btn-primary">
+            <input id="save" type="submit" value="保存" class="btn btn-success">
         </form>
         </div>
     </div>
 </div>
 <br>
-<p><a href="{{ route('calendar') }}">カレンダーに戻る</a></p>
+<p><a href="{{ $url }}">カレンダーに戻る</a></p>
 @endsection

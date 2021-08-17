@@ -1,7 +1,4 @@
 @extends('layouts.app')
-@section('call_css')
-<script type="text/javascript" src="{{ asset('js/select.js') }}"></script>
-@endsection
 @section('contains')
 <div class="container">
     <div class="row justify-content-center">
@@ -71,4 +68,5 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="{{ asset('js/select.js') }}"></script>
 @endsection

@@ -3,10 +3,12 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+import Vue from 'vue'
+window.Vue = Vue;
+require('./bootstrap'); 
 
-require('./bootstrap');
-
-window.Vue = require('vue');
+//require('./bootstrap');
+//window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,6 +22,8 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('time-component', require('./components/TimeComponent.vue').default);
+Vue.component('chat-component', require('./components/ChatComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +33,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    
 });
+

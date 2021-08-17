@@ -9,9 +9,9 @@
 
 @section('contains')
 
-    <div class="flexible">
+    <div class="nav nav-pills under">
         <div class="calendar_title"><h1>{{ $title }}</h1></div>
-        <ul class="nav nav-pills  under">
+        <ul class="nav nav-pills">
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" role="button" id="month" href="">月の移動</a>
                 <div class="dropdown-menu">
@@ -77,7 +77,7 @@
                                 @endif
                                 
                                 <div class="create">
-                                    <a href="{{ route('calendar.create', ['date' => substr($day,0,10)]) }}">+</a>
+                                    <a href="{{ route('calendar.create', ['date' => substr($day,0,10),'url'=> $_SERVER["REQUEST_URI"]]) }}">+</a>
                                 </div>
                             </div>
             
@@ -85,11 +85,9 @@
                                 @for($i=0;$i<count($query);$i++)
                                     @if($query[$i]['date'] == substr($day,0,10))
                                         <div class="workTime">
-                                            <a href="{{ route('calendar.edit',['calendar_id' => $query[$i]['calendar_id']]) }}">
-                                            @if($query[$i]['date_fin'] != substr($day,0,10))
-                                                {{ substr($query[$i]['start_time'],0,5) }} ~ (翌){{ substr($query[$i]['finish_time'],0,5) }}
-                                            @else
+                                            <a href="{{ route('calendar.edit2',['calendar_id' => $query[$i]['calendar_id'],'url'=> $_SERVER["REQUEST_URI"]]) }}">
                                                 {{ substr($query[$i]['start_time'],0,5) }} ~ {{ substr($query[$i]['finish_time'],0,5) }}
+                                            @if($query[$i]['parent_id'] != null) (連)
                                             @endif
                                             </a>
                                         </div>

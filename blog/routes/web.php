@@ -39,6 +39,7 @@ Route::put('/posts/{post}', 'PostController@update');
 // 投稿内容の修正
 Route::get('/posts/{post}/edit','PostController@edit');
 // 投稿内容の編集
+
 Auth::routes();
 
 // --calendar--
@@ -50,20 +51,20 @@ Route::post('/calendar','CalendarController@store')->name('calendar.store');
 
 Route::put('/calendar/update/{calendar_id}','CalendarController@update')->name('calendar.update');
 
-Route::get('/calendar/edit','CalendarController@edit')->name('calendar.edit');
 Route::get('/calendar/show/edit','CalendarController@edit2')->name('calendar.edit2');
 
 Route::get('/calendar/show/{month}','CalendarController@index_move')->name('calendar.index.move');
 
 Route::get('/calendar/show/{month}/week{counter}','CalendarController@show')->name('calendar.show');
 
-Route::get('/calendar/create/{date}','CalendarController@create')->name('calendar.create');
+Route::get('/calendar/create/date','CalendarController@create')->name('calendar.create');
 
 Route::delete('/calendar/delete/{calendar_id}','CalendarController@del')->name('calendar.del');
 
 
 // ----mypage-----
 Route::get('/calendar/mypage','UserController@index')->name('calendar.mypage');
+
 
 Route::get('/calendar/mypage/profile/edit','UserController@edit')->name('calendar.mypage.edit');
 
@@ -75,3 +76,21 @@ Route::get('/calendar/root/edit','ShopController@edit')->name('calendar.root.edi
 
 Route::put('/calendar/root/update/{id}','ShopController@update')->name('calendar.root.update');
 
+//------
+Route::get('/vue', function(){
+    return view('dm');
+});
+
+//---chat SPAアプリにしたい
+Route::get('/calendar/chat','ChatController@index')->name('calendar.chat');
+Route::get('/calendar/ajax/chat','Ajax\ChatController@index')->name('calendar.chat.index');
+Route::post('/calendar/ajax/chat','Ajax\ChatController@store')->name('calendar.chat.store');
+
+
+// -----line notify
+Route::group(['prefix' => '/calendar/mypage/notify'], function () {
+    Route::get('/', 'LineNotifyController@index')->name('calendar.line');
+    Route::get('/auth', 'LineNotifyController@redirectToProvider')->name('calendar.line.auth');
+    Route::post('/callback', 'LineNotifyController@handleProviderCallback')->name('calendar.line.callback');
+    Route::post('/send', 'LineNotifyController@send')->name('calendar.line.send');
+});
