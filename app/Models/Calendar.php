@@ -22,8 +22,10 @@ class Calendar extends Model
      *
      * @var string
     */
-     
+    
     protected $primaryKey = 'calendar_id';
+    
+    protected $dateFormat = 'Y-m-d H:i:sO';
     
 }
 
