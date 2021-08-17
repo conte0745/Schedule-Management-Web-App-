@@ -26,8 +26,8 @@ class CalendarsTableSeeder extends Seeder
         for($i=0;$i<400;$i++){
             $tmp = $faker->date($format = '2021-8-d', $max = now());
             
-            $start = $faker->dateTimeBetween($startDate = '00:00:00', $endDate = '11:59:59')->format('H:i:s');
-            $end = $faker->dateTimeBetween($startDate = '12:00:00', $endDate = '23:59:59')->format('H:i:s');
+            $start = $faker->dateTimeBetween($startDate = '00:00:00', $endDate = '11:59:59')->format('H:i');
+            $end = $faker->dateTimeBetween($startDate = '12:00:00', $endDate = '23:59:59')->format('H:i');
             
             DB::table('calendars')->insert([
                 
