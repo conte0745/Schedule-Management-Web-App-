@@ -43,8 +43,15 @@
                     @enderror
                 </div>
             </div><br>
-            <input id="save" type="submit" value="保存" class="btn btn-primary">
+            <div class="save"><input id="save" type="submit" value="保存" class="btn btn-primary"></div>
         </form>
+        <div class="delete">
+            <form action="{{ route('calendar.del', [ 'calendar_id' =>$calendar['calendar_id']]) }}" method="post" name="form{{ $calendar['calendar_id'] }}">
+            @csrf
+            @method('delete')
+            <div class="delete"><input id="delete" type="submit" value="削除" class="btn btn-danger"></div>
+            </form>
+        </div>
         </div>
     </div>
 </div>

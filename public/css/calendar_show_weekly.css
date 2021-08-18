@@ -36,16 +36,16 @@
 }
 
 table th {
-	width: 2%;
+	
+	overflow: visible;
 }
 table td {
-	width: 2%;
 	text-align: center;
-	
 }
 
-table td{
+table {
 	table-layout: fixed;
+	width: 100%;
 }
 .right {
 	margin: 0 0 0 auto;
@@ -58,3 +58,4 @@ table td{
 .flexible {
 	display: flex;
 }
+

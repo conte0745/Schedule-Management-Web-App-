@@ -25,7 +25,12 @@ class Calendar extends Model
     
     protected $primaryKey = 'calendar_id';
     
-    protected $dateFormat = 'Y-m-d H:i:sO';
+    /**
+     * データベースで変更
+     *
+     * Postgresの場合はコメントアウトを解除
+    */
+    //protected $dateFormat = 'Y-m-d H:i:sO';
     
 }
 

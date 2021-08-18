@@ -25,7 +25,7 @@ class CalendarRequest extends FormRequest
     {
         return [
             'calendar.date' => 'required | date',
-            'calendar.date_fin' => 'required | date | after_or_equal:calendar.date' ,
+            'calendar.date_fin' => 'required | date | after_or_equal:calendar.date | '  ,
             'calendar.start_time' => 'required ',
             'calendar.finish_time' => 'required',
         ];

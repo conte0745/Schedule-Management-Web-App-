@@ -123,6 +123,9 @@ class CalendarController extends Controller
         $startDate = Carbon::parse($input['date']);
         $finishDate = Carbon::parse($input['date_fin']);
         
+        if($finishDate->diffInDays($startDate) > 1) return back();
+        if($startDate->eq($finishDate)) if((Carbon::parse($input['start_time']))->gt(Carbon::parse($input['finish_time']))) return back();
+        
         for($i=0;$i<$input['loopWeek'];$i++){
             
             if($startDate->eq($finishDate))
@@ -182,6 +185,7 @@ class CalendarController extends Controller
     {
         $group_id = User::find(Auth::id())->group_id;
         $user = User::find($calendar->find($req->input('calendar_id'))->personal_id)->name;
+        
         return view('calendar/edit2')->with(['calendar' => $calendar->find($req->input('calendar_id')),'user' => $user, 'url'=>$req['url']]);
     }
     
@@ -201,7 +205,7 @@ class CalendarController extends Controller
     public function del($calendar_id)
     {
         $calendar = Calendar::find($calendar_id)->delete();
-        return back();
+        return redirect()->route('calendar');
     }
 }
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ShopRequest;
+use App\Http\Requests\ShopperRequest;
 
 class ShopController extends Controller
 {
@@ -53,7 +54,7 @@ class ShopController extends Controller
         }
         $user = User::find(Auth::id());
         $shop = Shop::find($user->group_id)->toArray();
-        $members = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission',0)->get()->toArray();
+        $members = User::select('name','permission','id','state')->where('group_id',$user->group_id)->where('permission',0)->get()->toArray();
         $users = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 1)->get()->toArray();
         $one_user = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 2)->get()->toArray();
         
@@ -66,37 +67,42 @@ class ShopController extends Controller
         }
         $user = User::find(Auth::id());
         $shop = Shop::find($user->group_id)->toArray();
-        $members = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission',0)->get()->toArray();
+        $members = User::select('name','permission','id','state')->where('group_id',$user->group_id)->where('permission',0)->get()->toArray();
         $users = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 1)->get()->toArray();
         $one_user = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 2)->get()->toArray();
-
+       
         return view('root/edit')->with(['members'=>$members,'users' => $users,'one_user' => $one_user, 'shop'=> $shop]);
     }
     
-    public function update(ShopRequest $req,$id)
+    public function update(ShopperRequest $req,$id)
     {
         if(User::find(Auth::id())->permission == 0){
             return redirect('calendar');
         }
+        
+        
+        if($req['shop'] == null || $req['shop_name'] == null ){
+            return back();
+        };
        
         $shop = Shop::find($id);
-        $shop->shop_name = $req['edit_name'];
-        $shop->shop = $req['edit_shop'];
+        $shop->shop_name = $req['shop_name'];
+        $shop->shop = $req['shop'];
         $shop->save();
         
-        if($req['shop.add_root'] != 'none'){
-            $user = User::find($req['shop.add_root']);
+        if($req['add_root'] != 'none'){
+            $user = User::find($req['add_root']);
             $user->permission = 1;
+            $user->save();
             
         }
-        if($req['shop.del_root'] != 'none'){
-            $user = User::find($req['shop.del_root']);
+        if($req['del_root'] != 'none'){
+            $user = User::find($req['del_root']);
             $user->permission = 0;
+            $user->save();
             
         }
        
-        $user->save();
-
         return redirect('calendar/root');
     }
     

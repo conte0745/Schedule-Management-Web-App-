@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/top', function () {
+    return view('top');
+})->name('top');
+
 Route::get('/register/select', function() {
     return view('auth/select');  
 });
@@ -89,8 +93,8 @@ Route::post('/calendar/ajax/chat','Ajax\ChatController@store')->name('calendar.c
 
 // -----line notify
 Route::group(['prefix' => '/calendar/mypage/notify'], function () {
-    Route::get('/', 'LineNotifyController@index')->name('calendar.line');
-    Route::get('/auth', 'LineNotifyController@redirectToProvider')->name('calendar.line.auth');
-    Route::post('/callback', 'LineNotifyController@handleProviderCallback')->name('calendar.line.callback');
-    Route::post('/send', 'LineNotifyController@send')->name('calendar.line.send');
+    Route::get('/', 'LineController@index')->name('calendar.line');
+    Route::get('/auth', 'LineController@redirectToProvider')->name('calendar.line.auth');
+    Route::post('/callback', 'LineController@handleProviderCallback')->name('calendar.line.callback');
+    Route::post('/send', 'LineController@send')->name('calendar.line.send');
 });

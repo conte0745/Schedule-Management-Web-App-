@@ -5,3 +5,11 @@
 .flexible {
 	display: flex;
 }
+
+.save {
+    float: left;
+}
+
+.delete {
+    text-align: right;
+}

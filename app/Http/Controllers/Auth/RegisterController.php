@@ -70,9 +70,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            //'email_verified_at' => now(),
             'color' => '#fff8dc',
-            'state' => 'happy',
+            'state' => '設定しない',
             'permission' => 0,
             
         ]);

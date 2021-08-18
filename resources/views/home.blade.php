@@ -15,7 +15,7 @@
                     @endif
 
                     <p>You are logged in!</p>
-                    <p><a href="/posts" >go to posts</a></p>
+                    <p><a href="/calendar" >しふとんのホームページへ</a></p>
                 </div>
             </div>
         </div>

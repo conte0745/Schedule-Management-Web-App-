@@ -4,7 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>シフト管理アプリ しふとん</title>
+        <link rel="icon" href="{{ asset('/image/icon_maru.png') }}" sizes="32x32" />
+        <link rel="icon" href="{{ asset('/image/icon_maru.png') }}" sizes="192x192" />
+        <link rel="apple-touch-icon-precomposed" href="{{ asset('/image/icon.png') }}" />
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
@@ -12,7 +15,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
+                background-color: #dbebc4;
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
@@ -36,8 +39,8 @@
 
             .top-right {
                 position: absolute;
-                right: 10px;
-                top: 18px;
+                text-align: center;
+                bottom: 25%;
             }
 
             .content {
@@ -45,10 +48,10 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 45px;
             }
 
-            .links > a {
+            .links > a,form {
                 color: #636b6f;
                 padding: 0 25px;
                 font-size: 13px;
@@ -68,7 +71,12 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">ホーム</a>
+                        <div class="links">
+                            <a href="/calendar">しふとんのページへ</a><br><br>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">ログアウト
+                            @csrf
+                            </form>
+                        </div>
                     @else
                         <a href="{{ route('login') }}">ログイン</a>
 
@@ -81,14 +89,10 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    まいぺ～じ
+                    シフト管理アプリ<br>しふとん
                 </div>
 
-                <div class="links">
-                    <a href="/posts">BLOG</a>
-                    <a href="/calendar">しふとん</a>
-                    <a href="https://github.com/conte0745/myapps">GITHUB</a>
-                </div>
+               
             </div>
         </div>
     </body>

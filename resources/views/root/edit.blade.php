@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('call_css')
+<link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
 
 @endsection
 @section('drop-box')
@@ -16,16 +17,16 @@
         @csrf
         @method('put')
             <div class="list-group-item">
-                <label for="edit_name">お店の名前 (表示用)</label><br>
-                <input type="text" value="{{ $shop['shop_name'] }}" name="edit_name" id="edit_name" class="@error('edit_name') is-invalid @enderror">
-                @error('edit_name')
+                <label for="shop_name">お店の名前 (表示用)</label><br>
+                <input type="text" value="{{ $shop['shop_name'] }}" name="shop_name" id="shop_name" class="@error('shop_name') is-invalid @enderror">
+                @error('shop_name')
                         <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="list-group-item">
-                <label for="edit_shop">お店のID (検索用)</label><br>
-                <input type="text" value="{{ $shop['shop'] }}" name="edit_shop" id="edit_shop" class="@error('edit_shop') is-invalid @enderror">
-                @error('edit_shop')
+                <label for="shop">お店のID (検索用)</label><br>
+                <input type="text" value="{{ $shop['shop'] }}" name="shop" id="shop" class="@error('shop') is-invalid @enderror">
+                @error('shop')
                         <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
@@ -35,7 +36,7 @@
                     <span>({{ $user['name'] }}) </span>
                 @endforeach
                 <br><label for="root">共同管理者の追加</label><br>
-                <select name="shop[add_root]">
+                <select name="add_root">
                     <option value="none" selected>設定しない</option>
                 @foreach($members as $member)
                     <option value="{{ $member['id'] }}">{{ $member['name'] }}</option>
@@ -44,7 +45,7 @@
             </div>
             <div class="list-group-item">
                 <label for="no_root">共同管理者の削除</label><br>
-                <select name="shop[del_root]">
+                <select name="del_root">
                     <option value="none" selected>設定しない</option>
                 @foreach($users as $user)
                     <option value="{{ $user['id'] }}">{{ $user['name'] }}</option>

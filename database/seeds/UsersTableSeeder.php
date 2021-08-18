@@ -42,6 +42,21 @@ class UsersTableSeeder extends Seeder
             'updated_at' => now(),
         ]);
         }
+        for($i=0;$i<20;$i++){
+            DB::table('users')->insert([
+            'name' => $faker->name,
+            'group_id' => 3,
+            'email' => $faker->unique()->safeEmail,
+            'email_verified_at' => now(),
+            'password' => '00000000', // password
+            'remember_token' => Str::random(10),
+            'color' => '#fff8dc',
+            'state' => '設定しない',
+            'permission' => 0,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        }
         
     }
 }

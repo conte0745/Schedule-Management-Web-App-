@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('call_css')
+<link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
 
 @endsection
 @section('drop-box')
@@ -34,10 +35,10 @@
                 </table>
             </div>
             <div class="list-group-item">
-                <p>メンバー一覧</p>
-                <table class="table table-sm table-borderless">
+                <table class="table table-sm table-borded">
+                    <tr><th>クルー一覧</th><th>シフトの希望</th></tr>
                 @foreach($members as $member)
-                    <tr><td>{{ $member['name'] }}</td></tr>
+                    <tr><td>{{ $member['name'] }}</td><td>{{ $member['state'] }}</td></tr>
                 @endforeach
                 </table>
             </div>

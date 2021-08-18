@@ -43,4 +43,9 @@ class LoginController extends Controller
     {
         return 'email';
     }
+    
+    public function loggedOut($request)
+    {
+         return redirect()->route('top');
+    }
 }

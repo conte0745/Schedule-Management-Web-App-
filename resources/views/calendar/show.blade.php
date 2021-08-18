@@ -30,12 +30,13 @@
             </li>
         </ul>
 </div>
-<table class="table-sm table-bordered ">
+<table class="table table-sm table-bordered ">
 @foreach($days as $day)
 <td><a href="#index{{ $loop->index }}">{{ $day->format('n/j') }}</a></td>
 @endforeach
 </table>
-<div class="card">
+
+<div class="card calendar">
     <div class="card-body">
     @foreach($days as $day)
     
@@ -62,16 +63,14 @@
     @if($holiday->isHoliday($day))
         </div>
     @endif
-    <table class="table table-sm">
-        <tr>
-        @for($i=0;$i<49;$i++)
+    <table class="table table-sm card-text">
+        <thead border="1"><tr>
+        @for($i=0;$i<48;$i++)
             @if($i%6==0)
-                <th>{{ $i/2 }}</th>
-            @else
-                <th></th>
+                <th colspan="6">{{ $i/2 }}</th>
             @endif
         @endfor
-        </tr>
+        </tr></thead>
         @foreach($works as $work)
         @if($work['date'] == $day->format('Y-m-d'))
         <tr>
@@ -109,7 +108,6 @@
                 <td></td>
             @endif
             @endfor
-          
         </tr>
         @endif
         @endforeach
