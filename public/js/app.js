@@ -1858,11 +1858,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1874,24 +1869,26 @@ __webpack_require__.r(__webpack_exports__);
     send: function send() {
       var _this = this;
 
-      var url = '/calendar/ajax/chat';
+      var url = '/calendar/ajax/chat/';
       var params = {
         message: this.message
       };
-      axios.post(url, params).then(function (response) {
-        // 成功したらメッセージをクリア
-        _this.message = '';
-        console.log("success");
-      })["catch"](function () {
-        console.log(params);
+      axios.post(url, params).then(function (res) {
+        _this.getMessages();
+      })["catch"](function (error) {
+        console.log(error);
       });
+    },
+    push: function push() {
+      this.messages.push(this.message);
+      this.message = '';
     },
     getMessages: function getMessages() {
       var _this2 = this;
 
       var url = '/calendar/ajax/chat';
-      axios.get(url).then(function (response) {
-        _this2.messages = response.data;
+      axios.get(url).then(function (res) {
+        _this2.messages = res.data;
       });
     }
   },
@@ -1961,13 +1958,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     'vue-timepicker': (vue2_timepicker__WEBPACK_IMPORTED_MODULE_0___default())
   },
-  data: {}
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    defaulttime: {
+      type: String
+    }
+  },
+  data: function data() {
+    return {};
+  }
 });
 
 /***/ }),
@@ -2005,7 +2017,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); //require
 
 vue__WEBPACK_IMPORTED_MODULE_0__.default.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_0__.default.component('time-component', __webpack_require__(/*! ./components/TimeComponent.vue */ "./resources/js/components/TimeComponent.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_0__.default.component('chat-component', __webpack_require__(/*! ./components/ChatComponent.vue */ "./resources/js/components/ChatComponent.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_0__.default.component('chat-component', __webpack_require__(/*! ./components/ChatComponent.vue */ "./resources/js/components/ChatComponent.vue").default); // Vue.component('date-component', require('./components/DateComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -44284,16 +44297,11 @@ var render = function() {
         [_vm._v("送信")]
       ),
       _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm.$data))]),
+      _vm._l(_vm.messages, function(message) {
+        return _c("span", [_vm._v(_vm._s(message))])
+      }),
       _vm._v(" "),
-      _vm._l(_vm.messages, function(m) {
-        return _c("div", [
-          _c("span", { domProps: { textContent: _vm._s(m.created_at) } }),
-          _vm._v("： \n\n    "),
-          _vm._v(" "),
-          _c("span", { domProps: { textContent: _vm._s(m.text) } })
-        ])
-      })
+      _c("pre", [_vm._v(_vm._s(_vm.$data))])
     ],
     2
   )
@@ -44371,10 +44379,15 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("vue-timepicker", {
     attrs: {
-      format: "hh:mm",
+      format: "HH:mm",
       "advanced-keyboard": "",
-      name: "calendar[start_time]",
-      placeholder: "時間を入力してください"
+      name: _vm.name,
+      placeholder: "時刻の入力",
+      "hour-label": "時",
+      "minute-label": "分",
+      value: _vm.defaulttime,
+      "auto-scroll": "",
+      "close-on-complete": ""
     }
   })
 }

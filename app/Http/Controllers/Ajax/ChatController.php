@@ -12,25 +12,28 @@ class ChatController extends Controller
     {
         $group_id = 1;
         
-        $chat = new Chat; 
-        $chat->where('group_id',$group_id)->get();
-        
+        $chat = Chat::where('group_id',$group_id)->get();
+ 
         return $chat;
     }
     
-    public function store(Request $req)
+    public function store(Request $request)
     {
-        $group_id = 1;
         $personal_id = 1;
+        $group_id = 1;
+       
+        $chat = new Chat;
+        $chat->text = $request->message;
+        $chat->personal_id = $personal_id;
+        $chat->group_id = $group_id;
+        $chat->save(); 
         
-        
-        Chat::create([
-            'group_id' => $group_id,
-            'personal_id' => $personal_id,
-            'text' => $req['text'],
-        ]);
-        
-        
-        
+        // Chat::create([
+        //     'body' => $request->message,
+        //     'personal_id' => $personal_id,
+        //     'group_id' => $group_id,
+        // ]);
+       
+       return $chat;
     }
 }

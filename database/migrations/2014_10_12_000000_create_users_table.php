@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('state')->default('happy');
-            $table->string('color')->default('yellow');
+            $table->string('state')->default('設定しない');
+            $table->string('color')->default('#fff8dc');
             $table->integer('permission')->default(0);
             $table->rememberToken();
             $table->timestamps();
