@@ -11,6 +11,7 @@
     <link rel="icon" href="{{ asset('/image/icon_maru.png') }}" sizes="32x32" />
     <link rel="icon" href="{{ asset('/image/icon_maru.png') }}" sizes="192x192" />
     <link rel="apple-touch-icon-precomposed" href="{{ asset('/image/icon.png') }}" />
+    <link rel="manifest" href="/manifest.json">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

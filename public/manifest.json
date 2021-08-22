@@ -1,0 +1,26 @@
+{
+  "short_name": "しふとん",
+  "name": "シフト管理アプリ しふとん",
+  "background_color": "#fff",
+  "theme_color": "#fff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/?source=pwa",
+  "icons": [
+    {
+      "src": "image/icon_maru.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "image/icon_maru.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "image/icon_maru.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}
