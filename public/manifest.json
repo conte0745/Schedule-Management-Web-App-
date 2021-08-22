@@ -5,18 +5,9 @@
     "icons": [{
             "src": "image/icon.png",
             "type": "image/png",
-            "sizes": "48x48"
+            "sizes": "500x500"
         },
-        {
-            "src": "image/icon.png",
-            "type": "image/png",
-            "sizes": "96x96"
-        },
-        {
-            "src": "image/icon.png",
-            "type": "image/png",
-            "sizes": "192x192"
-        }
+        
     ],
     "start_url": "/top"
 }
