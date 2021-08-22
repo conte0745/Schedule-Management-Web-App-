@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Rules\CalendarTime;
+use Carbon\Carbon;
 class CalendarRequest extends FormRequest
 {
     /**
@@ -23,11 +24,25 @@ class CalendarRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'calendar.date' => 'required | date',
-            'calendar.date_fin' => 'required | date | after_or_equal:calendar.date | '  ,
-            'calendar.start_time' => 'required ',
-            'calendar.finish_time' => 'required',
+        $checkTime = function($attribute, $value, $fail) {
+            $input = $this->calendar;
+            $flag = 0;
+            $startDate = Carbon::parse($input['date']);
+            $finishDate = Carbon::parse($input['date_fin']);
+            
+            if($finishDate->diffInDays($startDate) > 1) $flag = 1;
+            if($startDate->eq($finishDate)) if((Carbon::parse($input['start_time']))->gte(Carbon::parse($input['finish_time']))) $flag = 2;
+            
+            if($flag == 1) $fail('勤務開始日付勤務と終了日付は1日以内で入力してください');
+            if($flag == 2) $fail('勤務開始時刻よりも勤務終了時刻のほうが早いです');
+        };
+        
+        return[
+            'calendar.date' => ['required', 'date'],
+            'calendar.date_fin' => ['required', 'date', 'after_or_equal:calendar.date', $checkTime],
+            'calendar.start_time' => ['required', $checkTime],
+            'calendar.finish_time' => ['required', $checkTime],
+            
         ];
     }
     

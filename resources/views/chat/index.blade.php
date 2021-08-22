@@ -8,6 +8,5 @@
 @endsection
 @section('contains')
 <chat-component></chat-component>
-<time-component></time-component>
 
 @endsection

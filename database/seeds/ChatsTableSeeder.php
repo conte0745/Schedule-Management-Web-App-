@@ -16,7 +16,7 @@ class ChatsTableSeeder extends Seeder
             DB::table('chats')->insert([
                 'personal_id' => 1,
                 'group_id' => 1,
-                'text' => $faker->sentence,
+                'body' => $faker->sentence,
                 'created_at' =>now(),
                 'updated_at' =>now(),
                 ]);

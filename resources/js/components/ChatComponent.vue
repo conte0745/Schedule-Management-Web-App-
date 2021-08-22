@@ -1,18 +1,13 @@
+
 <template>
 <div id="chat">
     <textarea v-model="message"></textarea>
     <br><br>
     <button type="button" @click="send()">送信</button>
+    <span v-for="message in messages">{{ message }}</span>
     <pre>{{ $data }}</pre>
-    <div v-for="m in messages">
 
-    <!-- 登録された日時 -->
-    <span v-text="m.created_at"></span>：&nbsp;
-
-    <!-- メッセージ内容 -->
-    <span v-text="m.text"></span>
-
-</div>
+    
 </div>
 </template>
 
@@ -23,29 +18,28 @@
             return {
                 message: '',
                 messages: [],
-            };
+            }
         },
         
         methods: { 
             send() {
-                const url = '/calendar/ajax/chat';
-                const params = { message: this.message };
-                axios.post(url, params)
-                .then((response) => {
-                    // 成功したらメッセージをクリア
-                    this.message = '';
-                    console.log("success");
-
-                })
-                .catch(()=>{
-                    console.log(params);
+                let url = '/calendar/ajax/chat/';
+                let params = { message: this.message };
+                axios.post(url, params).then(res => {
+                   this.getMessages();
+                 }).catch(function(error){
+                   console.log(error);
                 });
             },
+            
+            push() {
+                this.messages.push(this.message);
+                this.message = '';
+            },
             getMessages() {
-                const url = '/calendar/ajax/chat';
-                axios.get(url)
-                .then((response)=>{
-                    this.messages = response.data;
+                let url = '/calendar/ajax/chat';
+                axios.get(url).then(res => {
+                    this.messages = res.data;
                 });
             },
             

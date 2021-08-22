@@ -123,9 +123,6 @@ class CalendarController extends Controller
         $startDate = Carbon::parse($input['date']);
         $finishDate = Carbon::parse($input['date_fin']);
         
-        if($finishDate->diffInDays($startDate) > 1) return back();
-        if($startDate->eq($finishDate)) if((Carbon::parse($input['start_time']))->gt(Carbon::parse($input['finish_time']))) return back();
-        
         for($i=0;$i<$input['loopWeek'];$i++){
             
             if($startDate->eq($finishDate))
@@ -176,10 +173,10 @@ class CalendarController extends Controller
         
     }
     
-    public function edit(Calendar $calendar,Request $req)
-    {
-        return view('calendar/edit')->with(['calendar' => $calendar->find($req->input('calendar_id'))]);
-    }
+    // public function edit(Calendar $calendar,Request $req)
+    // {
+    //     return view('calendar/edit')->with(['calendar' => $calendar->find($req->input('calendar_id'))]);
+    // }
     
     public function edit2(Calendar $calendar,Request $req)
     {
@@ -191,10 +188,55 @@ class CalendarController extends Controller
     
     public function update(CalendarRequest $request, $calendar_id)
     {
+        
         $calendar = Calendar::find($calendar_id);
-        $calendar->fill($request['calendar']);
-        $calendar->block = round((strtotime($request['calendar.finish_time'])-strtotime($request['calendar.start_time']))/1800);
-        $calendar->save();
+        $group_id = $calendar->group_id;
+        $personal_id = $calendar->personal_id;
+        
+        $input = $request['calendar'];
+        $startDate = Carbon::parse($input['date']);
+        $finishDate = Carbon::parse($input['date_fin']);
+        
+        if($startDate->eq($finishDate))
+        {
+            $calendar->fill($request['calendar']);
+            $calendar->block = round((strtotime($request['calendar.finish_time'])-strtotime($request['calendar.start_time']))/1800);
+            $calendar->save();
+                
+        }
+        else
+        {
+            $calendar->delete();
+            
+            $calendar = new Calendar;
+            $calendar->date = $startDate->format('Y-m-d');
+            $calendar->date_fin = $startDate->format('Y-m-d');
+            $calendar->start_time = $input['start_time'];
+            $calendar->finish_time = '24:00:00';
+            $calendar->block = round((strtotime('24:00:00')-strtotime($request['calendar.start_time']))/1800);
+            $calendar->group_id = $group_id;
+            $calendar->personal_id = $personal_id;
+            $calendar->save();   
+                
+            $id = $calendar->calendar_id;
+            
+            $calendar2 = new Calendar;
+            $calendar2->date = $finishDate->format('Y-m-d');
+            $calendar2->date_fin = $finishDate->format('Y-m-d');
+            $calendar2->start_time = '00:00:00';
+            $calendar2->finish_time = $input['finish_time'];
+            $calendar2->block = round((strtotime($request['calendar.finish_time'])-strtotime('00:00:00'))/1800);
+            $calendar2->parent_id = $id;
+            $calendar2->group_id = $group_id;
+            $calendar2->personal_id = $personal_id;
+            $calendar2->save(); 
+                
+            $id2 = $calendar2->calendar_id;
+            $calendar->parent_id = $id2;
+            $calendar->save();
+        }
+            
+    
         
         return redirect('/calendar');
         

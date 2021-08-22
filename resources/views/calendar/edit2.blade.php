@@ -30,21 +30,22 @@
                     @enderror
                             
                     <label for="start_time">開始時間</label>
-                    <input type="time" id="start_time" name="calendar[start_time]" value="{{ substr($calendar['start_time'], 0, 5) }}"><br>
+                    <time-component name="calendar[start_time]" defaulttime="{{ $calendar['start_time'] }}"></time-component>
                     @error('calendar.start_time')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror  
+                    
                 </div>
             </div>
             <div class="list-group flexible">
                 <div class="list-group-item">
-                    <label for="date_fin">開始日付</label>
+                    <label for="date_fin">終了日付</label>
                     <input type="date" value="{{ $calendar['date_fin'] }}" name="calendar[date_fin]"><br>
                     @error('calendar.date')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <label for="finish_time">終了時間</label>
-                    <input type="time" id="finish_time" name="calendar[finish_time]" value="{{ substr($calendar['finish_time'], 0, 5) }}">
+                    <time-component name="calendar[finish_time]" defaulttime="{{ $calendar['finish_time'] }}"></time-component>
                     @error('calendar.finish_time')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

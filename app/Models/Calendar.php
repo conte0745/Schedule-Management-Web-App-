@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Calendar extends Model
 {
     use SoftDeletes;
@@ -30,7 +31,7 @@ class Calendar extends Model
      *
      * Postgresの場合はコメントアウトを解除
     */
-    protected $dateFormat = 'Y-m-d H:i:sO';
+    //protected $dateFormat = 'Y-m-d H:i:sO';
     
 }
 

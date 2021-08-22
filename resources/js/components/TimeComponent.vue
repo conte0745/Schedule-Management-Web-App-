@@ -1,10 +1,14 @@
 <template>
-    <vue-timepicker format="hh:mm"
+    <vue-timepicker format="HH:mm"
                     advanced-keyboard
-                    name="calendar[start_time]"
-                    placeholder="時間を入力してください"></vue-timepicker>
-    
-        
+                    :name="name"
+                    placeholder="時刻の入力"
+                    hour-label="時"
+                    minute-label="分"
+                    :value="defaulttime"
+                    auto-scroll
+                    close-on-complete>
+    </vue-timepicker>
     
 </template>
 
@@ -15,8 +19,22 @@
         components: {
             'vue-timepicker': VueTimepicker,
         },
-        data: {
-            
-        }
+        props: {
+            name:{
+                type: String,
+                required: true
+            },
+            defaulttime:{
+                type: String,
+            }
+        },
+    
+        data: function() {
+            return {
+                
+            }
+        },
+        
     }
+    
 </script>
