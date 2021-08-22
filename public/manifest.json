@@ -3,18 +3,18 @@
     "name": "シフト管理アプリ しふとん",
     "display": "standalone",
     "icons": [{
-            "src": "android-chrome-512x512.png",
-            "type": "image/icon.png",
+            "src": "image/icon.png",
+            "type": "image/png",
             "sizes": "48x48"
         },
         {
-            "src": "android-chrome-512x512.png",
-            "type": "image/icon.png",
+            "src": "image/icon.png",
+            "type": "image/png",
             "sizes": "96x96"
         },
         {
-            "src": "android-chrome-512x512.png",
-            "type": "image/icon.png",
+            "src": "image/icon.png",
+            "type": "image/png",
             "sizes": "192x192"
         }
     ],
