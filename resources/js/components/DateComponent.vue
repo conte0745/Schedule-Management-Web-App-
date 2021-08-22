@@ -21,7 +21,6 @@ export default {
         },
         defaultdate: {
             type: String,
-            
         }
     },
     data: function() {
