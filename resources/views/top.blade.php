@@ -67,13 +67,19 @@
         </style>
     </head>
     <body>
+        <div id="app">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <div class="links">
                             <a href="/calendar">しふとんのページへ</a><br><br>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST">ログアウト
+                            <a  href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
                             @csrf
                             </form>
                         </div>
@@ -94,6 +100,7 @@
 
                
             </div>
+        </div>
         </div>
         <script>
 // PWA
