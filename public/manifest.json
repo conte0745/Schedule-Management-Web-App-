@@ -1,26 +1,22 @@
 {
-  "short_name": "しふとん",
-  "name": "シフト管理アプリ しふとん",
-  "background_color": "#fff",
-  "theme_color": "#fff",
-  "display": "standalone",
-  "scope": "/",
-  "start_url": "/?source=pwa",
-  "icons": [
-    {
-      "src": "image/icon_maru.png",
-      "type": "image/png",
-      "sizes": "48x48"
-    },
-    {
-      "src": "image/icon_maru.png",
-      "type": "image/png",
-      "sizes": "96x96"
-    },
-    {
-      "src": "image/icon_maru.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    }
-  ]
+    "short_name": "しふとん",
+    "name": "シフト管理アプリ しふとん",
+    "display": "standalone",
+    "icons": [{
+            "src": "android-chrome-512x512.png",
+            "type": "image/icon.png",
+            "sizes": "48x48"
+        },
+        {
+            "src": "android-chrome-512x512.png",
+            "type": "image/icon.png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "android-chrome-512x512.png",
+            "type": "image/icon.png",
+            "sizes": "192x192"
+        }
+    ],
+    "start_url": "/top"
 }

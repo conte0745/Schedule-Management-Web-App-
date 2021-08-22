@@ -15,14 +15,14 @@ mix.js('resources/js/app.js', 'public/js').vue()
    .sass('resources/sass/app.scss', 'public/css');
 
 
-const workboxPlugin = require('workbox-webpack-plugin');
+// const workboxPlugin = require('workbox-webpack-plugin');
 
-mix.webpackConfig({
-    plugins: [
-        new workboxPlugin.InjectManifest({
-            swSrc: 'public/sw-offline.js',
-            swDest: 'sw.js',
-            importsDirectory: 'service-worker'
-        })
-    ]
-});
+// mix.webpackConfig({
+//     plugins: [
+//         new workboxPlugin.InjectManifest({
+//             swSrc: 'public/sw-offline.js',
+//             swDest: 'sw.js',
+//             importsDirectory: 'service-worker'
+//         })
+//     ]
+// });

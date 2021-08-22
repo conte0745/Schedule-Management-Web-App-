@@ -95,5 +95,24 @@
                
             </div>
         </div>
+        <script>
+// PWA
+            window.addEventListener("load", () => {
+             if ("serviceWorker" in navigator) {
+                 navigator.serviceWorker
+                     .register("/sw.js")
+                     .then(registration => {
+                         console.log("ServiceWorker registered");
+                         registration.onupdatefound = function() {
+                             console.log("Exist update");
+                             registration.update();
+                         };
+                     })
+                     .catch(error => {
+                         console.warn("ServiceWorker error", error);
+                     });
+             }
+            });
+        </script>
     </body>
 </html>
