@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 use App\Models\User;
 
@@ -22,7 +23,7 @@ class LineController extends Controller
     public function redirectToProvider()
     {
         $token = User::find(auth::id())->line;
-        $csrf = make::hash($token);
+        $csrf = Hash::make($token);
         
         $uri = 'https://notify-bot.line.me/oauth/authorize?' .
             'response_type=code' . '&' .
