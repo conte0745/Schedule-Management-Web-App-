@@ -36,7 +36,7 @@
                     <span>({{ $user['name'] }}) </span>
                 @endforeach
                 <br><label for="root">共同管理者の追加</label><br>
-                <select name="add_root">
+                <select name="add_root" multiple>
                     <option value="none" selected>設定しない</option>
                 @foreach($members as $member)
                     <option value="{{ $member['id'] }}">{{ $member['name'] }}</option>
@@ -45,7 +45,7 @@
             </div>
             <div class="list-group-item">
                 <label for="no_root">共同管理者の削除</label><br>
-                <select name="del_root">
+                <select name="del_root" multiple>
                     <option value="none" selected>設定しない</option>
                 @foreach($users as $user)
                     <option value="{{ $user['id'] }}">{{ $user['name'] }}</option>
