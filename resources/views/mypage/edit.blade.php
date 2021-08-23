@@ -42,6 +42,9 @@
                 <input id="save" type="submit" value="保存" class="btn btn-primary">
             </div>
         </form>
+            <div class="list-group-item">
+                <a href="{{ route('calendar.line.register') }}">LINEと連携</a>
+            </div>
             <div class="list-group-item" >
                 <a href="{{ route('calendar.mypage' )}}">保存せずに戻る</a>
             </div>
@@ -49,7 +52,7 @@
 </div>
 <br>
 
-<p>権限の付与(root)</p>
+
 
 
 @endsection

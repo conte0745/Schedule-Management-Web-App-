@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('state')->default('設定しない');
             $table->string('color')->default('#fff8dc');
+            $table->string('line')->nullable();
             $table->integer('permission')->default(0);
             $table->rememberToken();
             $table->timestamps();

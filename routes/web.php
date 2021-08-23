@@ -46,40 +46,32 @@ Route::get('/posts/{post}/edit','PostController@edit');
 
 Auth::routes();
 
-// --calendar--
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/calendar','CalendarController@index')->name('calendar');
-
-Route::post('/calendar','CalendarController@store')->name('calendar.store');
-
-Route::put('/calendar/update/{calendar_id}','CalendarController@update')->name('calendar.update');
-
-Route::get('/calendar/show/edit','CalendarController@edit2')->name('calendar.edit2');
-
-Route::get('/calendar/show/{month}','CalendarController@index_move')->name('calendar.index.move');
-
-Route::get('/calendar/show/{month}/week{counter}','CalendarController@show')->name('calendar.show');
-
-Route::get('/calendar/create/date','CalendarController@create')->name('calendar.create');
-
-Route::delete('/calendar/delete/{calendar_id}','CalendarController@del')->name('calendar.del');
-
+// --calendar--
+Route::group(['prefix' => '/calendar'], function () {
+    Route::get('/','CalendarController@index')->name('calendar');
+    Route::post('/','CalendarController@store')->name('calendar.store');
+    Route::put('/update/{calendar_id}','CalendarController@update')->name('calendar.update');
+    Route::get('/show/edit','CalendarController@edit2')->name('calendar.edit2');
+    Route::get('/show/{month}','CalendarController@index_move')->name('calendar.index.move');
+    Route::get('/show/{month}/week{counter}','CalendarController@show')->name('calendar.show');
+    Route::get('/create/date','CalendarController@create')->name('calendar.create');
+    Route::delete('/delete/{calendar_id}','CalendarController@del')->name('calendar.del');
+});
 
 // ----mypage-----
-Route::get('/calendar/mypage','UserController@index')->name('calendar.mypage');
+Route::group(['prefix'=>'/calendar/mypage'], function(){
+    Route::get('/','UserController@index')->name('calendar.mypage');
+    Route::get('/profile/edit','UserController@edit')->name('calendar.mypage.edit');
+    Route::put('/profile/update','UserController@update')->name('calendar.mypage.update');
+});
 
-
-Route::get('/calendar/mypage/profile/edit','UserController@edit')->name('calendar.mypage.edit');
-
-Route::put('/calendar/mypage/profile/update','UserController@update')->name('calendar.mypage.update');
-
-Route::get('/calendar/root','ShopController@index')->name('calendar.root');
-
-Route::get('/calendar/root/edit','ShopController@edit')->name('calendar.root.edit');
-
-Route::put('/calendar/root/update/{id}','ShopController@update')->name('calendar.root.update');
-
+Route::group(['prefix' => '/calendar/root'], function () {
+    Route::get('/','ShopController@index')->name('calendar.root');
+    Route::get('/edit','ShopController@edit')->name('calendar.root.edit');
+    Route::put('/update/{id}','ShopController@update')->name('calendar.root.update');
+});
 //------
 Route::get('/vue', function(){
     return view('dm');
@@ -92,9 +84,7 @@ Route::post('/calendar/ajax/chat','Ajax\ChatController@store')->name('calendar.c
 
 
 // -----line notify
-Route::group(['prefix' => '/calendar/mypage/notify'], function () {
-    Route::get('/', 'LineController@index')->name('calendar.line');
-    Route::get('/auth', 'LineController@redirectToProvider')->name('calendar.line.auth');
-    Route::post('/callback', 'LineController@handleProviderCallback')->name('calendar.line.callback');
-    Route::post('/send', 'LineController@send')->name('calendar.line.send');
+Route::group(['prefix' => '/calendar/mypage/line'], function () {
+    Route::get('/register', 'LineController@redirectToProvider')->name('calendar.line.register');
+    
 });
