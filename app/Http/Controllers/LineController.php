@@ -22,7 +22,7 @@ class LineController extends Controller
 
     public function redirectToProvider()
     {
-        $token = User::find(auth::id())->line;
+        $token = session_id();
         $csrf = Hash::make($token);
         
         $uri = 'https://notify-bot.line.me/oauth/authorize?' .
