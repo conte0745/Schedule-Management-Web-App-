@@ -235,9 +235,7 @@ class CalendarController extends Controller
             $calendar->parent_id = $id2;
             $calendar->save();
         }
-            
-    
-        
+
         return redirect('/calendar');
         
     }

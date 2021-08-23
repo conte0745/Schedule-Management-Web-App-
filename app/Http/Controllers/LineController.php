@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
+use App\Models\User;
 
 class LineController extends Controller
 {
@@ -15,7 +16,7 @@ class LineController extends Controller
     
      public function index()
     {
-        return view('line_notify.index');
+        return view('line');
     }
 
     public function redirectToProvider()
@@ -46,25 +47,53 @@ class LineController extends Controller
                 'client_secret' => config('services.line_notify.secret')
             ]
         ]);
-        // この環境DBとか入れてないんでとりあえずセッションに入れときます
+        
         $access_token = json_decode($response->getBody())->access_token;
-        \Session::set('access_token', $access_token);
+        
+        $user = User::find(auth::id());
+        $user->line = $access_token;
+        $user->save();
+        
         return redirect()->route('calendar.line');
     }
 
     public function send()
     {
+        $user = User::find(auth::id());
+        $access_token = $user->line;
+        
         $uri = 'https://notify-api.line.me/api/notify';
         $client = new Client();
         $client->post($uri, [
             'headers' => [
                 'Content-Type'  => 'application/x-www-form-urlencoded',
-                'Authorization' => 'Bearer ' . session('access_token'),
+                'Authorization' => 'Bearer ' . $access_token,
             ],
             'form_params' => [
                 'message' => request('message', 'Hello World!!')
             ]
         ]);
+        return redirect()->route('calendar.line');
+    }
+    
+    public function lift()
+    {
+        $user = User::find(auth::id());
+        $access_token = $user->line;
+        
+        $uri = 'https://notify-api.line.me/api/revoke';
+        $client = new Client();
+        $client->post($uri, [
+            'headers' => [
+                'Content-Type'  => 'application/x-www-form-urlencoded',
+                'Authorization' => 'Bearer ' . $access_token,
+            ],
+            
+        ]);
+        
+        $user->line = null;
+        $user->save();
+        
         return redirect()->route('calendar.line');
     }
 }

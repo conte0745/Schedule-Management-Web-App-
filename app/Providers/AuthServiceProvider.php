@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,11 @@ class AuthServiceProvider extends ServiceProvider
         
         Gate::define('isOwn',function($user,$personal){
            return ($user->permission == (1 or 2)) or ($personal == Auth::id());
+        });
+        
+        Gate::define('hasLine',function($user){
+            $token = User::find(auth::id())->line;
+            return ($token == null);
         });
 
         //

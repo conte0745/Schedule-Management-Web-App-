@@ -40,10 +40,10 @@ class UserController extends Controller
         
     }
     
-    public function del(Profiler $user)
+    public function del(User $user)
     {
-        $user->delete();
-        return back();
+        $user->forceDelete();
+        return view('top');
     }
     
 }
