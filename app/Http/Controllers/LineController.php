@@ -21,12 +21,15 @@ class LineController extends Controller
 
     public function redirectToProvider()
     {
+        $token = User::find(auth::id())->line;
+        $csrf = make::hash($token);
+        
         $uri = 'https://notify-bot.line.me/oauth/authorize?' .
             'response_type=code' . '&' .
             'client_id=' . config('services.line_notify.client_id') . '&' .
             'redirect_uri=' . config('services.line_notify.redirect_uri') . '&' .
             'scope=notify' . '&' .
-            'state=' . csrf_token() . '&' .
+            'state=' . $csrf . '&' .
             'response_mode=form_post';
         return redirect($uri);
     }
