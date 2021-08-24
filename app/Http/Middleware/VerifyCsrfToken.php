@@ -19,6 +19,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        'https://nameless-woodland-04388.herokuapp.com/calendar/mypage/line',
+       
+    
     ];
 }
