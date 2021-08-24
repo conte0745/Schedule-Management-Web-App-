@@ -24,4 +24,4 @@ Route::group(['prefix' => '/calendar/mypage/line'], function () {
 
 
 
-Route::post('/calendar/ajax/chat','Ajax\ChatController@store')->name('calendar.chat.store');
+//Route::post('/calendar/ajax/chat','Ajax\ChatController@store')->name('calendar.chat.store');
