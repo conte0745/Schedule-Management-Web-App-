@@ -6,6 +6,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
 
     <title>シフト管理アプリ しふとん</title>
     <link rel="icon" href="{{ asset('/image/icon_maru.png') }}" sizes="32x32" />

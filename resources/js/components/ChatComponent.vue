@@ -23,7 +23,7 @@
         
         methods: { 
             send() {
-                let url = 'https://nameless-woodland-04388.herokuapp.com/calendar/ajax/chat';
+                let url = '/calendar/ajax/chat/';
                 let params = { message: this.message };
                 axios.post(url, params).then(res => {
                    this.getMessages();
