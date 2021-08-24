@@ -1869,6 +1869,7 @@ __webpack_require__.r(__webpack_exports__);
     send: function send() {
       var _this = this;
 
+      console.log('submit');
       var url = '/calendar/ajax/chat/';
       var params = {
         message: this.message
