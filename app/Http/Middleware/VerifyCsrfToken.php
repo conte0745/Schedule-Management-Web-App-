@@ -19,8 +19,8 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'https://notify-bot.line.me/',
-        'https://nameless-woodland-04388.herokuapp.com/calendar/mypage/line',
+        'https://notify-bot.line.me/*',
+        'https://nameless-woodland-04388.herokuapp.com/calendar/mypage/line/*',
        
     
     ];
