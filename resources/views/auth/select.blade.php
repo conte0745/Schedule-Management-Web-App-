@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </form>
-                    
+                    <br>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onclick="check()">
                         <label class="form-check-label" for="flexRadioDefault2">新しくお店を作る</label>
@@ -68,5 +68,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('javascript')
 <script type="text/javascript" src="{{ asset('js/select.js') }}"></script>
 @endsection

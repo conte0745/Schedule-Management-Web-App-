@@ -72,7 +72,8 @@ Route::group(['prefix' => '/calendar/root'], function () {
     Route::get('/edit','ShopController@edit')->name('calendar.root.edit');
     Route::put('/update/{id}','ShopController@update')->name('calendar.root.update');
 });
-//------
+
+//------Vue test
 Route::get('/vue', function(){
     return view('dm');
 });
