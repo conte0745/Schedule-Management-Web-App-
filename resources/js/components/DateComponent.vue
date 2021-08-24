@@ -3,6 +3,7 @@
         :value="defaultdate"
         :format="this.DatePickerFormat"
         :name="name"
+        :id="id"
     >
     </datepicker>
 </template>
@@ -21,12 +22,15 @@ export default {
         },
         defaultdate: {
             type: String,
+        },
+        id: {
+            type: String,
         }
+        
     },
     data: function() {
         return {
             DatePickerFormat: "yyyy/MM/dd",
-            
         };
     }
 };

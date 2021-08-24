@@ -23,8 +23,10 @@
             
             @endcan
                 <div class="list-group-item">
-                    <label for="date">開始日付</label>
-                    <input type="date" value="{{ $calendar['date'] }}" name="calendar[date]"><br>
+                    <div class="flexible">
+                        <label for="date">開始日付 </label>
+                        <date-component defaultdate="{{ $calendar['date'] }}" name="calendar[date]" id="date"></date-component>
+                    </div>
                     @error('calendar.date')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -39,8 +41,11 @@
             </div>
             <div class="list-group flexible">
                 <div class="list-group-item">
-                    <label for="date_fin">終了日付</label>
-                    <input type="date" value="{{ $calendar['date_fin'] }}" name="calendar[date_fin]"><br>
+                    <div class="flexible">
+                        <label for="date_fin">終了日付 </label>
+                        <date-component defaultdate="{{ $calendar['date_fin'] }}" name="calendar[date_fin]" id="date_fin"></date-component>
+                    </div>
+                    
                     @error('calendar.date')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
