@@ -19,6 +19,8 @@ class ChatController extends Controller
     
     public function store(Request $request)
     {
+        dd($request);
+        
         $personal_id = 1;
         $group_id = 1;
        
