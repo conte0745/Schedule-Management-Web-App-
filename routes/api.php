@@ -21,3 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => '/calendar/mypage/line'], function () {
     Route::post('/', 'LineController@handleProviderCallback')->name('calendar.line.');
 });
+
+
+
+Route::post('/calendar/ajax/chat','Ajax\ChatController@store')->name('calendar.chat.store');
