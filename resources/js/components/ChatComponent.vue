@@ -23,6 +23,7 @@
         
         methods: { 
             send() {
+                console.log('submit');
                 let url = '/calendar/ajax/chat/';
                 let params = { message: this.message };
                 axios.post(url, params).then(res => {
