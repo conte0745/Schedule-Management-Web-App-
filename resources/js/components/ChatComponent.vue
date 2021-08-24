@@ -27,16 +27,21 @@
                 
                 let url = '/calendar/ajax/chat/';
                 let params = { message: this.message };
+                
                 axios.post(url, params).then(res => {
-                   this.getMessages();
+                    
+                    console.log(params);
+                    
+                    this.getMessages();
                  }).catch(function(error){
                    console.log(error);
                 });
+                
+                this.message = '';
             },
             
             push() {
                 this.messages.push(this.message);
-                this.message = '';
             },
             getMessages() {
                 let url = '/calendar/ajax/chat';

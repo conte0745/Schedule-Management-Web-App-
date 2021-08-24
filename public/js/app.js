@@ -1875,14 +1875,16 @@ __webpack_require__.r(__webpack_exports__);
         message: this.message
       };
       axios.post(url, params).then(function (res) {
+        console.log(params);
+
         _this.getMessages();
       })["catch"](function (error) {
         console.log(error);
       });
+      this.message = '';
     },
     push: function push() {
       this.messages.push(this.message);
-      this.message = '';
     },
     getMessages: function getMessages() {
       var _this2 = this;

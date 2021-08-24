@@ -19,13 +19,13 @@ class ChatController extends Controller
     
     public function store(Request $request)
     {
-        dd($request);
+        dump($request);
         
         $personal_id = 1;
         $group_id = 1;
        
         $chat = new Chat;
-        $chat->text = $request->message;
+        $chat->text = $request->input('message');
         $chat->personal_id = $personal_id;
         $chat->group_id = $group_id;
         $chat->save(); 
