@@ -74,12 +74,12 @@ Route::group(['prefix' => '/calendar/root'], function () {
 });
 
 //------Vue test
-Route::get('/vue', function(){
-    return view('dm');
+Route::get('/practice', function(){
+    return view('practice');
 });
 
 //---chat SPAアプリにしたい
-Route::get('/calendar/chat','ChatController@index')->name('calendar.chat');
+Route::get('/calendar/chat','ChatController@index')->name('chat');
 Route::get('/calendar/ajax/chat','Ajax\ChatController@index')->name('calendar.chat.index');
 Route::post('/calendar/ajax/chat','Ajax\ChatController@store')->name('calendar.chat.store');
 

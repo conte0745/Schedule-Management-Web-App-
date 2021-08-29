@@ -1,0 +1,23 @@
+.table {
+	background-color: white;
+	table-layout: fixed;
+	
+	width: 100%;
+}
+.scroll {
+	overflow-y: scroll;
+}
+
+.name {
+    text-align: left;
+}
+.body {
+    
+}
+
+.time {
+    text-align: right;
+}
+.flexible {
+	display: flex;
+}

@@ -17,6 +17,7 @@ class CreateChatsTable extends Migration
             $table->bigIncrements('id');
             $table->string('body');
             $table->integer('personal_id');
+            $table->integer('parent_id')->nullable();
             $table->integer('group_id');
             $table->timestamps();
         });

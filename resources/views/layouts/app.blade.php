@@ -13,7 +13,7 @@
     <link rel="icon" href="{{ asset('/image/icon_maru.png') }}" sizes="32x32" />
     <link rel="icon" href="{{ asset('/image/icon_maru.png') }}" sizes="192x192" />
     <link rel="apple-touch-icon-precomposed" href="{{ asset('/image/icon.png') }}" />
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -60,6 +60,7 @@
                             <li class="nav-item dropdown">
                                 <div class="flexible">
                                     @yield('drop-box')
+                                    <a class="dropdown-item card" href="{{ route('chat') }}">チャット</a>
                                     <a class="dropdown-item card" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

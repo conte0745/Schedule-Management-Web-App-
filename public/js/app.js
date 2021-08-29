@@ -1858,6 +1858,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1869,19 +1885,20 @@ __webpack_require__.r(__webpack_exports__);
     send: function send() {
       var _this = this;
 
-      console.log('submit');
-      var url = '/calendar/ajax/chat/';
-      var params = {
-        message: this.message
-      };
-      axios.post(url, params).then(function (res) {
-        console.log(params);
+      if (this.message != '' || this.message != ' ' || this.message.length < 540) {
+        var url = '/calendar/ajax/chat';
+        var params = {
+          message: this.message
+        };
+        axios.post(url, params).then(function (res) {
+          console.log(params);
 
-        _this.getMessages();
-      })["catch"](function (error) {
-        console.log(error);
-      });
-      this.message = '';
+          _this.getMessages();
+        })["catch"](function (error) {
+          console.log(error);
+        });
+        this.message = '';
+      }
     },
     push: function push() {
       this.messages.push(this.message);
@@ -44379,10 +44396,33 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { attrs: { id: "chat" } },
-    [
+  return _c("div", { staticClass: "card", attrs: { id: "message" } }, [
+    _c("div", { staticClass: "h1 card-header" }, [_vm._v("チャット")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-text" }, [
+      _c(
+        "table",
+        { staticClass: "table table-sm scroll" },
+        _vm._l(_vm.messages, function(message) {
+          return _c("tr", [
+            _c("td", [
+              _c("p", { staticClass: "name" }, [_vm._v(_vm._s(message.name))]),
+              _vm._v(" "),
+              _c("p", { staticClass: "body" }, [
+                _vm._v(_vm._s(message.message))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "time" }, [_vm._v(_vm._s(message.create))])
+            ])
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "flexible" }, [
       _c("textarea", {
         directives: [
           {
@@ -44392,6 +44432,7 @@ var render = function() {
             expression: "message"
           }
         ],
+        attrs: { rows: "2", cols: "50%", placeholder: "入力してください" },
         domProps: { value: _vm.message },
         on: {
           input: function($event) {
@@ -44402,8 +44443,6 @@ var render = function() {
           }
         }
       }),
-      _vm._v(" "),
-      _c("br"),
       _c("br"),
       _vm._v(" "),
       _c(
@@ -44417,18 +44456,32 @@ var render = function() {
           }
         },
         [_vm._v("送信")]
-      ),
-      _vm._v(" "),
-      _vm._l(_vm.messages, function(message) {
-        return _c("span", [_vm._v(_vm._s(message))])
-      }),
-      _vm._v(" "),
-      _c("pre", [_vm._v(_vm._s(_vm.$data))])
-    ],
-    2
-  )
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "p",
+      {
+        model: {
+          value: _vm.message,
+          callback: function($$v) {
+            _vm.message = $$v
+          },
+          expression: "message"
+        }
+      },
+      [_vm._v("文字数:" + _vm._s(_vm.message.length))]
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "border" }, [_c("br")])
+  }
+]
 render._withStripped = true
 
 
