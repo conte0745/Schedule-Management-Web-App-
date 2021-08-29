@@ -35,7 +35,7 @@ class LineController extends Controller
         return redirect($uri);
     }
 
-    public function handleProviderCallback()
+    public function handleProviderCallback(Request $req)
     {
 
         $uri = 'https://notify-bot.line.me/oauth/token';
@@ -53,15 +53,16 @@ class LineController extends Controller
             ]
         ]);
         
-        $access_token = json_decode($response->getBody())->access_token;
-        logger($access_token);
+        $access_token = $req->input('code');
+        dd($access_token);
         
         $user = User::find(auth::id());
         $user->line = $access_token;
         $user->save();
         
         dd($access_token);
-        return view('line');
+        
+        return redirect()->route('calendar.line');
     }
 
     public function send()
