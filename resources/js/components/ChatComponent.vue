@@ -3,6 +3,7 @@
 <div id="message" class="card">    
     <div class="h1 card-header">チャット</div>
     <div class="card-text">
+    <a href="#buttom">一番下へ</a>
     
     <table class="table table-sm scroll">
     <tr v-for="message in messages">
@@ -22,7 +23,7 @@
         <textarea rows="2" cols=50% v-model="message" placeholder="入力してください"></textarea><br>
         <button type="button" @click="send()">送信</button>
     </div>
-    <p v-model="message">文字数:{{ message.length }}</p>
+    <p v-model="message" id="buttom">文字数:{{ message.length }}</p>
 
 </div>
 </template>

@@ -1874,6 +1874,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -44400,6 +44401,8 @@ var render = function() {
     _c("div", { staticClass: "h1 card-header" }, [_vm._v("チャット")]),
     _vm._v(" "),
     _c("div", { staticClass: "card-text" }, [
+      _c("a", { attrs: { href: "#buttom" } }, [_vm._v("一番下へ")]),
+      _vm._v(" "),
       _c(
         "table",
         { staticClass: "table table-sm scroll" },
@@ -44462,6 +44465,7 @@ var render = function() {
     _c(
       "p",
       {
+        attrs: { id: "buttom" },
         model: {
           value: _vm.message,
           callback: function($$v) {
