@@ -37,7 +37,7 @@ class LineController extends Controller
 
     public function handleProviderCallback()
     {
-        dd('rr');
+
         $uri = 'https://notify-bot.line.me/oauth/token';
         $client = new Client();
         $response = $client->post($uri, [

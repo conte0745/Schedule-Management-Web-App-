@@ -20,6 +20,7 @@ class ChatController extends Controller
     public function store(Request $request)
     {
         dump($request);
+       return view('dm')->with(['test' => $request]);
         
         $personal_id = 1;
         $group_id = 1;
@@ -35,7 +36,6 @@ class ChatController extends Controller
         //     'personal_id' => $personal_id,
         //     'group_id' => $group_id,
         // ]);
-       
        return $chat;
     }
 }
