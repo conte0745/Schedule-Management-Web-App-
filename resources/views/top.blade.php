@@ -3,16 +3,17 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
         <title>シフト管理アプリ しふとん</title>
         <link rel="icon" href="{{ asset('/image/icon_maru.png') }}" sizes="32x32" />
         <link rel="icon" href="{{ asset('/image/icon_maru.png') }}" sizes="192x192" />
         <link rel="apple-touch-icon-precomposed" href="{{ asset('/image/icon.png') }}" />
+        
         <link rel="manifest" href="/manifest.json">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
         <!-- Styles -->
         <style>
             html, body {
