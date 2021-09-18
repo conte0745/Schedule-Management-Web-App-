@@ -4,6 +4,8 @@
         :format="this.DatePickerFormat"
         :name="name"
         :id="id"
+        wrapper-class="inline-block"
+        input-class="inline-block"
     >
     </datepicker>
 </template>

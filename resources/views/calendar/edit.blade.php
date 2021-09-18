@@ -3,8 +3,12 @@
 <link rel="stylesheet" href="{{ asset('css/calendar_create.css') }}">
 @endsection
 @section('drop-box')
-<a class="dropdown-item card" href="{{ route('calendar') }}">カレンダー</a>
-<a class="dropdown-item card" href="{{ route('calendar.mypage') }}">{{ __('Mypage') }}</a>
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('calendar') }}">カレンダー</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('calendar.mypage') }}">{{ __('Mypage') }}</a>
+</li>
 @endsection
 @section('contains') 
 <div class="input">

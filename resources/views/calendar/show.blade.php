@@ -3,10 +3,6 @@
 @section('call_css')
 <link rel="stylesheet" href="{{ asset('css/calendar_show_weekly.css') }}">
 @endsection
-@section('drop-box')
-<a class="dropdown-item card" href="{{ route('calendar') }}">マンスリー</a>
-<a class="dropdown-item card" href="{{ route('calendar.mypage') }}">マイページ</a>
-@endsection
 
 @section('contains')
 <div class="nav nav-pills under">

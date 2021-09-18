@@ -1942,6 +1942,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -44513,7 +44515,9 @@ var render = function() {
       value: _vm.defaultdate,
       format: this.DatePickerFormat,
       name: _vm.name,
-      id: _vm.id
+      id: _vm.id,
+      "wrapper-class": "inline-block",
+      "input-class": "inline-block"
     }
   })
 }

@@ -12,21 +12,20 @@
 	color: blue;
 }
 .table {
-	table-layout: fixed;
+	width: 100%;
+	height: 100%;
 }
 .table td {	
 	padding: 3px;
-	border: solid 1px #999;
 	background-color: white;
+	width: 14.28571%;
+	height: 12vh;
 }
 .table td a{	
 	color: black;
 }
 .table td:before {
 	display: block;
-	float: left;
-	height: 60px;
-	content: "";
 }
 .table td .day {
 	margin-bottom: 0;
@@ -43,7 +42,8 @@
 
 
 .calendar_show {
-	margin: 15px;
+	margin: 10px;
+	height: 100%;
 }
 
 .calendar_title {
@@ -57,7 +57,7 @@
 }
 
 .workTime {
-	float: left;
+	text-align: center;
 }
 
 .week {

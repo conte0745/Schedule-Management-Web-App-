@@ -9,8 +9,7 @@
         <link rel="icon" href="{{ asset('/image/icon_maru.png') }}" sizes="32x32" />
         <link rel="icon" href="{{ asset('/image/icon_maru.png') }}" sizes="192x192" />
         <link rel="apple-touch-icon-precomposed" href="{{ asset('/image/icon.png') }}" />
-        
-        <link rel="manifest" href="/manifest.json">
+        <link rel="manifest" href="{{ asset('manifest.json') }}">
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">

@@ -29,7 +29,7 @@
 </head>
 <body style="background-color:#fffafa">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/top') }}">
                     しふとん
@@ -39,10 +39,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
+                    <!--<ul class="navbar-nav mr-auto">-->
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -57,21 +54,44 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <div class="flexible">
-                                    @yield('drop-box')
-                                    <a class="dropdown-item card" href="{{ route('chat') }}">チャット</a>
-                                    <a class="dropdown-item card" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
+                        @if ($_SERVER['REQUEST_URI'] == '/calendar')
+                            <li class="nav-item active" >
+                        @else
+                            <li class="nav-item">
+                        @endif
+                            <a class="nav-link" href="{{ route('calendar') }}">マンツリー</a>
+                        </li>
+                        
+                        @if($_SERVER['REQUEST_URI'] == '/calendar/chat')
+                            <li class="nav-item active" >
+                        @else
+                            <li class="nav-item">
+                        @endif
+                            <a class="nav-link" href="{{ route('chat') }}">チャット</a>
+                        </li>
+                        
+                        @if ($_SERVER['REQUEST_URI'] == '/calendar/mypage')
+                            <li class="nav-item active">
+                        @else
+                            <li class="nav-item">
+                        @endif
+                            <a class="nav-link" href="{{ route('calendar.mypage') }}">マイページ</a>
+                        </li>
+                            
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                             </li>
-                        @endguest
+                    </ul>        
+                    @endguest
                     </ul>
                 </div>
             </div>
