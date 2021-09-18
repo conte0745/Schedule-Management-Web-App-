@@ -82,6 +82,9 @@ Route::get('/practice', function(){
 Route::get('/calendar/chat','ChatController@index')->name('chat');
 Route::get('/calendar/ajax/chat','Ajax\ChatController@index')->name('calendar.chat.index');
 Route::post('/calendar/ajax/chat','Ajax\ChatController@store')->name('calendar.chat.store');
+Route::post('/calendar/ajax/chat/store','Ajax\ChatController@replyStore')->name('calendar.chat.reply.store');
+Route::put('/calendar/ajax/chat','Ajax\ChatController@edit')->name('calendar.chat.edit');
+Route::delete('/calendar/ajax/chat','Ajax\ChatController@del')->name('calendar.chat.delete');
 
 
 // -----line notify

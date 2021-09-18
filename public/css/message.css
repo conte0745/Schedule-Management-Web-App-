@@ -1,7 +1,6 @@
 .table {
 	background-color: white;
 	table-layout: fixed;
-	
 	width: 100%;
 }
 .scroll {
@@ -10,6 +9,7 @@
 
 .name {
     text-align: left;
+    font-size: large;
 }
 .body {
     
@@ -17,7 +17,15 @@
 
 .time {
     text-align: right;
+    font-size: small;
 }
 .flexible {
 	display: flex;
+}
+
+.input-text {
+	background-color: white;
+}
+.max-width {
+	width: 100%;
 }

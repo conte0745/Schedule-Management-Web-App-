@@ -7,7 +7,6 @@
 
 @section('contains')
 
-<chat-component></chat-component>
-
+<chatshow-component></chatshow-component>
 
 @endsection

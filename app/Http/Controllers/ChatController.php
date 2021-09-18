@@ -19,4 +19,9 @@ class ChatController extends Controller
         return view('chat/index');
     }
     
+    
+    public function show(Request $request)
+    {
+        return view('chat/show');
+    }
 }

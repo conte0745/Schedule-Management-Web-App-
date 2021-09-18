@@ -19,7 +19,12 @@
 	padding: 3px;
 	background-color: white;
 	width: 14.28571%;
-	height: 12vh;
+	height: 10vh;
+}
+.table th {	
+	background-color: white;
+	width: 14.28571%;
+	height: 10vh;
 }
 .table td a{	
 	color: black;

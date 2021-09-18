@@ -11,9 +11,7 @@
         <span class="time text-muted">{{ message.updated_at }}</span>
         <p class="body">{{ message.body }}</p>
         <span class="delete text-muted" @click="del(message.id)">del</span>
-        <span class="back text-muted" @click="back()" v-if="respons">back</span>
-        <span class="reply text-muted" @click="reply(message.id)" v-else="respons">reply</span>
-        
+        <a href="/calendar/chat/" class="text-muted back">back</a>
         </td>
         
     </tr>
@@ -41,7 +39,6 @@
 export default {
     data : function() {
         return {
-            respons: false,
             message: '',
             messages: [],
 
@@ -50,28 +47,13 @@ export default {
    
     
     methods: { 
-        reply(id) {
-            
-            let url = '/calendar/ajax/chat?id=' + id;
-                axios.put(url).then(res => {
-                    this.messages = res.data.data;
-                    this.respons = !this.respons;
-                    console.log(res.data.data);
-                }).catch(function(error){
-                    console.log("fail");
-                });
-            
-        },
         
-        back() {
-            this.getMessages();
-            this.respons = !this.respons;
-            
-        },
+        
+        
         del(id) {
             if((confirm('Do you want to delete?'))){
             
-                let url = '/calendar/ajax/chat?id=' + id;
+                let url = '/calendar/ajax/chat/show?id=' + id;
                 axios.delete(url).then(res => {
                     this.getMessages();
                 }).catch(function(error){
@@ -83,22 +65,18 @@ export default {
         send() {
             if(this.message!= '' || this.message != ' ' || this.message.length < 540){
                 
+                let url = '/calendar/ajax/chat/show';
                 let params = { message: this.message };
-                let url = '/calendar/ajax/chat';
                 
-                if(this.respons){
-                    params = { message: this.message,
-                                    firstMessage: this.messages[0]
-                                    };
-                    url = '/calendar/ajax/chat/store';
-                }
                 axios.post(url, params).then(res => {
+                    
                     console.log(params);
+                    
                     this.getMessages();
-                }).catch(function(error){
+                 }).catch(function(error){
                    console.log(error);
                 });
-               
+                
                 this.message = '';
             }
         },
@@ -108,10 +86,10 @@ export default {
         },
         
         getMessages() {
-            let url = '/calendar/ajax/chat';
+            let url = '/calendar/ajax/chat/show';
             axios.get(url).then(res => {
                 this.messages = res.data.data;
-                console.log(res.data.data);
+                console.log(res.data.data)
                 
             });
         },
