@@ -1881,12 +1881,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       respons: false,
+      nextPage: null,
+      prevPage: null,
+      uri: '_',
+      init: '_',
       message: '',
       messages: []
     };
@@ -1895,18 +1897,25 @@ __webpack_require__.r(__webpack_exports__);
     reply: function reply(id) {
       var _this = this;
 
-      var url = '/calendar/ajax/chat?id=' + id;
-      axios.put(url).then(function (res) {
+      console.log("read reply");
+      var url = '/calendar/ajax/show/chat?id=' + id;
+      this.uri = url;
+      this.init = id;
+      axios.get(url).then(function (res) {
         _this.messages = res.data.data;
-        _this.respons = !_this.respons;
-        console.log(res.data.data);
+        _this.respons = true;
+
+        _this.pageNate(res.data.next_page_url, res.data.prev_page_url);
+
+        console.log(res.data);
       })["catch"](function (error) {
         console.log("fail");
       });
     },
     back: function back() {
+      this.respons = false;
+      this.uri = '';
       this.getMessages();
-      this.respons = !this.respons;
     },
     del: function del(id) {
       var _this2 = this;
@@ -1925,21 +1934,16 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.message != '' || this.message != ' ' || this.message.length < 540) {
         var params = {
-          message: this.message
+          message: this.message,
+          init: this.init
         };
         var url = '/calendar/ajax/chat';
 
         if (this.respons) {
-          params = {
-            message: this.message,
-            firstMessage: this.messages[0]
-          };
           url = '/calendar/ajax/chat/store';
         }
 
         axios.post(url, params).then(function (res) {
-          console.log(params);
-
           _this3.getMessages();
         })["catch"](function (error) {
           console.log(error);
@@ -1947,17 +1951,72 @@ __webpack_require__.r(__webpack_exports__);
         this.message = '';
       }
     },
-    push: function push() {
-      this.messages.push(this.message);
-    },
-    getMessages: function getMessages() {
+    next: function next() {
       var _this4 = this;
 
-      var url = '/calendar/ajax/chat';
-      axios.get(url).then(function (res) {
+      var param = {
+        id: this.init
+      };
+      axios.get(this.nextPage, param).then(function (res) {
         _this4.messages = res.data.data;
-        console.log(res.data.data);
+
+        _this4.pageNate(res.data.next_page_url, res.data.prev_page_url);
+
+        console.log(res.data);
+      })["catch"](function (error) {
+        console.log(error);
       });
+    },
+    prev: function prev() {
+      var _this5 = this;
+
+      var param = {
+        id: this.init
+      };
+      axios.get(this.prevPage, param).then(function (res) {
+        _this5.messages = res.data.data;
+
+        _this5.pageNate(res.data.next_page_url, res.data.prev_page_url);
+
+        console.log(res.data);
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    pageNate: function pageNate(next, prev) {
+      if (this.isNull(next)) this.nextPage = null;else this.nextPage = next + '&id=' + this.init;
+      if (this.isNull(prev)) this.prevPage = null;else this.prevPage = prev + '&id=' + this.init;
+    },
+    getMessages: function getMessages() {
+      var _this6 = this;
+
+      if (!this.respons) {
+        var url = '/calendar/ajax/chat';
+        axios.get(url).then(function (res) {
+          _this6.messages = res.data.data;
+
+          _this6.pageNate(res.data.next_page_url, res.data.prev_page_url);
+
+          console.log(res.data);
+        });
+      } else {
+        axios.get(this.uri).then(function (res) {
+          _this6.messages = res.data.data;
+
+          _this6.pageNate(res.data.next_page_url, res.data.prev_page_url);
+
+          console.log(res.data);
+        })["catch"](function (error) {
+          console.log("fail");
+        });
+      }
+    },
+    isNull: function isNull(x) {
+      if (x == null) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   mounted: function mounted() {
@@ -44625,9 +44684,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card", attrs: { id: "message" } }, [
-    _c("div", { staticClass: "h1 card-header" }, [_vm._v("チャット")]),
+    _c("span", { staticClass: "h1 card-header" }, [_vm._v("チャット")]),
     _vm._v(" "),
-    _c("div", { staticClass: "card-text" }, [
+    _c("div", { staticClass: "card-text mian mb-3" }, [
       _c(
         "table",
         { staticClass: "table table-sm scroll" },
@@ -44730,7 +44789,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c(
-        "p",
+        "span",
         {
           attrs: { id: "buttom" },
           model: {
@@ -44742,9 +44801,50 @@ var render = function() {
           }
         },
         [_vm._v("文字数:" + _vm._s(_vm.message.length))]
+      ),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.isNull(_vm.prevPage),
+              expression: "!isNull(prevPage)"
+            }
+          ],
+          staticClass: "prev",
+          on: {
+            click: function($event) {
+              return _vm.prev()
+            }
+          }
+        },
+        [_vm._v("前のページへ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.isNull(_vm.nextPage),
+              expression: "!isNull(nextPage)"
+            }
+          ],
+          staticClass: "next",
+          on: {
+            click: function($event) {
+              return _vm.next()
+            }
+          }
+        },
+        [_vm._v("次のページへ")]
       )
-    ]),
-    _vm._v("\n    " + _vm._s(_vm.$data) + "\n    \n    \n")
+    ])
   ])
 }
 var staticRenderFns = [

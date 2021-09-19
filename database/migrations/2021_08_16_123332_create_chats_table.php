@@ -19,6 +19,7 @@ class CreateChatsTable extends Migration
             $table->integer('personal_id');
             $table->integer('parent_id')->nullable();
             $table->integer('child_id')->nullable();
+            $table->boolean('init')->default(true);
             $table->integer('group_id');
             $table->timestamps();
             $table->softDeletes();

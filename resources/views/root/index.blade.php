@@ -10,9 +10,9 @@
 
 @section('contains')
 <div class="card">
-    <div class="card-header"><h1>管理者メニュー</h1></div>
+    <div class="card-header"><span class="h1">管理者メニュー</span></div>
     <div class="card-body">
-    <div class="card-title"><h2>お店の編集</h2></div>
+        <div class="card-title h2">店舗情報</div>
         <div class="list-group">
             <div class="list-group-item">
                 <p>お店の名前 (表示用)</p>
@@ -23,11 +23,15 @@
                 <span>{{ $shop['shop'] }}</span>
             </div>
             <div class="list-group-item">
-                <p>作成者</p>
-                <table class="table table-sm table-borderless"><tr><td>{{ $one_user[0]['name'] }}</td></tr></table>
+                <span>作成者</span>
+                <table class="table table-sm table-borderless">
+                    <tr>
+                        <td>{{ $one_user[0]['name'] }}</td>
+                    </tr>
+                </table>
             </div>
             <div class="list-group-item">
-                <p>共同管理者一覧</p>
+                <span>共同管理者一覧</span>
                 <table class="table table-sm table-borderless">
                 @foreach($users as $user)
                     <tr><td>{{ $user['name'] }}</td></tr>
@@ -42,12 +46,9 @@
                 @endforeach
                 </table>
             </div>
-            <div class="list-group-item">
-                <a href="{{ route('calendar.root.edit') }}">編集</a>
-            </div>
-            <div class="list-group-item">
-                <a href="{{ route('calendar.mypage') }}">マイページへ戻る</a>
-            </div>
+            <a class="list-group-item list-group-item-action list-group-item-primary" href="{{ route('calendar.root.edit') }}">編集</a>
+            <a class="list-group-item list-group-item-action list-group-item-success" href="{{ route('calendar.mypage') }}">マイページへ戻る</a>
+            
         </div>
     </div>
 </div>

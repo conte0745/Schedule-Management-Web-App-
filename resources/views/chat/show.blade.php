@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="{{ asset('css/message.css') }}">
 @endsection
 
-
 @section('contains')
 
 <chatshow-component></chatshow-component>

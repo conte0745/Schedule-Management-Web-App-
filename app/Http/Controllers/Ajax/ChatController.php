@@ -16,10 +16,10 @@ class ChatController extends Controller
     {
         $group_id = User::find(Auth::id())->group_id;
         
-        $pageNum = 5;
+        $pageNum = 10;
         
         $users = User::where('group_id',$group_id)->get()->toArray();
-        $chat = Chat::where('group_id',$group_id)->where('child_id',null)->orderBy('updated_at','DESC')->paginate($pageNum);
+        $chat = Chat::where('group_id',$group_id)->where('init', true)->orderBy('updated_at','DESC')->paginate($pageNum);
         
         
         $name = [];
@@ -47,6 +47,8 @@ class ChatController extends Controller
         $chat->personal_id = $personal_id;
         $chat->group_id = $group_id;
         $chat->save(); 
+        $chat->parent_id = $chat->id;
+        $chat->save();
        
        return $chat;
     }
@@ -57,15 +59,18 @@ class ChatController extends Controller
         $group_id = User::find($personal_id)->group_id;
         $param = $request->all();
         
-        $chat2 = Chat::find($pram['message']->id)
-    //     $chat = new Chat
-    //     $chat->body = $request->input('message');
-    //     $chat->personal_id = $personal_id;
-    //     $chat->group_id = $group_id;
-    //     //$chat->parent_id = $chat2->id;
-    //     $chat->save();
+        $chat2 = Chat::find($param['init']);
+        $chat = new Chat;
+        $chat->body = $param['message'];
+        $chat->personal_id = $personal_id;
+        $chat->group_id = $group_id;
+        $chat->parent_id = $param['init'];
+        $chat->init = false;
+        $chat->save();
+        $chat2->child_id = $chat->id;
+        $chat2->save();
        
-       return $chat;
+        return $chat2;
     }
     
     public function del(Request $req){
@@ -78,10 +83,12 @@ class ChatController extends Controller
     {
         $group_id = User::find(Auth::id())->group_id;
         $param = $request->all();
-        $pageNum = 5;
+        $pageNum = 10;
+       
         
         $users = User::where('group_id',$group_id)->get()->toArray();
-        $chat = Chat::where('id',$param['id'])->where('child_id',null)->orderBy('updated_at','DESC')->paginate($pageNum);
+        $chat = Chat::where('parent_id', $param['id'])->orderBy('created_at','DESC')->paginate($pageNum);
+        
         
         
         $name = [];

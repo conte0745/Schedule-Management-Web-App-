@@ -7,14 +7,15 @@
 
 @section('contains')
 <div class="card">
-    <div class="card-header"><h1>{{ __('Mypage') }}</h1></div>
-    <div class="card-body">
-    <div class="card-title"><h2>登録情報</h2></div>
+    <div class="card-header"><span class="h1">{{ __('Mypage') }}</span>
         @can('isAdmin')
-            <div class="list-group-item">
+            <span class="link">
                 <a href="{{ route('calendar.root') }}">管理者のページへ</a>
-            </div>
+            </span>
         @endcan
+    </div>
+    <div class="card-body">
+    <div class="card-title"><p class="h2">登録情報</p></div>
         <div class="list-group">
             <div class="list-group-item">
                 <p>名前</p>
@@ -41,12 +42,9 @@
                 <span>未連携</span>
                 @endcan
             </div>
-            <div class="list-group-item">
-                <a href="{{ route('calendar.mypage.edit') }}">編集</a>
-            </div>
-            <div class="list-group-item">
-                <a href="{{ route('calendar') }}">戻る</a>
-            </div>
+            <a class="list-group-item list-group-item-action list-group-item-primary" href="{{ route('calendar.mypage.edit') }}">編集</a>
+            <a class="list-group-item list-group-item-action list-group-item-success" href="{{ route('calendar') }}">戻る</a>
+            
             
         </div>
     </div>
