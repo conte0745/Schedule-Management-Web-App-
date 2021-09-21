@@ -12,11 +12,12 @@
             <tr v-for="message in messages">
                 <td>
                     <span class="name">{{ message.personal_id }}</span>
-                    <span class="time text-muted">{{ message.updated_at }}</span>
+                    <span class="time text-muted">{{ message.created_at }}</span>
                     <p class="body">{{ message.body }}</p>
-                    <span class="delete btn btn-secondary btn-sm" @click="del(message.id)">del</span>
-                    <span class="back btn btn-secondary btn-sm" @click="back()" v-if="respons">back</span>
-                    <span class="reply btn btn-secondary btn-sm" @click="reply(message.id)" v-else="respons">reply</span>
+                    <span class="back btn btn-secondary btn-sm" @click="back()" v-if="respons">戻る</span>
+                    <span class="reply btn btn-secondary btn-sm" @click="reply(message.id)" v-if="!respons">返信</span>
+                    <span class="delete btn btn-secondary btn-sm" @click="del(message.id, message.init)" v-if="(message.init) && (!respons) ">削除</span>
+                    <span class="delete btn btn-secondary btn-sm" @click="del(message.id, message.init)" v-if="(!message.init) && (respons)">削除</span>
                 </td>
             </tr>
         </table>
@@ -78,8 +79,12 @@ export default {
             this.getMessages();
             
         },
-        del(id) {
-            if((confirm('Do you want to delete?'))){
+        del(id, n) {
+            var con = 'このメッセージを削除しますか';
+            if(n == 1)            
+                con = 'スレッド下のメッセージもすべて削除されます\n削除しますか？';
+            
+            if(confirm(con)){
             
                 let url = '/calendar/ajax/chat?id=' + id;
                 axios.delete(url).then(res => {

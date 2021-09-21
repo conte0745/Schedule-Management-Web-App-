@@ -1883,6 +1883,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1919,10 +1920,13 @@ __webpack_require__.r(__webpack_exports__);
       this.uri = '';
       this.getMessages();
     },
-    del: function del(id) {
+    del: function del(id, n) {
       var _this2 = this;
 
-      if (confirm('Do you want to delete?')) {
+      var con = 'このメッセージを削除しますか';
+      if (n == 1) con = 'スレッド下のメッセージもすべて削除されます\n削除しますか？';
+
+      if (confirm(con)) {
         var url = '/calendar/ajax/chat?id=' + id;
         axios["delete"](url).then(function (res) {
           _this2.getMessages();
@@ -44709,25 +44713,12 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "time text-muted" }, [
-                  _vm._v(_vm._s(message.updated_at))
+                  _vm._v(_vm._s(message.created_at))
                 ]),
                 _vm._v(" "),
                 _c("p", { staticClass: "body" }, [
                   _vm._v(_vm._s(message.body))
                 ]),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    staticClass: "delete btn btn-secondary btn-sm",
-                    on: {
-                      click: function($event) {
-                        return _vm.del(message.id)
-                      }
-                    }
-                  },
-                  [_vm._v("del")]
-                ),
                 _vm._v(" "),
                 _vm.respons
                   ? _c(
@@ -44740,9 +44731,12 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("back")]
+                      [_vm._v("戻る")]
                     )
-                  : _c(
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.respons
+                  ? _c(
                       "span",
                       {
                         staticClass: "reply btn btn-secondary btn-sm",
@@ -44752,8 +44746,39 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("reply")]
+                      [_vm._v("返信")]
                     )
+                  : _vm._e(),
+                _vm._v(" "),
+                message.init && !_vm.respons
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "delete btn btn-secondary btn-sm",
+                        on: {
+                          click: function($event) {
+                            return _vm.del(message.id, message.init)
+                          }
+                        }
+                      },
+                      [_vm._v("削除")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                !message.init && _vm.respons
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "delete btn btn-secondary btn-sm",
+                        on: {
+                          click: function($event) {
+                            return _vm.del(message.id, message.init)
+                          }
+                        }
+                      },
+                      [_vm._v("削除")]
+                    )
+                  : _vm._e()
               ])
             ])
           }),

@@ -7,8 +7,9 @@
 
 @section('contains')
 
-<div class="calendar">
-    <div class="nav nav-pills under">
+<div class="row container">
+<div class="calendar card col-xl-8">
+    <div class="nav nav-pills under card-header">
         <div class="title">{{ $title }}</div>
         <ul class="nav nav-pills">
             <li class="nav-item dropdown">
@@ -30,7 +31,7 @@
         </ul>
     </div>
     
-    <table class="table">
+    <table class="table card-body">
         <thead>
             @foreach(['日','月','火','水','木','金','土'] as $day)
                 @if($day=='日')
@@ -113,7 +114,17 @@
         </tbody>
     </table>
 </div>
-
+<div class="card col-xl-4">
+    <div class="card-header">work</div>
+    <div class="card-body">
+        <span class="card-title"></span>
+        <div class="card-text">
+            <span>今月の勤務時間</span>
+        </div>
+    </div>
+</div>
+    
+</div>
     
 
 @endsection

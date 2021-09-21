@@ -44,17 +44,16 @@ table td {
 }
 
 
-/*@media screen and (min-width: 481px) {*/
-	table {
-		table-layout: fixed;
-		width: 100%;
-	}
-/*}*/
+table {
+	table-layout: fixed;
+	width: 100%;
+}
+
 
 
 .name {
 	display: inline-block;
-	font-size: 1.0rem;
+	font-size: 0.9rem;
 	font-weight: bold;
 
 }
