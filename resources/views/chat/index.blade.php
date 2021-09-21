@@ -6,6 +6,8 @@
 
 @section('contains')
 
-<chat-component></chat-component>
+<div class="chat1">
+    <chat-component></chat-component>
+</div>
 
 @endsection

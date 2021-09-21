@@ -5,10 +5,10 @@
 
 @section('contains') 
 <div class="input">
-    <div class="card text-center">
+    <div class="card text-center main mx-auto">
         <h1 class="card-footer">勤務時間の登録</h1>
             <div class="card-body">
-                <form action="{{ route('calendar')}}" method="POST">
+                <form action="{{ route('calendar')}}" method="POST" >
                 @csrf
                 @can('isAdmin')
                 <div class="list-group flexible">
@@ -71,12 +71,13 @@
                     </select>
                 </div>
             </div>
+            <input name="url" type="hidden" value={{ $url }}>
             <input id="save" type="submit" value="保存" class="list-group-item list-group-item-action list-group-item-primary save">
             </form>
+            <a class="list-group-item list-group-item-action list-group-item-success" href="{{ $url }}">カレンダーに戻る</a>
         </div>
-        <div class="card-footer text-muted">
-            <a href="{{ $url }}" class="card-link">カレンダーに戻る</a>
-        </div>
+        
+        
     </div>
 </div>
 @endsection

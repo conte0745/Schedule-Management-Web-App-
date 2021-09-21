@@ -5,7 +5,7 @@
 
 @section('contains') 
 <div class="input">
-    <div class="card text-center">
+    <div class="card text-center main mx-auto">
         <h1 class="card-header">勤務時間の修正</h1>
             <div class="card-body">
                 <div class="list-group flexible">
@@ -53,19 +53,19 @@
                     </div>
                 </form>
             </div>
-            <form action="{{ route('calendar.del', [ 'calendar_id' =>$calendar['calendar_id']]) }}" method="post" name="form{{ $calendar['calendar_id'] }}" id="delete">
+            <form action="{{ route('calendar.del', ['calendar_id' =>$calendar['calendar_id'], 'url' => $_SERVER["REQUEST_URI"]]) }}" method="post" name="form{{ $calendar['calendar_id'] }}" id="delete">
                 @csrf
                 @method('delete')
             </form>
+            
             <div class="list-group list-group-horizontal custom">
+                <input name="url" value="{{ $url }}" type="hidden" form="regist">
+                <input name="url" value="{{ $url }}" type="hidden" form="delete">
                 <input id="save" type="submit" value="保存" class="list-group-item list-group-item-action list-group-item-primary save" form="regist">
                 <input id="delete" type="submit" value="削除" class="list-group-item list-group-item-action list-group-item-danger delete" 
-                    from="delete" onclick="return confirm('削除しますか?')">
+                    form="delete" onclick="return confirm('削除しますか?')">
             </div>
-                
-        </div>
-        <div class="card-footer text-muted">
-            <a href="{{ $url }}" class="card-link">カレンダーに戻る</a>
+            <a class="list-group-item list-group-item-action list-group-item-success" href="{{ $url }}">カレンダーに戻る</a>
         </div>
     </div>
     

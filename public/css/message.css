@@ -1,7 +1,6 @@
 .table {
 	background-color: white;
 	table-layout: fixed;
-	width: 100%;
 }
 .scroll {
 	overflow-y: scroll;
@@ -11,10 +10,6 @@
     text-align: left;
     font-size: large;
 }
-.body {
-    
-}
-
 .time {
     text-align: right;
     font-size: small;
@@ -25,7 +20,27 @@
 
 .input-text {
 	background-color: white;
+	margin-right: 1%;
+	margin-left: 1%;
 }
-.max-width {
-	width: 100%;
+
+.textarea {
+	font-size: 1rem;
+	resize: none;
+	width: 90%;
+}
+.text-btn {
+	width: 10%
+}
+.card {
+	margin-right: 1%;
+	margin-left: 1%;
+}
+
+.btn {
+	color: white;
+}
+
+.btn-sm {
+	padding: 0.00001rem 0.01rem;
 }

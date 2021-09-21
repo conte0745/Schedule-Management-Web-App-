@@ -26,8 +26,9 @@
 	background-color: white;
 }
 
-.calendar_title {
-	margin: 10px;
+.title {
+	font-size: 2.5rem;
+	font-weight: bold;
 }
 
 .JobTime {
@@ -36,19 +37,32 @@
 }
 
 table th {
-	
 	overflow: visible;
 }
 table td {
 	text-align: center;
 }
 
-table {
-	table-layout: fixed;
-	width: 100%;
+
+/*@media screen and (min-width: 481px) {*/
+	table {
+		table-layout: fixed;
+		width: 100%;
+	}
+/*}*/
+
+
+.name {
+	display: inline-block;
+	font-size: 1.0rem;
+	font-weight: bold;
+
 }
-.right {
-	margin: 0 0 0 auto;
+.time {
+	display: inline-block;
+	font-size: 0.8rem;
+	
+	
 }
 
 .under {
@@ -59,3 +73,9 @@ table {
 	display: flex;
 }
 
+.del {
+	margin-right: 5px;
+}
+.btn {
+	padding: 0.01rem 0.01rem;
+}

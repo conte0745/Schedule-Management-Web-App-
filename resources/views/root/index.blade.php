@@ -9,7 +9,7 @@
 @endsection
 
 @section('contains')
-<div class="card">
+<div class="card main mx-auto">
     <div class="card-header"><span class="h1">管理者メニュー</span></div>
     <div class="card-body">
         <div class="card-title h2">店舗情報</div>
@@ -47,7 +47,7 @@
                 </table>
             </div>
             <a class="list-group-item list-group-item-action list-group-item-primary" href="{{ route('calendar.root.edit') }}">編集</a>
-            <a class="list-group-item list-group-item-action list-group-item-success" href="{{ route('calendar.mypage') }}">マイページへ戻る</a>
+            <a class="list-group-item list-group-item-action list-group-item-success" href="{{ route('calendar') }}">戻る</a>
             
         </div>
     </div>

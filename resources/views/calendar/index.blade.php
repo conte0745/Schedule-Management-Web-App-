@@ -7,8 +7,9 @@
 
 @section('contains')
 
+<div class="calendar">
     <div class="nav nav-pills under">
-        <div class="calendar_title"><h1>{{ $title }}</h1></div>
+        <div class="title">{{ $title }}</div>
         <ul class="nav nav-pills">
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" role="button" id="month" href="">月の移動</a>
@@ -29,66 +30,70 @@
         </ul>
     </div>
     
-       
-    <div class="calendar_show">
-        <table class="table">
-            <thead>
-                @foreach(['日','月','火','水','木','金','土'] as $day)
-                    @if($day=='日')
-                        <th class="sun">{{ $day }}</th>
-                    @elseif($day=='土')
-                        <th class="sat">{{ $day }}</th>
-                    @else
-                        <th class="every">{{ $day }}</th>
-                    @endif
-                @endforeach
-            </thead>
-            <tbody>
-                @foreach($weeks as $week)
-                    <tr>
-                        @foreach($week as $day)
+    <table class="table">
+        <thead>
+            @foreach(['日','月','火','水','木','金','土'] as $day)
+                @if($day=='日')
+                    <th class="sun">{{ $day }}</th>
+                @elseif($day=='土')
+                    <th class="sat">{{ $day }}</th>
+                @else
+                    <th class="every">{{ $day }}</th>
+                @endif
+            @endforeach
+        </thead>
+        <tbody>
+            @foreach($weeks as $week)
+                <tr>
+                    @foreach($week as $day)
+                        <!--曜日のクラス処理-->
+                        @if($loop->index%7==0)
                             @if(mb_substr($title,5,1) != substr($day,6,1))
-                                <div class="blank">
+                                <td class="sun blank">
+                            @else
+                                <td class="sun">
                             @endif
-                            <div class="url">
-                                <!--曜日のクラス処理-->
-                                @if($loop->index%7==0)
-                                    <td class="sun">
-                                @elseif($loop->index%7==6)
-                                    <td class="sat">
-                                @else
-                                    <td class="weekday">
-                                @endif
+                        @elseif($loop->index%7==6)
+                            @if(mb_substr($title,5,1) != substr($day,6,1))
+                                <td class="sat blank">
+                            @else
+                                <td class="sat">
+                            @endif
+                        @else
+                            @if(mb_substr($title,5,1) != substr($day,6,1))
+                                <td class="weekday blank">
+                            @else
+                                <td class="weekday">
+                            @endif
+                        @endif
+                        @if($holiday->isHoliday($day))
+                            <span class="holiday">
+                        @endif
+                        <!--日付の入力-->
+                        @if(substr($day,8,1) != 0)
+                            {{ substr($day,8,2) }}
+                        @else
+                            {{ substr($day,9,1) }}
+                        @endif
+                            
+                        @if($holiday->isHoliday($day))
+                            </span>
+                        @endif
                                 
-                                @if($holiday->isHoliday($day))
-                                    <span class="holiday">
-                                @endif
-                                <!--日付の入力-->
-                                @if(substr($day,8,1) != 0)
-                                    {{ substr($day,8,2) }}
-                                @else
-                                    {{ substr($day,9,1) }}
-                                @endif
-                                
-                                @if($holiday->isHoliday($day))
-                                    </span>
-                                @endif
-                                
-                                <div class="create">
-                                    <a href="{{ route('calendar.create', ['date' => substr($day,0,10),'url'=> $_SERVER["REQUEST_URI"]]) }}">+</a>
-                                </div>
-                            </div>
+                        <div class="create">
+                            <a href="{{ route('calendar.create', ['date' => substr($day,0,10),'url'=> $_SERVER["REQUEST_URI"]]) }}">+</a>
+                        </div>
+                            
             
-                            <div class="workTimeZone" style="background-color:{{ $color['color'] }}">
-                                @for($i=0;$i<count($query);$i++)
-                                    @if($query[$i]['date'] == substr($day,0,10))
-                                        <div class="workTime">
-                                            <a href="{{ route('calendar.edit2',['calendar_id' => $query[$i]['calendar_id'],'url'=> $_SERVER["REQUEST_URI"]]) }}">
-                                                {{ substr($query[$i]['start_time'],0,5) }} ~ {{ substr($query[$i]['finish_time'],0,5) }}
-                                            @if($query[$i]['parent_id'] != null) (連)
-                                            @endif
-                                            </a>
-                                        </div>
+                        <div class="workTimeZone" style="background-color:{{ $color['color'] }}">
+                        @for($i=0;$i<count($query);$i++)
+                            @if($query[$i]['date'] == substr($day,0,10))
+                                <div class="workTime">
+                                <a href="{{ route('calendar.edit2',['calendar_id' => $query[$i]['calendar_id'],'url'=> $_SERVER["REQUEST_URI"]]) }}">
+                                {{ substr($query[$i]['start_time'],0,5) }} ~ {{ substr($query[$i]['finish_time'],0,5) }}
+                                    @if($query[$i]['parent_id'] != null) (連) @endif
+                                </a>
+                                </div>
                                         <!--<div class="delete">-->
                                         <!--    <form action="{{ route('calendar.del', [ 'calendar_id' =>$query[$i]['calendar_id']]) }}" method="post" name="form{{ $query[$i]['calendar_id'] }}">-->
                                         <!--        @csrf-->
@@ -98,18 +103,13 @@
                                                 
                                         <!--    </form>-->
                                         <!--</div>-->
-                                    @endif
-                                @endfor
-                            </div>        
-                            </td>
-                                
-                            @if(mb_substr($title,5,1) != substr($day,6,1))
-                                </div>
                             @endif
-                            
-                        @endforeach
-                    </tr>
-                @endforeach
+                        @endfor
+                        </div>        
+                        </td>
+                    @endforeach
+                </tr>
+        @endforeach
         </tbody>
     </table>
 </div>

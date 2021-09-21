@@ -169,7 +169,7 @@ class CalendarController extends Controller
             
         }    
         
-        return redirect('/calendar');
+        return redirect($request['url']);
         
     }
     
@@ -235,17 +235,18 @@ class CalendarController extends Controller
             $calendar->parent_id = $id2;
             $calendar->save();
         }
-
-        return redirect('/calendar');
+        
+        return redirect($request['url']);
         
     }
    
     
     
-    public function del($calendar_id)
+    public function del(Request $request)
     {
-        $calendar = Calendar::find($calendar_id)->delete();
-        return redirect()->route('calendar');
+        $param = $request->all();
+        $calendar = Calendar::find($param['calendar_id'])->delete();
+        return redirect($param['url']);
     }
 }
 

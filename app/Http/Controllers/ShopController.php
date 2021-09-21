@@ -28,6 +28,13 @@ class ShopController extends Controller
         $shop->where('shop',$req['shop'])->first();
         $user->group_id = $shop->id;
         $user->save();
+        $noneMan = new User;
+        $noneMan->name = "不在";
+        $noneMan->group_id = $shop->id;
+        $noneMan->email = "qwertyuiop@asdfghjkl" . $user->email;
+        $noneMan->password = "laravel12345" . $user->email;
+        $noneMan->save();
+        
         return redirect('/calendar');
     }
     

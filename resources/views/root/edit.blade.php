@@ -9,7 +9,7 @@
 @endsection
 
 @section('contains')
-<div class="card">
+<div class="card main mx-auto">
     <div class="card-header"><h1>管理者メニュー</h1></div>
     <div class="card-body">
     <div class="card-title"><h2>お店の編集</h2></div>

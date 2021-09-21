@@ -6,13 +6,13 @@
 @endsection
 
 @section('contains')
-<div class="card">
+<div class="card main mx-auto">
     <div class="card-header"><span class="h1">{{ __('Mypage') }}</span>
-        @can('isAdmin')
-            <span class="link">
-                <a href="{{ route('calendar.root') }}">管理者のページへ</a>
-            </span>
-        @endcan
+        <!--@can('isAdmin')-->
+        <!--    <span class="link">-->
+        <!--        <a href="{{ route('calendar.root') }}">　管理者のページへ</a>-->
+        <!--    </span>-->
+        <!--@endcan-->
     </div>
     <div class="card-body">
     <div class="card-title"><p class="h2">登録情報</p></div>

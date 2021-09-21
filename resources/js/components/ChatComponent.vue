@@ -1,29 +1,31 @@
 <template>
 
-<div id="message" class="card">    
-    <span class="h1 card-header">チャット</span>
+<div id="message" class="card main mb-5">    
+    <div class="card-header">
+        <span class="h1">チャット</span>
+        <span class="text-muted" v-if="respons">thread</span>
+        <span class="text-muted" v-else="respons">main-board</span>
+    </div>
     
-    <div class="card-text mian mb-3">
+    <div class="card-text">
         <table class="table table-sm scroll">
             <tr v-for="message in messages">
                 <td>
                     <span class="name">{{ message.personal_id }}</span>
                     <span class="time text-muted">{{ message.updated_at }}</span>
                     <p class="body">{{ message.body }}</p>
-                    <span class="delete text-muted" @click="del(message.id)">del</span>
-                    <span class="back text-muted" @click="back()" v-if="respons">back</span>
-                    <span class="reply text-muted" @click="reply(message.id)" v-else="respons">reply</span>
+                    <span class="delete btn btn-secondary btn-sm" @click="del(message.id)">del</span>
+                    <span class="back btn btn-secondary btn-sm" @click="back()" v-if="respons">back</span>
+                    <span class="reply btn btn-secondary btn-sm" @click="reply(message.id)" v-else="respons">reply</span>
                 </td>
             </tr>
         </table>
     </div>
     
-    <div class="border"><br></div>
-    
     <div class="input-text fixed-bottom">
-        <div class="flexible max-width">
-            <textarea rows="2" cols=50% v-model="message" placeholder="入力してください"></textarea><br>
-            <button type="button" @click="send()">送信</button>
+        <div class="flexible w-100">
+            <textarea class="textarea" rows="2" cols=100% v-model="message" placeholder="入力してください"></textarea><br>
+            <button type="button" @click="send()" class="text-btn">送信</button>
         </div>
         <span v-model="message" id="buttom">文字数:{{ message.length }}</span>
         <span class="prev" @click="prev()" v-show="!isNull(prevPage)">前のページへ</span>

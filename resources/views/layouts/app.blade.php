@@ -25,12 +25,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/public.css') }}" rel="stylesheet">
     @yield('call_css')
 </head>
 <body style="background-color:#fffafa">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/top') }}">
                     しふとん
                 </a>
@@ -42,7 +43,7 @@
                     <!--<ul class="navbar-nav mr-auto">-->
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -77,6 +78,16 @@
                         @endif
                             <a class="nav-link" href="{{ route('calendar.mypage') }}">マイページ</a>
                         </li>
+                        
+                        @can('isAdmin')
+                        
+                        @if ($_SERVER['REQUEST_URI'] == '/calendar/root')
+                            <li class="nav-item active">
+                        @else
+                            <li class="nav-item">
+                        @endif
+                            <a class="nav-link" href="{{ route('calendar.root') }}">管理者のページへ</a>
+                        @endcan
                             
                     </ul>
                     <ul class="navbar-nav ml-auto">

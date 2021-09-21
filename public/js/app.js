@@ -1881,6 +1881,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -44683,178 +44685,183 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card", attrs: { id: "message" } }, [
-    _c("span", { staticClass: "h1 card-header" }, [_vm._v("チャット")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-text mian mb-3" }, [
-      _c(
-        "table",
-        { staticClass: "table table-sm scroll" },
-        _vm._l(_vm.messages, function(message) {
-          return _c("tr", [
-            _c("td", [
-              _c("span", { staticClass: "name" }, [
-                _vm._v(_vm._s(message.personal_id))
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "time text-muted" }, [
-                _vm._v(_vm._s(message.updated_at))
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "body" }, [_vm._v(_vm._s(message.body))]),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  staticClass: "delete text-muted",
-                  on: {
-                    click: function($event) {
-                      return _vm.del(message.id)
-                    }
-                  }
-                },
-                [_vm._v("del")]
-              ),
-              _vm._v(" "),
-              _vm.respons
-                ? _c(
-                    "span",
-                    {
-                      staticClass: "back text-muted",
-                      on: {
-                        click: function($event) {
-                          return _vm.back()
-                        }
-                      }
-                    },
-                    [_vm._v("back")]
-                  )
-                : _c(
-                    "span",
-                    {
-                      staticClass: "reply text-muted",
-                      on: {
-                        click: function($event) {
-                          return _vm.reply(message.id)
-                        }
-                      }
-                    },
-                    [_vm._v("reply")]
-                  )
-            ])
-          ])
-        }),
-        0
-      )
-    ]),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "input-text fixed-bottom" }, [
-      _c("div", { staticClass: "flexible max-width" }, [
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.message,
-              expression: "message"
-            }
-          ],
-          attrs: { rows: "2", cols: "50%", placeholder: "入力してください" },
-          domProps: { value: _vm.message },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.message = $event.target.value
-            }
-          }
-        }),
-        _c("br"),
+  return _c(
+    "div",
+    { staticClass: "card main mb-5", attrs: { id: "message" } },
+    [
+      _c("div", { staticClass: "card-header" }, [
+        _c("span", { staticClass: "h1" }, [_vm._v("チャット")]),
         _vm._v(" "),
+        _vm.respons
+          ? _c("span", { staticClass: "text-muted" }, [_vm._v("thread")])
+          : _c("span", { staticClass: "text-muted" }, [_vm._v("main-board")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-text" }, [
         _c(
-          "button",
-          {
-            attrs: { type: "button" },
-            on: {
-              click: function($event) {
-                return _vm.send()
-              }
-            }
-          },
-          [_vm._v("送信")]
+          "table",
+          { staticClass: "table table-sm scroll" },
+          _vm._l(_vm.messages, function(message) {
+            return _c("tr", [
+              _c("td", [
+                _c("span", { staticClass: "name" }, [
+                  _vm._v(_vm._s(message.personal_id))
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "time text-muted" }, [
+                  _vm._v(_vm._s(message.updated_at))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "body" }, [
+                  _vm._v(_vm._s(message.body))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "delete btn btn-secondary btn-sm",
+                    on: {
+                      click: function($event) {
+                        return _vm.del(message.id)
+                      }
+                    }
+                  },
+                  [_vm._v("del")]
+                ),
+                _vm._v(" "),
+                _vm.respons
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "back btn btn-secondary btn-sm",
+                        on: {
+                          click: function($event) {
+                            return _vm.back()
+                          }
+                        }
+                      },
+                      [_vm._v("back")]
+                    )
+                  : _c(
+                      "span",
+                      {
+                        staticClass: "reply btn btn-secondary btn-sm",
+                        on: {
+                          click: function($event) {
+                            return _vm.reply(message.id)
+                          }
+                        }
+                      },
+                      [_vm._v("reply")]
+                    )
+              ])
+            ])
+          }),
+          0
         )
       ]),
       _vm._v(" "),
-      _c(
-        "span",
-        {
-          attrs: { id: "buttom" },
-          model: {
-            value: _vm.message,
-            callback: function($$v) {
-              _vm.message = $$v
+      _c("div", { staticClass: "input-text fixed-bottom" }, [
+        _c("div", { staticClass: "flexible w-100" }, [
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.message,
+                expression: "message"
+              }
+            ],
+            staticClass: "textarea",
+            attrs: { rows: "2", cols: "100%", placeholder: "入力してください" },
+            domProps: { value: _vm.message },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.message = $event.target.value
+              }
+            }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "text-btn",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.send()
+                }
+              }
             },
-            expression: "message"
-          }
-        },
-        [_vm._v("文字数:" + _vm._s(_vm.message.length))]
-      ),
-      _vm._v(" "),
-      _c(
-        "span",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: !_vm.isNull(_vm.prevPage),
-              expression: "!isNull(prevPage)"
+            [_vm._v("送信")]
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            attrs: { id: "buttom" },
+            model: {
+              value: _vm.message,
+              callback: function($$v) {
+                _vm.message = $$v
+              },
+              expression: "message"
             }
-          ],
-          staticClass: "prev",
-          on: {
-            click: function($event) {
-              return _vm.prev()
+          },
+          [_vm._v("文字数:" + _vm._s(_vm.message.length))]
+        ),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.isNull(_vm.prevPage),
+                expression: "!isNull(prevPage)"
+              }
+            ],
+            staticClass: "prev",
+            on: {
+              click: function($event) {
+                return _vm.prev()
+              }
             }
-          }
-        },
-        [_vm._v("前のページへ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "span",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: !_vm.isNull(_vm.nextPage),
-              expression: "!isNull(nextPage)"
+          },
+          [_vm._v("前のページへ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.isNull(_vm.nextPage),
+                expression: "!isNull(nextPage)"
+              }
+            ],
+            staticClass: "next",
+            on: {
+              click: function($event) {
+                return _vm.next()
+              }
             }
-          ],
-          staticClass: "next",
-          on: {
-            click: function($event) {
-              return _vm.next()
-            }
-          }
-        },
-        [_vm._v("次のページへ")]
-      )
-    ])
-  ])
+          },
+          [_vm._v("次のページへ")]
+        )
+      ])
+    ]
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "border" }, [_c("br")])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

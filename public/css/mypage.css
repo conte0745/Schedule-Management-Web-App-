@@ -4,4 +4,11 @@
 
 .under {
 	align-items: flex-end;
+	margin:0 auto;
+}
+
+.main {
+	max-width: 540px;
+	
+	
 }

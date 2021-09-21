@@ -1,5 +1,19 @@
+html {
+  font-size: 75%;
+}
+@media screen and (min-width: 768px) {
+  html {
+    font-size: 87.5%;
+  }
+}
+@media screen and (min-width: 1024px) {
+  html {
+    font-size: 100%;
+  }
+}
+
 .blank {
-	background-color: #C0C0C0;
+	background-color: #C0C0C1;
 }
 
 .sun {
@@ -11,27 +25,41 @@
 .sat {
 	color: blue;
 }
+
+.title {
+	font-size: 2.5rem;
+	font-weight: bold;
+}
+
+.calendar {
+	max-width: 1280px;
+	max-height: 1080px;
+	margin: 0 auto;
+	font-size: 1rem;
+}
+
+@media screen and (max-width: 1280px) {
+　
+}
+
 .table {
-	width: 100%;
+	width: 99%;
 	height: 100%;
+	margin: auto;
 }
 .table td {	
 	padding: 3px;
 	background-color: white;
 	width: 14.28571%;
 	height: 10vh;
+	max-height: 100px;
+	
 }
-.table th {	
-	background-color: white;
-	width: 14.28571%;
-	height: 10vh;
-}
+
 .table td a{	
 	color: black;
 }
-.table td:before {
-	display: block;
-}
+
 .table td .day {
 	margin-bottom: 0;
 }
@@ -45,18 +73,8 @@
 	background-color: white;
 }
 
-
-.calendar_show {
-	margin: 10px;
-	height: 100%;
-}
-
-.calendar_title {
-	margin: 10px;
-}
-
 .workTimeZone {
-	text-align: center;
+	font-size: 1.0rem;
 	color: black;
 	overflow:hidden;
 }
@@ -73,16 +91,9 @@
 	float: right;
 }
 
-.url{
-	overflow:hidden;
-}
-
-.delete{
-	text-align: right;
-}
-
 .under {
 	align-items: flex-end;
+	margin:0 auto;
 }
 
 .flexible {
