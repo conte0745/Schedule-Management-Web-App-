@@ -7,10 +7,10 @@
 
 @section('contains')
 
-<div class="row container">
-<div class="calendar card col-xl-8">
+<div class="row container-fluid">
+<div class="calendar card col-xl-8 left">
     <div class="nav nav-pills under card-header">
-        <div class="title">{{ $title }}</div>
+        <span class="title">{{ $title }}</span>
         <ul class="nav nav-pills">
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="False" role="button" id="month" href="">月の移動</a>
@@ -29,9 +29,8 @@
                 </div>
             </li>
         </ul>
-    </div>
-    
-    <table class="table card-body">
+        </div>
+    <table class="card-table table">
         <thead>
             @foreach(['日','月','火','水','木','金','土'] as $day)
                 @if($day=='日')
@@ -114,12 +113,43 @@
         </tbody>
     </table>
 </div>
-<div class="card col-xl-4">
+<div class="card col-xl-4 right">
     <div class="card-header">work</div>
     <div class="card-body">
-        <span class="card-title"></span>
+        <span class="card-title">勤務一覧</span>
         <div class="card-text">
-            <span>今月の勤務時間</span>
+            <ul>
+                <li>勤務時間
+                    <ul>
+                    @php $cnt = 0; $cnt2 = 0 @endphp
+                    @foreach($weeks as $week)
+                        @foreach($week as $day)
+                            @for($i=0;$i<count($query);$i++)
+                                @if(mb_substr($title,5,1) == substr($day,6,1))
+                                    @if($query[$i]['date'] == substr($day,0,10))
+                                    <li>
+                                        <span>{{ substr($day,0,10) }}</span>
+                                        <span class="white">＿</span>
+                                        <span>{{ substr($query[$i]['start_time'],0,5) }}</span>
+                                        <span>~~</span>
+                                        <span>{{ substr($query[$i]['finish_time'],0,5) }}</span>
+                                        @php $cnt += (strtotime(substr($query[$i]['finish_time'],0,5)) - strtotime(substr($query[$i]['start_time'],0,5))); $cnt2 += 1; @endphp
+                                        @if($query[$i]['parent_id'] != null) (連) @endif
+                                    </li> 
+                                    @endif
+                                @endif
+                            @endfor
+                        @endforeach
+                    @endforeach
+                    </ul>
+                </li>
+                <li>{{ mb_substr($title,5,1) }}月の出勤日数
+                    <ul><li>{{ $cnt2 }}</li></ul>
+                </li>
+                <li>{{ mb_substr($title,5,1) }}月の勤務時間
+                    <ul><li>{{ floor($cnt/3600) }}時間{{ ($cnt/60%60) }}分</li></ul>
+                </li> 
+            </ul>
         </div>
     </div>
 </div>

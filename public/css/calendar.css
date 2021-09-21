@@ -8,7 +8,17 @@ html {
 }
 @media screen and (min-width: 1024px) {
   html {
+    font-size: 120%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  html {
     font-size: 100%;
+  }
+}
+@media screen and (min-width: 2000px) {
+  html {
+    font-size: 150%;
   }
 }
 
@@ -41,6 +51,12 @@ html {
 .row {
 	margin-left: 5px;
 	margin-right: 5px;
+	width: 100%;
+}
+
+.right .left{
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 @media screen and (max-width: 1280px) {
@@ -105,4 +121,8 @@ html {
 
 .card {
 	margin-left: auto;
+}
+
+.white {
+	color: white;
 }
