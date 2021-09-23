@@ -49,6 +49,7 @@ class ChatController extends Controller
         $chat->save(); 
         $chat->parent_id = $chat->id;
         $chat->save();
+        event(new MessageCreated($chat));
        
        return $chat;
     }

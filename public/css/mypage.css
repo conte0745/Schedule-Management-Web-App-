@@ -1,14 +1,19 @@
+@media screen and (min-width: 800px) {
+  html {
+    font-size: 115%;
+  }
+}
+
 .flexible {
 	display: flex;
 }
 
 .under {
-	align-items: flex-end;
+	align-items:
+	flex-end;
 	margin:0 auto;
 }
 
 .main {
 	max-width: 540px;
-	
-	
 }
