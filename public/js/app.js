@@ -1985,9 +1985,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(this.prevPage, param).then(function (res) {
         _this5.messages = res.data.data;
 
-        _this5.pageNate(res.data.next_page_url, res.data.prev_page_url);
+        _this5.pageNate(res.data.next_page_url, res.data.prev_page_url); //console.log(res.data);
 
-        console.log(res.data);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2004,17 +2003,15 @@ __webpack_require__.r(__webpack_exports__);
         axios.get(url).then(function (res) {
           _this6.messages = res.data.data;
 
-          _this6.pageNate(res.data.next_page_url, res.data.prev_page_url);
+          _this6.pageNate(res.data.next_page_url, res.data.prev_page_url); //console.log(res.data);
 
-          console.log(res.data);
         });
       } else {
         axios.get(this.uri).then(function (res) {
           _this6.messages = res.data.data;
 
-          _this6.pageNate(res.data.next_page_url, res.data.prev_page_url);
+          _this6.pageNate(res.data.next_page_url, res.data.prev_page_url); //console.log(res.data);              
 
-          console.log(res.data);
         })["catch"](function (error) {
           console.log("fail");
         });
@@ -2035,7 +2032,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this7 = this;
+
     this.getMessages();
+    Echo.channel('chat').listen('MessageCreated', function (e) {
+      _this7.getMessages(); // 全メッセージを再読
+
+
+      console.log("channel");
+    });
   }
 });
 

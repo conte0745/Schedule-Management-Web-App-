@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
+use App\Events\MessageCreated;
 use App\Models\Chat;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -50,8 +51,7 @@ class ChatController extends Controller
         $chat->parent_id = $chat->id;
         $chat->save();
         event(new MessageCreated($chat));
-       
-       return $chat;
+        return $chat;
     }
     
     public function replyStore(Request $request)
@@ -70,8 +70,8 @@ class ChatController extends Controller
         $chat->save();
         $chat2->child_id = $chat->id;
         $chat2->save();
-       
-        return $chat2;
+        event(new MessageCreated($chat));
+        return $chat;
     }
     
     public function del(Request $req){
@@ -86,11 +86,8 @@ class ChatController extends Controller
         $param = $request->all();
         $pageNum = 10;
        
-        
         $users = User::where('group_id',$group_id)->get()->toArray();
         $chat = Chat::where('parent_id', $param['id'])->orderBy('created_at','DESC')->paginate($pageNum);
-        
-        
         
         $name = [];
         foreach($users as $user){

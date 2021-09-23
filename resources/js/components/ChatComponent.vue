@@ -137,7 +137,7 @@ export default {
             axios.get(this.prevPage, param).then(res => {
                 this.messages = res.data.data;
                 this.pageNate(res.data.next_page_url, res.data.prev_page_url);
-                console.log(res.data);
+                //console.log(res.data);
             }).catch(function(error){
                 console.log(error);
             });
@@ -162,13 +162,13 @@ export default {
                 axios.get(url).then(res => {
                     this.messages = res.data.data;
                     this.pageNate(res.data.next_page_url, res.data.prev_page_url);
-                    console.log(res.data);
+                    //console.log(res.data);
                 });
             } else {
                 axios.get(this.uri).then(res => {
                     this.messages = res.data.data;
                     this.pageNate(res.data.next_page_url, res.data.prev_page_url);
-                    console.log(res.data);              
+                    //console.log(res.data);              
                 }).catch(function(error){
                     console.log("fail");
                 });
@@ -190,6 +190,10 @@ export default {
     
     mounted() {
         this.getMessages();
+        Echo.channel('chat').listen('MessageCreated', (e) => {
+            this.getMessages(); // 全メッセージを再読
+            console.log("channel");
+        });
     },
 };
 </script>
