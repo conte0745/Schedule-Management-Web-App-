@@ -30,8 +30,8 @@ class LineController extends Controller
             'client_id=' . config('services.line_notify.client_id') . '&' .
             'redirect_uri=' . config('services.line_notify.redirect_uri') . '&' .
             'scope=notify' . '&' .
-            'state=' . $csrf . '&' ;
-            //'response_mode=form_post';
+            'state=' . $csrf . '&' .
+            'response_mode=form_post';
         return redirect($uri);
     }
 
@@ -54,13 +54,10 @@ class LineController extends Controller
         ]);
         
         $access_token = $req->input('code');
-        dd($access_token);
         
         $user = User::find(auth::id());
         $user->line = $access_token;
         $user->save();
-        
-        dd($access_token);
         
         return redirect()->route('calendar.line');
     }

@@ -21,26 +21,21 @@ class CalendarWeek
 	    $tmp = $firstDay->copy()->startOfWeek()->subDay();
 	    $last = $lastDay->copy()->endOfWeek()->subDay();
 	    
-	    if($tmp->copy()->addDays(7)->format('j') == '1')
-	    {
+	    if($tmp->copy()->addDays(7)->format('j') == '1'){
 	    	$tmp->addDays(7);
 	    }
-
-	    while($tmp->lte($last))
-	    {
-	       
+	    if($lastDay->format('D') == 'Sun'){
+	    	$last->addDays(7);
+	    }
+	    while($tmp->lte($last)){
+	    
 	        $week[] = $tmp->copy();
-	        
-	        if(count($week) == 7)
-	        {
+	        if(count($week) == 7){
 	            $weeks[] = $week;
 	            $week = [];
 	        }
-	        
 	        $tmp->addDay(1);
-	        
 	    }
-	    
 	    $this->html = $weeks;
 	}
 	
@@ -72,13 +67,10 @@ class CalendarWeek
 		return $this->html;
 	}
 	
-	public function getUrl()
+	public function getCarbon()
 	{
 	    return $this->carbon;
 	}
 	
-	public function getMonthTitle()
-	{
-	    return $this->carbon->format('Y年n月');
-	}
+	
 }

@@ -19,51 +19,79 @@ class CalendarController extends Controller
         $this->middleware('auth');
     }
     
-    public function index(Calendar $calendar)
+    public function index(Request $request, Calendar $calendar)
     {
-        
         $personal_id = Auth::id();
-        $group_id = User::find($personal_id)->group_id;
-        
         $firstDay = Carbon::today()->copy()->firstOfMonth()->startOfWeek()->subDay()->format('Y-m-d');
         $lastDay = Carbon::today()->copy()->lastOfMonth()->endOfWeek()->subDay()->format('Y-m-d');
+        
+        $param = $request->all();
+        
+        if(count($param) == 2){
+            $start = $param['start'];
+            $end = $param['end'];
+            if($start <= $end)
+                $search = $calendar->select('date','date_fin','start_time','finish_time')->where('personal_id', $personal_id)
+                        ->whereDate('date','>=', $start)->whereDate('date','<=', $end)->get()->toArray();
+            else
+                $search = null;
+           
+        } else {
+            $search = null;
+            $start = $firstDay;
+            $end = $lastDay;
        
-        $query = $calendar->select('calendar_id','date','date_fin','start_time','finish_time','parent_id')->where('personal_id', $personal_id)->where('group_id', $group_id)->whereDate('date','>=', $firstDay)->whereDate('date','<=', $lastDay)->get();
+        }
+        
+        $query = $calendar->select('calendar_id','date','date_fin','start_time','finish_time','parent_id')->where('personal_id', $personal_id)
+                        ->whereDate('date','>=', $firstDay)->whereDate('date','<=', $lastDay)->get();
         $query = $query->toArray();
 
         $calendar = new CalendarWeek(time());
         
-        $url = $calendar->getUrl();
+        $carbon = $calendar->getCarbon();
         $weeks = $calendar->getMonthDays();
-        $title = $calendar->getMonthTitle();
         
-        $holidays = \Yasumi\Yasumi::create('Japan', $url->format('Y'), 'ja_JP');
+        $holidays = \Yasumi\Yasumi::create('Japan', $carbon->format('Y'), 'ja_JP');
         
-        return view('calendar/index')->with(['weeks' => $weeks,'title' => $title,'url' => $url,'query' => $query,'holiday' => $holidays,'color' =>User::select('color')->find(Auth::id()) ]);
+        return view('calendar/index')->with(['weeks' => $weeks, 'carbon' => $carbon,'query' => $query,'holiday' => $holidays,
+                        'search' => $search,'color' =>User::select('color')->find(Auth::id()), 'start' => $start, 'end' => $end]);
     }
     
-    public function index_move(Calendar $calendar, $month)
+    public function index_move(Request $request, Calendar $calendar, $month)
     {
         if(preg_match('/^(2[0-1][0-9]{2})-(0[1-9]{1}|1[0-2]{1})$/', $month) == 0)
             return redirect('calendar');
             
         $personal_id = Auth::id();
-        $group_id = User::find($personal_id)->group_id;
-        
         $firstDay = Carbon::parse($month)->copy()->firstOfMonth()->startOfWeek()->subDay()->format('Y-m-d');
         $lastDay = Carbon::parse($month)->copy()->lastOfMonth()->endOfWeek()->subDay()->format('Y-m-d');
         
-        $query = $calendar->select('calendar_id','date','date_fin','start_time','finish_time','parent_id')->where('personal_id',$personal_id)->where('group_id',$group_id)->whereDate('date','>=', $firstDay)->whereDate('date','<=', $lastDay)->get();
+        $param = $request->all();
+        if(count($param) == 3){
+            $start = $param['start'];
+            $end = $param['end'];
+            $search = $calendar->select('date','date_fin','start_time','finish_time')->where('personal_id', $personal_id)
+                        ->whereDate('date','>=', $start)->whereDate('date','<=', $end)->get()->toArray();
+        } else {
+            $search = null;
+            $start = $firstDay;
+            $end = $lastDay;
+        }
+        
+        
+        $query = $calendar->select('calendar_id','date','date_fin','start_time','finish_time','parent_id')->where('personal_id',$personal_id)
+                        ->whereDate('date','>=', $firstDay)->whereDate('date','<=', $lastDay)->get();
         $query = $query->toArray();
         
         $calendar = new CalendarWeek($month);
         
-        $url = $calendar->getUrl();
+        $carbon = $calendar->getCarbon();
         $weeks = $calendar->getMonthDays();
-        $title = $calendar->getMonthTitle();
-        $holidays = \Yasumi\Yasumi::create('Japan', $url->format('Y'), 'ja_JP');
+        $holidays = \Yasumi\Yasumi::create('Japan', $carbon->format('Y'), 'ja_JP');
         
-        return view('calendar/index')->with(['weeks' => $weeks,'url' => $url,'title' => $title,'query' => $query,'holiday' => $holidays,'color' => User::select('color')->find(Auth::id())] );
+        return view('calendar/index')->with(['weeks' => $weeks,'carbon' => $carbon,'query' => $query,'holiday' => $holidays,
+                             'search' => $search,'color' => User::select('color')->find(Auth::id()), 'start' => $start, 'end' => $end] );
     }
     
     
@@ -98,7 +126,7 @@ class CalendarController extends Controller
         }
         
         $title = $week->getWeekTitle();
-        $url = $week->getUrl();
+        $url = $week->getCarbon();
         $days = $week->getWeekDays();
         $holidays = \Yasumi\Yasumi::create('Japan', $url->format('Y'), 'ja_JP');
         

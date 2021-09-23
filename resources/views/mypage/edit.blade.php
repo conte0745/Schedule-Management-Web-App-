@@ -6,7 +6,7 @@
 
 
 @section('contains')
-<div class="card mian mx-auto">
+<div class="card main mx-auto">
     <div class="card-header">
         <h1>{{ __('Mypage') }}</h1>
     </div>
@@ -37,13 +37,13 @@
                 <span style="background-color:{{ $user['color'] }}">現在のカラーコード({{ $user['color']}})</span>
             </div>
             
-            <input class="list-group-item list-group-item-action list-group-item-success" id="save" type="submit" value="保存" class="btn btn-primary">
+            <input class="list-group-item list-group-item-action list-group-item-primary" id="save" type="submit" value="保存" class="btn btn-primary">
             
         </form>
         @if($user['line'] == null)
-            <a class="list-group-item list-group-item-action list-group-item-success" href="{{ route('calendar.line.register') }}">LINEと連携する(β)</a>
+            <a class="list-group-item list-group-item-action list-group-item-warning" href="{{ route('calendar.line.register') }}">LINEと連携する(β)</a>
         @else
-            <a class="list-group-item list-group-item-action list-group-item-success" href="{{ route('calendar.line.lift') }}">lineと連携を解除</a>
+            <a class="list-group-item list-group-item-action list-group-item-warning" href="{{ route('calendar.line.lift') }}">lineと連携を解除</a>
         @endif
         <a class="list-group-item list-group-item-action list-group-item-success" href="{{ route('calendar.mypage' )}}">保存せずに戻る</a>
             

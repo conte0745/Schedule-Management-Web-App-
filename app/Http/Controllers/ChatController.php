@@ -16,12 +16,7 @@ class ChatController extends Controller
     
     public function index()
     {
-        return view('chat/index');
-    }
-    
-    
-    public function show(Request $request)
-    {
-        return view('chat/show');
+        $auth = Auth::id();
+        return view('chat/index')->with(["auth" => $auth]);
     }
 }

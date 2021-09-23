@@ -1,3 +1,7 @@
+.search {
+	display: none;
+}
+
 html {
   font-size: 75%;
 }
@@ -15,6 +19,10 @@ html {
   html {
     font-size: 100%;
   }
+  .search {
+  	display: block;
+  }
+  
 }
 @media screen and (min-width: 2000px) {
   html {
@@ -42,10 +50,8 @@ html {
 }
 
 .calendar {
-	/*max-width: 1480px;*/
-	/*max-height: 1080px;*/
 	margin: 0 auto;
-	font-size: 1rem;
+	font-size: 1.1rem;
 }
 
 .row {
@@ -59,19 +65,12 @@ html {
 	padding-right: 5px;
 }
 
-@media screen and (max-width: 1280px) {
-　
-}
-
-.table {
-	width: 99%;
-	margin: auto;
-}
 .table td {	
 	padding: 3px;
 	background-color: white;
-	height: 15vh;
+	height: 10vh;
 	width: 14.28571%;
+	
 }
 
 .table td a{	
@@ -86,7 +85,7 @@ html {
 	border: solid 1px #999;
 }
 .table th {
-	height: 6vh;
+	height: 5vh;
 	text-align: center;
 	border: solid 1px #999;
 	background-color: white;
@@ -125,4 +124,17 @@ html {
 
 .white {
 	color: white;
+}
+
+.ul {
+	padding-left: 3px;
+}
+
+.text-sm {
+	font-size: smaller;
+	padding-left: 10px;
+}
+
+.padding {
+	padding: 5px;
 }

@@ -1883,7 +1883,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1896,11 +1895,15 @@ __webpack_require__.r(__webpack_exports__);
       messages: []
     };
   },
+  props: {
+    auth: {
+      type: String
+    }
+  },
   methods: {
     reply: function reply(id) {
       var _this = this;
 
-      console.log("read reply");
       var url = '/calendar/ajax/show/chat?id=' + id;
       this.uri = url;
       this.init = id;
@@ -1908,9 +1911,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.messages = res.data.data;
         _this.respons = true;
 
-        _this.pageNate(res.data.next_page_url, res.data.prev_page_url);
+        _this.pageNate(res.data.next_page_url, res.data.prev_page_url); // console.log(res.data);            
 
-        console.log(res.data);
       })["catch"](function (error) {
         console.log("fail");
       });
@@ -1964,11 +1966,12 @@ __webpack_require__.r(__webpack_exports__);
         id: this.init
       };
       axios.get(this.nextPage, param).then(function (res) {
-        _this4.messages = res.data.data;
+        for (var i = 0; i < res.data.data.length; i++) {
+          _this4.messages.push(res.data.data[i]);
+        }
 
-        _this4.pageNate(res.data.next_page_url, res.data.prev_page_url);
+        _this4.pageNate(res.data.next_page_url, res.data.prev_page_url); // console.log(res.data);
 
-        console.log(res.data);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -2023,6 +2026,12 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return false;
       }
+    },
+    top: function top() {
+      window.scroll({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
   },
   mounted: function mounted() {
@@ -44709,7 +44718,7 @@ var render = function() {
             return _c("tr", [
               _c("td", [
                 _c("span", { staticClass: "name" }, [
-                  _vm._v(_vm._s(message.personal_id))
+                  _vm._v(_vm._s(message.name))
                 ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "time text-muted" }, [
@@ -44750,7 +44759,7 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                message.init && !_vm.respons
+                message.init && !_vm.respons && _vm.auth == message.personal_id
                   ? _c(
                       "span",
                       {
@@ -44765,7 +44774,7 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                !message.init && _vm.respons
+                !message.init && _vm.respons && _vm.auth == message.personal_id
                   ? _c(
                       "span",
                       {
@@ -44844,22 +44853,14 @@ var render = function() {
         _c(
           "span",
           {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.isNull(_vm.prevPage),
-                expression: "!isNull(prevPage)"
-              }
-            ],
-            staticClass: "prev",
+            staticClass: "toTop text-muted btn btn-sm",
             on: {
               click: function($event) {
-                return _vm.prev()
+                return _vm.top()
               }
             }
           },
-          [_vm._v("前のページへ")]
+          [_vm._v("一番上へ")]
         ),
         _vm._v(" "),
         _c(
@@ -44873,14 +44874,35 @@ var render = function() {
                 expression: "!isNull(nextPage)"
               }
             ],
-            staticClass: "next",
+            staticClass: "next text-muted btn btn-sm",
             on: {
               click: function($event) {
                 return _vm.next()
               }
             }
           },
-          [_vm._v("次のページへ")]
+          [_vm._v("もっと読み込む")]
+        ),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.isNull(_vm.prevPage) && 0,
+                expression: "!isNull(prevPage) && 0"
+              }
+            ],
+            staticClass: "prev",
+            on: {
+              click: function($event) {
+                return _vm.prev()
+              }
+            }
+          },
+          [_vm._v("前のページへ")]
         )
       ])
     ]

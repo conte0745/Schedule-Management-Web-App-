@@ -30,7 +30,7 @@ class ChatController extends Controller
         $count = min(count($chat),$pageNum);
         
         for($i=0; $i<$count; $i++){
-            $chat[$i]['personal_id'] = $name[$chat[$i]['personal_id']];
+            $chat[$i]['name'] = $name[$chat[$i]['personal_id']];
         }
         
         return $chat;
@@ -99,7 +99,7 @@ class ChatController extends Controller
         $count = min(count($chat),$pageNum);
         
         for($i=0; $i<$count; $i++){
-            $chat[$i]['personal_id'] = $name[$chat[$i]['personal_id']];
+            $chat[$i]['name'] = $name[$chat[$i]['personal_id']];
         }
         
         return $chat;

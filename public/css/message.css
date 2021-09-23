@@ -1,3 +1,7 @@
+.main{
+	font-size: 1.1rem;
+}
+
 .table {
 	background-color: white;
 	table-layout: fixed;
@@ -48,4 +52,18 @@ input[type="submit"] {
 
 .btn-sm {
 	padding: 0.00001rem 0.01rem;
+}
+
+.toTop {
+	display: inline;
+	text-align: right;
+	font-size: small;
+	padding-left: 5%;
+	padding-right: 5%;
+}
+
+.next {
+	padding-right: 5%;
+	display: inline;
+	font-size: small;
 }

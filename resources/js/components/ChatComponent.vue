@@ -11,13 +11,13 @@
         <table class="table table-sm scroll">
             <tr v-for="message in messages">
                 <td>
-                    <span class="name">{{ message.personal_id }}</span>
+                    <span class="name">{{ message.name }}</span>
                     <span class="time text-muted">{{ message.created_at }}</span>
                     <p class="body">{{ message.body }}</p>
                     <span class="back btn btn-secondary btn-sm" @click="back()" v-if="respons">戻る</span>
                     <span class="reply btn btn-secondary btn-sm" @click="reply(message.id)" v-if="!respons">返信</span>
-                    <span class="delete btn btn-secondary btn-sm" @click="del(message.id, message.init)" v-if="(message.init) && (!respons) ">削除</span>
-                    <span class="delete btn btn-secondary btn-sm" @click="del(message.id, message.init)" v-if="(!message.init) && (respons)">削除</span>
+                    <span class="delete btn btn-secondary btn-sm" @click="del(message.id, message.init)" v-if="(message.init) && (!respons) && (auth == message.personal_id)">削除</span>
+                    <span class="delete btn btn-secondary btn-sm" @click="del(message.id, message.init)" v-if="(!message.init) && (respons) && (auth == message.personal_id)">削除</span>
                 </td>
             </tr>
         </table>
@@ -29,17 +29,17 @@
             <button type="button" @click="send()" class="text-btn">送信</button>
         </div>
         <span v-model="message" id="buttom">文字数:{{ message.length }}</span>
-        <span class="prev" @click="prev()" v-show="!isNull(prevPage)">前のページへ</span>
-        <span class="next" @click="next()" v-show="!isNull(nextPage)">次のページへ</span>
-        
+        <span class="toTop text-muted btn btn-sm" @click="top()">一番上へ</span>
+        <span class="next text-muted btn btn-sm" @click="next()" v-show="!isNull(nextPage)">もっと読み込む</span>
+        <span class="prev" @click="prev()" v-show="!isNull(prevPage) && 0">前のページへ</span>
     </div>
-    
 </div>
 </template>
 
 <script>
 
 export default {
+    
     data : function() {
         return {
             respons: false,
@@ -49,15 +49,17 @@ export default {
             init: '_',
             message: '',
             messages: [],
-
         };
     },
-   
+    props: {
+        auth: {
+            type : String,
+        },
+    },
     
     methods: { 
         reply(id) {
             
-            console.log("read reply");
             let url = '/calendar/ajax/show/chat?id=' + id;
             this.uri = url;
             this.init = id;
@@ -65,7 +67,7 @@ export default {
                 this.messages = res.data.data;
                 this.respons = true;
                 this.pageNate(res.data.next_page_url, res.data.prev_page_url);
-                console.log(res.data);            
+                // console.log(res.data);            
             }).catch(function(error){
                 console.log("fail");
             });
@@ -120,9 +122,10 @@ export default {
         next() {
             let param = { id: this.init};
             axios.get(this.nextPage, param).then(res => {
-                this.messages = res.data.data;
+                for(let i=0; i < res.data.data.length; i++)
+                    this.messages.push(res.data.data[i]);
                 this.pageNate(res.data.next_page_url, res.data.prev_page_url);
-                console.log(res.data);
+                // console.log(res.data);
             }).catch(function(error){
                 console.log(error);
             });
@@ -170,7 +173,6 @@ export default {
                     console.log("fail");
                 });
             }
-            
         },
     
         isNull(x) {
@@ -180,6 +182,10 @@ export default {
                 return false;
             }
         },
+        
+        top() {
+            window.scroll({top: 0, behavior: 'smooth'});
+        }
     },
     
     mounted() {

@@ -20,35 +20,42 @@
     
     </head>
     <body>
-        <div id="app">
-        <div class="flex-center position-ref full-height main">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="/calendar" class="btn btn-light btn-lg flex">　HOME　</a><br><br>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();" class="btn btn-light btn-lg flex">
-                            {{ __('Logout') }}
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="btn btn-light btn-lg">ログイン</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn btn-light btn-lg">新規登録</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    シフト管理アプリ<br>しふとん<br><br>
-                </div>
-            </div>
-        </div>
+        <div class="body">
+            <table class="main" id="app">
+                <tr class="blank">
+                </tr>
+                <tr>
+                    <td class="title item">
+                        <span>シフト管理アプリ</span><br><span>しふとん</span>
+                    </td>
+                </tr>
+                @if (Route::has('login'))
+                <tr>
+                    <td>
+                    <table class="links item">
+                        <tr>
+                        @auth
+                            <td><a href="/calendar" class="btn btn-light btn-lg inline-block">　HOME　</a></td>
+                            <td><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();" class="btn btn-light btn-lg inline-block">
+                                {{ __('Logout') }}
+                            </a></td>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            </form>
+                        @else
+                            <td><a href="{{ route('login') }}" class="btn btn-light btn-lg inline-block">ログイン</a></td>
+    
+                            @if (Route::has('register'))
+                                <td><a href="{{ route('register') }}" class="btn btn-light btn-lg inline-block">新規登録</a></td>
+                            @endif
+                        @endauth
+                        </tr>
+                    </table>
+                    </td>
+                </tr>
+                @endif
+            </table>
         </div>
         <script>
         // PWA
