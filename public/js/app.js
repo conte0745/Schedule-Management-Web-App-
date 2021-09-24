@@ -2036,6 +2036,8 @@ __webpack_require__.r(__webpack_exports__);
 
       Echo.channel('public-chat').listen('MessageCreated', function (e) {
         _this7.getMessages();
+
+        console.log("listen");
       });
     }
   },

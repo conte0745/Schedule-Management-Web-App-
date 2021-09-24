@@ -193,6 +193,7 @@ export default {
             Echo.channel('public-chat')
                 .listen('MessageCreated', (e) => {
                     this.getMessages();
+                    console.log("listen");
                 });
         }
     },
