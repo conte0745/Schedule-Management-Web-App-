@@ -1940,7 +1940,7 @@ __webpack_require__.r(__webpack_exports__);
     send: function send() {
       var _this3 = this;
 
-      if (this.message != '' || this.message != ' ' || this.message.length < 540) {
+      if (0 < this.message.length && this.message.length < 540) {
         var params = {
           message: this.message,
           init: this.init
@@ -1957,6 +1957,7 @@ __webpack_require__.r(__webpack_exports__);
           console.log(error);
         });
         this.message = '';
+      } else {//
       }
     },
     next: function next() {
@@ -2029,18 +2030,18 @@ __webpack_require__.r(__webpack_exports__);
         top: 0,
         behavior: 'smooth'
       });
+    },
+    listen: function listen() {
+      var _this7 = this;
+
+      Echo.channel('public-chat').listen('MessageCreated', function (e) {
+        _this7.getMessages();
+      });
     }
   },
   mounted: function mounted() {
-    var _this7 = this;
-
     this.getMessages();
-    Echo.channel('chat').listen('MessageCreated', function (e) {
-      _this7.getMessages(); // 全メッセージを再読
-
-
-      console.log("channel");
-    });
+    this.listen();
   }
 });
 
@@ -2374,10 +2375,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__.default({
   broadcaster: 'pusher',
-  key: "6c808a0f599e709269fb",
+  key: "f74ce495a92d0cc59112",
   cluster: "ap3",
-  encrypted: true
-});
+  encrypted: false
+}); // window.Echo.channel('chat')
+//     .listen('MessageCreated', (e) =>{
+//         console.log(e);
+// });
 
 /***/ }),
 

@@ -98,7 +98,7 @@ export default {
         },
         
         send() {
-            if((this.message != '') || (this.message != ' ') || (this.message.length < 540)){
+            if((0 < this.message.length) && (this.message.length < 540)){
                 
                 let params = { message: this.message,
                                 init: this.init
@@ -116,6 +116,8 @@ export default {
                 });
                
                 this.message = '';
+            } else {
+                //
             }
         },
         
@@ -185,15 +187,20 @@ export default {
         
         top() {
             window.scroll({top: 0, behavior: 'smooth'});
+        },
+        
+        listen() {
+            Echo.channel('public-chat')
+                .listen('MessageCreated', (e) => {
+                    this.getMessages();
+                });
         }
     },
     
     mounted() {
         this.getMessages();
-        Echo.channel('chat').listen('MessageCreated', (e) => {
-            this.getMessages(); // 全メッセージを再読
-            console.log("channel");
-        });
+        this.listen();
+        
     },
 };
 </script>

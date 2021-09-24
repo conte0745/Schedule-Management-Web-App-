@@ -50,7 +50,7 @@ class ChatController extends Controller
         $chat->save(); 
         $chat->parent_id = $chat->id;
         $chat->save();
-        event(new MessageCreated($chat));
+        broadcast(new MessageCreated($chat))->toOthers();
         return $chat;
     }
     
@@ -70,13 +70,15 @@ class ChatController extends Controller
         $chat->save();
         $chat2->child_id = $chat->id;
         $chat2->save();
-        event(new MessageCreated($chat));
+        broadcast(new MessageCreated($chat))->toOthers();
         return $chat;
     }
     
     public function del(Request $req){
         $param = $req->all();
-        Chat::find($param['id'])->forceDelete();
+        $chat = Chat::find($param['id']);
+        broadcast(new MessageCreated($chat))->toOthers();
+        $chat->forceDelete();
         
     }
     
