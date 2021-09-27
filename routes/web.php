@@ -95,13 +95,3 @@ Route::group(['prefix' => '/calendar/mypage/line'], function () {
     Route::post('/send', 'LineController@send')->name('calendar.line.send');
     
 });
-
-
-Route::get('/tasks', function () {
-	
-    $task = ['id' => 1, 'name' => 'メールの確認']; 
-
-    event(new TaskAdded($task));
-    
-    return view('welcome');    
-});

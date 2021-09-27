@@ -192,8 +192,8 @@ export default {
         listen() {
             Echo.channel('public-chat')
                 .listen('MessageCreated', (e) => {
+                    //console.log("listen");
                     this.getMessages();
-                    console.log("listen");
                 });
         }
     },
@@ -201,7 +201,6 @@ export default {
     mounted() {
         this.getMessages();
         this.listen();
-        
     },
 };
 </script>

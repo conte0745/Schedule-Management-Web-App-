@@ -3,7 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-import Vue from 'vue'
+import Vue from 'vue';
 window.Vue = Vue;
 require('./bootstrap'); 
 
@@ -25,7 +25,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('time-component', require('./components/TimeComponent.vue').default);
 Vue.component('chat-component', require('./components/ChatComponent.vue').default);
 Vue.component('date-component', require('./components/DateComponent.vue').default);
-Vue.component('chatshow-component', require('./components/ChatShowComponent.vue').default);
+Vue.component('wheather-component', require('./components/WheatherComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -35,6 +35,5 @@ Vue.component('chatshow-component', require('./components/ChatShowComponent.vue'
 
 const app = new Vue({
     el: '#app',
-    
 });
 
