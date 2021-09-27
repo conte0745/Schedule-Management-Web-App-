@@ -15,23 +15,23 @@ export default {
         return {
             dataSet: [],
             data: '',
-            
         };
     },
     
     methods: {
         getWheather(){
+            console.log(process.env.MIX_RAPIDAPI_KEY);
             const options = {
               method: 'GET',
               url: 'https://community-open-weather-map.p.rapidapi.com/forecast',
               params: {q: 'Tokyo, jp', lang: 'ja'},
               headers: {
-                'x-rapidapi-key': env(X_RAPIDAPI_KEY),
+                'x-rapidapi-key': process.env.MIX_RAPIDAPI_KEY,
                 'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com'
               }
             }
             axios.request(options).then(function (response) {
-                this.data = response.data.list;
+                //this.data = response.data.list;
             	console.log(response.data);
             	console.log(response);
             	

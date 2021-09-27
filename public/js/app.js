@@ -2193,6 +2193,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 //
 //
 //
@@ -2211,6 +2212,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getWheather: function getWheather() {
+      console.log(process.env.MIX_RAPIDAPI_KEY);
       var options = {
         method: 'GET',
         url: 'https://community-open-weather-map.p.rapidapi.com/forecast',
@@ -2219,12 +2221,12 @@ __webpack_require__.r(__webpack_exports__);
           lang: 'ja'
         },
         headers: {
-          'x-rapidapi-key': '7fb14c643emsh56cac74ee95a328p1f16c6jsn56b48b37243b',
+          'x-rapidapi-key': process.env.MIX_RAPIDAPI_KEY,
           'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com'
         }
       };
       axios.request(options).then(function (response) {
-        this.data = response.data.list;
+        //this.data = response.data.list;
         console.log(response.data);
         console.log(response);
       })["catch"](function (error) {
