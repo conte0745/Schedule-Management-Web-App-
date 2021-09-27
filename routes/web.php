@@ -53,7 +53,7 @@ Route::group(['prefix' => '/calendar'], function () {
     Route::get('/','CalendarController@index')->name('calendar');
     Route::post('/','CalendarController@store')->name('calendar.store');
     Route::put('/update/{calendar_id}','CalendarController@update')->name('calendar.update');
-    Route::get('/show/edit','CalendarController@edit2')->name('calendar.edit2');
+    Route::get('/show/edit','CalendarController@edit')->name('calendar.edit2');
     Route::get('/show/{month}','CalendarController@index_move')->name('calendar.index.move');
     Route::get('/show/{month}/week{counter}','CalendarController@show')->name('calendar.show');
     Route::get('/create/date','CalendarController@create')->name('calendar.create');
