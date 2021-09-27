@@ -26,7 +26,7 @@ export default {
               url: 'https://community-open-weather-map.p.rapidapi.com/forecast',
               params: {q: 'Tokyo, jp', lang: 'ja'},
               headers: {
-                'x-rapidapi-key': '7fb14c643emsh56cac74ee95a328p1f16c6jsn56b48b37243b',
+                'x-rapidapi-key': env(X_RAPIDAPI_KEY),
                 'x-rapidapi-host': 'community-open-weather-map.p.rapidapi.com'
               }
             }
