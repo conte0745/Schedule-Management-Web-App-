@@ -117,8 +117,7 @@
                     @foreach($weeks as $week)
                         @foreach($week as $day)
                             @for($i=0;$i<count($search);$i++)
-                                @if($carbon->format('n') == substr($day,5,2))
-                                    @if($search[$i]['date'] == substr($day,0,10))
+                                @if($search[$i]['date'] == substr($day,0,10))
                                     <li>
                                         <span>{{ substr($day,0,10) }}</span>
                                         <span class="white">_</span>
@@ -141,7 +140,6 @@
                                             @php $break += 2700 @endphp
                                         @endif
                                     </li> 
-                                    @endif
                                 @endif
                             @endfor
                         @endforeach
@@ -174,6 +172,7 @@
                     <td><date-component defaultdate="{{ $end }}" name="end" id="end"></date-component></td>
                     <td class="padding">まで</td>
                     <td><input type="submit" form="search" class="btn btn-primary padding" value="Search"></td>
+                </tr>
             </table>
                 
         </form>

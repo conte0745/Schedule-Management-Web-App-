@@ -41,7 +41,7 @@
             
         </form>
         @if($user['line'] == null)
-            <a class="list-group-item list-group-item-action list-group-item-warning" href="{{ route('calendar.line.register') }}">LINEと連携する(β)</a>
+            <!--<a class="list-group-item list-group-item-action list-group-item-warning" href="{{ route('calendar.line.register') }}">LINEと連携する(β)</a>-->
         @else
             <a class="list-group-item list-group-item-action list-group-item-warning" href="{{ route('calendar.line.lift') }}">lineと連携を解除</a>
         @endif

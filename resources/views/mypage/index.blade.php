@@ -33,15 +33,15 @@
                 <p>背景色</p>
                 <span style="background-color:{{ $user['color'] }}">{{ $user['color']}}</span>
             </div>
-            <div class="list-group-item">
-                <p>LINE notyfy</p>
-                @cannot('hasLine')
-                <span>連携中</span>
-                @endcannot
-                @can('hasLine')
-                <span>未連携</span>
-                @endcan
-            </div>
+            <!--<div class="list-group-item">-->
+            <!--    <p>LINE notyfy</p>-->
+            <!--    @cannot('hasLine')-->
+            <!--    <span>連携中</span>-->
+            <!--    @endcannot-->
+            <!--    @can('hasLine')-->
+            <!--    <span>未連携</span>-->
+            <!--    @endcan-->
+            <!--</div>-->
             <a class="list-group-item list-group-item-action list-group-item-primary" href="{{ route('calendar.mypage.edit') }}">編集</a>
             <a class="list-group-item list-group-item-action list-group-item-success" href="{{ route('calendar') }}">戻る</a>
             

@@ -32,7 +32,7 @@ class CalendarIndex {
 	    }
 	    
 	    $firstDay = $firstDay->format('Y-m-d');
-	    $lasttDay = $lastDay->format('Y-m-d');
+	    $lastDay = $lastDay->format('Y-m-d');
         
         if(count($param) == 2){
             $start = $param['start'];
@@ -134,5 +134,69 @@ class CalendarIndex {
         
         return redirect($request['url']);
         
+    }
+    
+    public static function root($param, $calendar, $month){
+        $personal_id = Auth::id();
+        $group_id = User::find(Auth::id())->group_id;
+        
+        $tmps = User::select('id','name')->where('group_id',$group_id)->get()->toArray();
+        $users = array();
+        
+        for($i=0;$i<count($tmps);$i++){
+            $users[$tmps[$i]['id']] = [$tmps[$i]['name'], 0, 0];
+        }
+        
+        if($month == null){
+            $index = new CalendarWeek(time());
+            $carbon = new Carbon(time());
+        } else {
+            $index = new CalendarWeek($month);
+            $carbon = new Carbon($month);
+        }
+        
+        $firstDay = $carbon->copy()->firstOfMonth()->startOfWeek()->subDay();
+        $lastDay = $carbon->copy()->lastOfMonth()->endOfWeek()->subDay();
+        
+        if($firstDay->copy()->addDays(7)->format('j') == '1'){
+	    	$firstDay->addDays(7);
+	    }
+	    if($carbon->copy()->lastOfMonth()->format('D') == 'Sun' ){
+	    	$lastDay->addDays(7);
+	    }
+	    
+	    $firstDay = $firstDay->format('Y-m-d');
+	    $lastDay = $lastDay->format('Y-m-d');
+        
+        if($param != null){
+            
+            $start = $param['start'];
+            $end = $param['end'];
+            if($start <= $end)
+                $search = $calendar->select('personal_id','date','date_fin','start_time','finish_time','parent_id')->where('group_id', $group_id)
+                        ->whereDate('date','>=', $start)->whereDate('date','<=', $end)->get()->toArray();
+            else
+                $search = null;
+               
+        } else {
+            $start = $firstDay;
+            $end = $lastDay;
+            $search = $calendar->select('personal_id','date','date_fin','start_time','finish_time','parent_id')->where('group_id',$group_id)
+                        ->whereDate('date','>=', $firstDay)->whereDate('date','<=', $lastDay)->get()->toArray();
+        }
+        for($i=0;$i<count($search);$i++){
+            $search[$i]['name'] = $users[$search[$i]['personal_id']];
+        }
+        
+        $id = $search[0]['personal_id'];
+        $sum = array();
+        $cnt = 0;
+        for($i=0;$i<count($search);$i++){
+            $users[$search[$i]['personal_id']][1] += (strtotime(substr($search[$i]['finish_time'],0,5)) - strtotime(substr($search[$i]['start_time'],0,5)));
+            $users[$search[$i]['personal_id']][2] +=1;
+        }
+       
+        $root = (['query' => $search, 'start' => $start, 'end' => $end, 'users' => $users]);
+        return $root;
     }
 }

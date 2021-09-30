@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Shop;
 use App\Models\User;
+use App\Models\Calendar;
+use App\Common\CalendarIndex;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ShopRequest;
 use App\Http\Requests\ShopperRequest;
@@ -54,18 +55,22 @@ class ShopController extends Controller
         return redirect()->action('CalendarController@index');
     }
     
-    public function index()
+    public function index(Request $request)
     {
         if(User::find(Auth::id())->permission == 0){
             return redirect('calendar');
         }
         $user = User::find(Auth::id());
         $shop = Shop::find($user->group_id)->toArray();
+        
+        $person = User::select('name','id','state')->where('group_id',$user->group_id)->get()->toArray();
         $members = User::select('name','permission','id','state')->where('group_id',$user->group_id)->where('permission',0)->get()->toArray();
         $users = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 1)->get()->toArray();
         $one_user = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 2)->get()->toArray();
         
-        return view('root/index')->with(['users' => $users, 'shop'=> $shop,'one_user' => $one_user,'members'=> $members]);
+        $root = CalendarIndex::root($request->all(), new Calendar, null);
+        
+        return view('root/index')->with(['users' => $users, 'shop'=> $shop,'one_user' => $one_user,'members'=> $members,'root' => $root,'person' => $person]);
     }
 
     public function edit(){
