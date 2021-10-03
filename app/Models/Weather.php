@@ -16,10 +16,4 @@ class Weather extends Model
         'temp',
         'dt_txt',
     ];
-    /**
-     * データベースで変更
-     *
-     * Postgresの場合はコメントアウトを解除
-    */
-    //protected $dateFormat = 'Y-m-d H:i:sO';
 }
