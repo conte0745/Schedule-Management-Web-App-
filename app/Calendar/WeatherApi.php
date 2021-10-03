@@ -29,7 +29,7 @@ class WeatherApi {
 			echo 'failed';	
 			
 		} else {
-			//echo("success");
+			echo("success");
 			
 			$json = json_decode($get, true);
 			Weather::query()->forceDelete();
@@ -42,11 +42,11 @@ class WeatherApi {
 			$humidity = array();
 			
 			for($i = 0; $i < $cnt; $i++){
-			    $sky[] = $json['list'][$i]['weather'][0]['main'];
-			    $desc[] = $json['list'][$i]['weather'][0]['description'];
-			    $temp[] = floor($json['list'][$i]['main']['temp'] - 273.15 );
-			    $humidity[] = floor($json['list'][$i]['main']['humidity']);
-			    $time[] = $json['list'][$i]['dt_txt'];
+			    //$sky[] = $json['list'][$i]['weather'][0]['main'];
+			    //$desc[] = $json['list'][$i]['weather'][0]['description'];
+			    //$temp[] = floor($json['list'][$i]['main']['temp'] - 273.15 );
+			    //$humidity[] = floor($json['list'][$i]['main']['humidity']);
+			    //$time[] = $json['list'][$i]['dt_txt'];
 			    
 			    Weather::create([
 		            'sky' => $json['list'][$i]['weather'][0]['main'],
