@@ -1,6 +1,20 @@
-シフト管理アプリ しふとん
+##シフト管理アプリ しふとん
 
-おもな開発環境
-laravel:^6.0
-bootstrap: ^4.5
-vue.js:^2.5
+これは小型店舗向けのシフト管理アプリです。1店舗10人ほどを想定しています。
+nameless-woodland-04388.herokuapp.com/top
+
+#開発環境
+・php
+・laravel
+・Vue.js
+・cloud9(AWS,ec2)
+・mairaDB(local環境)
+・postgres(heroku環境)
+
+#機能
+・会員登録、ログイン
+・自分のシフトの登録,閲覧
+・同じグループ内のクルーのシフトの閲覧
+・リアルタイムチャット
+・天気予報(open weather map, 毎朝3時更新)
+・PWA対応
