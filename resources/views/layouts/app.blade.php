@@ -46,7 +46,7 @@
                     <ul class="navbar-nav">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            <li class="nav-item ml-auto">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
@@ -69,6 +69,14 @@
                             <li class="nav-item">
                         @endif
                             <a class="nav-link" href="{{ route('chat') }}">チャット</a>
+                        </li>
+                        
+                        @if($_SERVER['REQUEST_URI'] == '/calendar/weather')
+                            <li class="nav-item active" >
+                        @else
+                            <li class="nav-item">
+                        @endif
+                            <a class="nav-link" href="{{ route('calendar.weather') }}">5日天気</a>
                         </li>
                         
                         @if ($_SERVER['REQUEST_URI'] == '/calendar/mypage')

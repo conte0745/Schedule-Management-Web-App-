@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Calendar;
 use App\Models\User;
+use App\Models\Weather;
 use App\Http\Requests\CalendarRequest;
 use App\Calendar\CalendarWeek;
 use Carbon\Carbon;
@@ -55,7 +56,6 @@ class CalendarController extends Controller
         $volume  = array_column($query, 'date');
         $edition = array_column($query, 'start_time');
         array_multisort($volume, SORT_ASC, $edition, SORT_ASC, $query);
-        // https://www.yoheim.net/blog.php?q=20191104 (多次元連想配列のソート)
         
         $tmps = User::select('id','name','color')->where('group_id',$group_id)->get()->toArray();
         $users = array();
@@ -68,7 +68,7 @@ class CalendarController extends Controller
         $url = $week->getCarbon();
         $days = $week->getWeekDays();
         $holidays = \Yasumi\Yasumi::create('Japan', $url->format('Y'), 'ja_JP');
-        
+                    
         return view('calendar/show')->with(['days' => $days, 'url' => $url, 'weeks' => $weeks,'title' => $title,'works' => $query,'users' => $users,'id' => Auth::id(),'holiday' => $holidays]);
         
     }
@@ -82,6 +82,7 @@ class CalendarController extends Controller
     
     public function store(CalendarRequest $request)
     {
+        
         return CalendarIndex::store($request, null);
     }
     
@@ -104,5 +105,6 @@ class CalendarController extends Controller
         $calendar = Calendar::find($param['calendar_id'])->delete();
         return redirect($param['url']);
     }
+    
 }
 

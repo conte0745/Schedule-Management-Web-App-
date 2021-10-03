@@ -83,18 +83,11 @@
                                     @if($query[$i]['parent_id'] != null) (連) @endif
                                 </a>
                                 </div>
-                                        <!--<div class="delete">-->
-                                        <!--    <form action="{{ route('calendar.del', [ 'calendar_id' =>$query[$i]['calendar_id']]) }}" method="post" name="form{{ $query[$i]['calendar_id'] }}">-->
-                                        <!--        @csrf-->
-                                        <!--        @method('delete')-->
-                                        <!--        <input type="hidden" name="delete">-->
-                                        <!--        <a href="javascript:form{{ $query[$i]['calendar_id'] }}.submit()" onclick="return confirm('削除しますか?')">-</a>-->
-                                                
-                                        <!--    </form>-->
-                                        <!--</div>-->
+                            
+                                        
                             @endif
                         @endfor
-                        </div>        
+                        </div>  
                         </td>
                     @endforeach
                 </tr>

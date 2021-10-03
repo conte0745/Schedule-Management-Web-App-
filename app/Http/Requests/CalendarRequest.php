@@ -24,17 +24,25 @@ class CalendarRequest extends FormRequest
      */
     public function rules()
     {
+        
         $checkTime = function($attribute, $value, $fail) {
             $input = $this->calendar;
             $flag = 0;
-            $startDate = Carbon::parse($input['date']);
-            $finishDate = Carbon::parse($input['date_fin']);
             
-            if($finishDate->diffInDays($startDate) > 1) $flag = 1;
-            if($startDate->eq($finishDate)) if((Carbon::parse($input['start_time']))->gte(Carbon::parse($input['finish_time']))) $flag = 2;
-            
-            if($flag == 1) $fail('勤務開始日付勤務と終了日付は1日以内で入力してください');
-            if($flag == 2) $fail('勤務開始時刻よりも勤務終了時刻のほうが早いです');
+            if ((preg_match('|\d{2}\:\d{2}|', $input['start_time'])) and (preg_match('|\d{2}\:\d{2}|', $input['finish_time']))) {
+  
+                $startDate = Carbon::parse($input['date']);
+                $finishDate = Carbon::parse($input['date_fin']);
+                
+                if($finishDate->diffInDays($startDate) > 1) $flag = 1;
+                if($startDate->eq($finishDate)) if((Carbon::parse($input['start_time']))->gte(Carbon::parse($input['finish_time']))) $flag = 2;
+                
+                if($flag == 1) $fail('勤務開始日付勤務と終了日付は1日以内で入力してください');
+                if($flag == 2) $fail('勤務開始時刻よりも勤務終了時刻のほうが早いです');
+                
+            } else {
+                $fail('時刻を入力してください');
+            }
         };
         
         return[
@@ -42,7 +50,6 @@ class CalendarRequest extends FormRequest
             'calendar.date_fin' => ['required', 'date', 'after_or_equal:calendar.date', $checkTime],
             'calendar.start_time' => ['required', $checkTime],
             'calendar.finish_time' => ['required', $checkTime],
-            
         ];
     }
     

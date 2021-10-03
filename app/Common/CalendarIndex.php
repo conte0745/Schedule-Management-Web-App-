@@ -4,6 +4,7 @@ namespace app\Common;
 
 use App\Models\Calendar;
 use App\Models\User;
+use App\Models\Weather;
 use App\Calendar\CalendarWeek;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -199,4 +200,5 @@ class CalendarIndex {
         $root = (['query' => $search, 'start' => $start, 'end' => $end, 'users' => $users]);
         return $root;
     }
+    
 }

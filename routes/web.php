@@ -58,6 +58,7 @@ Route::group(['prefix' => '/calendar'], function () {
     Route::get('/show/{month}/week{counter}','CalendarController@show')->name('calendar.show');
     Route::get('/create/date','CalendarController@create')->name('calendar.create');
     Route::delete('/delete','CalendarController@del')->name('calendar.del');
+    Route::get('/weather', 'WeatherController@index')->name('calendar.weather');
 });
 
 // ----mypage-----

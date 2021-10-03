@@ -60,12 +60,13 @@
         </div>
     @endif
     <div class="teble-responsive">
-    <table class="table table-sm card-text">
+    <table class="table table-sm card-text ">
         <thead border="1">
             <tr>
             @for($i=0;$i<48;$i++)
                 @if($i%6==0)
                     <th colspan="6">{{ $i/2 }}</th>
+                    {{ dd($weather) }}
                 @endif
             @endfor
             </tr>
