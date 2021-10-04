@@ -1,4 +1,4 @@
-## [シフト管理アプリ しふとん](nameless-woodland-04388.herokuapp.com/top)
+## [シフト管理アプリ しふとん](https://nameless-woodland-04388.herokuapp.com/top)
 
 これは小型店舗向けのシフト管理アプリです。1店舗10人ほどを想定しています。
 
