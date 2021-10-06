@@ -53,8 +53,10 @@ class LineController extends Controller
                 'client_secret' => config('services.line_notify.secret')
             ]
         ]);
+        
         $access_token = json_decode($response->getBody())->access_token;
-        $user = User::find(auth::id());
+        $user = User::find(Auth::id());
+        dump($user);
         $user->line = $access_token;
         $user->save();
         
