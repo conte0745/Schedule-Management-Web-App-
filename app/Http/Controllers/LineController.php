@@ -38,7 +38,7 @@ class LineController extends Controller
 
     public function handleProviderCallback(Request $request)
     {
-        $id = 1;
+        
         $token = session_id();
         $csrf = Hash::make($token);
         $param = $request->all();
@@ -60,7 +60,7 @@ class LineController extends Controller
         
         $access_token = json_decode($response->getBody())->access_token;
         
-        $user = User::find($id);
+        $user = User::find(Auth::id());
         $user->line = $access_token;
         $user->save();
         dd($user);
