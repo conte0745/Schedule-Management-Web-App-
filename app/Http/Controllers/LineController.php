@@ -10,10 +10,10 @@ use App\Models\User;
 
 class LineController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     
      public function index(Request $reqest)
     {
@@ -59,11 +59,10 @@ class LineController extends Controller
         ]);
         
         $access_token = json_decode($response->getBody())->access_token;
-        $user = User::find($id);
-        dump($user);
-        dump(User::find(1)->line = $access_token);
-        $user->line = $access_token;
+        
+        $user::find(1)->line = $access_token;
         $user->save();
+        dd($user);
         return view('line');
         
         return redirect()->route('calendar.line');
