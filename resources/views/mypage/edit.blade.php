@@ -39,7 +39,7 @@
             
             <input class="list-group-item list-group-item-action list-group-item-primary" id="save" type="submit" value="保存" class="btn btn-primary">
             
-        </form>
+        </form> 
         @if($user['line'] == null)
             <a class="list-group-item list-group-item-action list-group-item-warning" href="{{ route('calendar.line.register') }}">LINEと連携する(β)</a>
         @else
