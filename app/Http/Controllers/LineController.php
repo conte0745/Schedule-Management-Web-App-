@@ -10,6 +10,10 @@ use App\Models\User;
 
 class LineController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
      public function index(Request $reqest)
     {
@@ -34,7 +38,7 @@ class LineController extends Controller
 
     public function handleProviderCallback(Request $request)
     {
-        
+        $id = Auth::id();
         $token = session_id();
         $csrf = Hash::make($token);
         $param = $request->all();
@@ -55,9 +59,9 @@ class LineController extends Controller
         ]);
         
         $access_token = json_decode($response->getBody())->access_token;
-        $user = User::find(Auth::id());
-        dump(Auth::id());
-        dump(User::find(Auth::id()));
+        $user = User::find($id);
+        dump($id);
+        dump(User::find($id));
         $user->line = $access_token;
         $user->save();
         
