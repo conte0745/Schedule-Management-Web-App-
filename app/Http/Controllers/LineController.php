@@ -60,11 +60,10 @@ class LineController extends Controller
         
         $access_token = json_decode($response->getBody())->access_token;
         
-        $user = User::find(Auth::id());
+        $user = User::find(4);
         $user->line = $access_token;
         $user->save();
-        dd($user);
-        return view('line');
+        
         return redirect()->route('calendar.line');
     }
 
