@@ -64,6 +64,7 @@ class LineController extends Controller
         $user->line = $access_token;
         $user->save();
         
+        return view('line');
         return redirect()->route('calendar.line');
     }
 
