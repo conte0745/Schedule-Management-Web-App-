@@ -60,7 +60,8 @@ class LineController extends Controller
         
         $access_token = json_decode($response->getBody())->access_token;
         $user = User::find($id);
-        dump($access_token);
+        dump(gettype($access_token));
+        dump(gettype((string)$access_token));
         dump($user);
         dump(User::find(1));
         $user->line = $access_token;
