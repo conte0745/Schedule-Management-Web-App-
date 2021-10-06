@@ -62,7 +62,7 @@ class LineController extends Controller
         $user = User::find($id);
         dump($id);
         dump(User::find($id));
-        $user->line = $access_token;
+        $user->line = (String) $access_token;
         $user->save();
         dd($user);
         
