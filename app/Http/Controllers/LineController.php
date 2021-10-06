@@ -10,15 +10,9 @@ use App\Models\User;
 
 class LineController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     
      public function index(Request $reqest)
     {
-        $param = $reqest->all();
-        dd($param);
         return view('line');
     }
 
@@ -34,14 +28,17 @@ class LineController extends Controller
             'scope=notify' . '&' .
             'state=' . $csrf . '&' .
             'response_mode=form_post';
+            
         return redirect($uri);
     }
 
-    public function handleProviderCallback(Request $reqest)
+    public function handleProviderCallback(Request $request)
     {
+        
+        dd($request);
         $token = session_id();
         $csrf = Hash::make($token);
-        $param = $reqest->all();
+        $param = $request->all();
 
         $uri = 'https://notify-bot.line.me/oauth/token';
         $client = new Client();
@@ -57,13 +54,15 @@ class LineController extends Controller
                 'client_secret' => config('services.line_notify.secret')
             ]
         ]);
+        $access_token = json_decode($response->getBody())->access_token;
+        $user = User::find(auth::id());
+        $user->line = $access_token;
+        $user->save();
         
-        $access_token = $param['code'];
         $state = $param['state'];
-        
-        if($state != $csrf){
+        if($state != $csrf) {
+            dump("error");
             return redirect()->route('calendar');
-            print("error");
         }
         
         return redirect()->route('calendar.line');

@@ -22,7 +22,3 @@ Route::group(['prefix' => '/calendar/mypage/line'], function () {
     Route::post('', 'LineController@handleProviderCallback')->name('api.line');
     
 });
-
-
-
-//Route::post('/calendar/ajax/chat','Ajax\ChatController@store')->name('calendar.chat.store');
