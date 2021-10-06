@@ -64,6 +64,7 @@ class LineController extends Controller
         dump(User::find($id));
         $user->line = $access_token;
         $user->save();
+        dd($user);
         
         $state = $param['state'];
         if($state != $csrf) {
