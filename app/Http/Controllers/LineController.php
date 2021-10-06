@@ -30,8 +30,7 @@ class LineController extends Controller
             'client_id=' . config('services.line_notify.client_id') . '&' .
             'redirect_uri=' . config('services.line_notify.redirect_uri') . '&' .
             'scope=notify' . '&' .
-            'state=' . $csrf . '&' .
-            'response_mode=form_post';
+            'state=' . $csrf . '&';
         return redirect($uri);
     }
 
