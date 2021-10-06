@@ -19,7 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // -----line notify
 Route::group(['prefix' => '/calendar/mypage/line'], function () {
-    Route::get('', 'LineController@handleProviderCallback')->name('api.line');
+    Route::post('', 'LineController@handleProviderCallback')->name('api.line');
+    
 });
 
 

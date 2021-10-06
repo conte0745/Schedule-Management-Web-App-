@@ -9,7 +9,7 @@
 <div class="container-fluid weather">
     <div id="top">
         <span class="title">天気予報</span>
-        <span class="subTitle text-muted">東京の天気(毎日3時付近更新)</span>
+        <span class="subTitle text-muted">東京の天気(毎日6時付近更新)</span>
     </div>
     <div class="row">
         @foreach($data as $date => $attributes)

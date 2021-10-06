@@ -30,29 +30,39 @@ class LineController extends Controller
             'client_id=' . config('services.line_notify.client_id') . '&' .
             'redirect_uri=' . config('services.line_notify.redirect_uri') . '&' .
             'scope=notify' . '&' .
-            'state=' . $csrf . '&';
+            'state=' . $csrf . '&' .
+            'response_mode=form_post';
         return redirect($uri);
     }
 
-    public function handleProviderCallback(Request $req)
+    public function handleProviderCallback(Request $reqest)
     {
-        dd('dd');
-        $uri = 'https://notify-bot.line.me/oauth/token';
-        $client = new Client();
-        $response = $client->post($uri, [
-            'headers'     => [
-                'Content-Type' => 'application/x-www-form-urlencoded',
-            ],
-            'form_params' => [
-                'grant_type'    => 'authorization_code',
-                'code'          => request('code'),
-                'redirect_uri'  => config('services.line_notify.redirect_uri'),
-                'client_id'     => config('services.line_notify.client_id'),
-                'client_secret' => config('services.line_notify.secret')
-            ]
-        ]);
+        $token = session_id();
+        $csrf = Hash::make($token);
+        $param = $reqest->all();
+
+        // $uri = 'https://notify-bot.line.me/oauth/token';
+        // $client = new Client();
+        // $response = $client->post($uri, [
+        //     'headers'     => [
+        //         'Content-Type' => 'application/x-www-form-urlencoded',
+        //     ],
+        //     'form_params' => [
+        //         'grant_type'    => 'authorization_code',
+        //         'code'          => request('code'),
+        //         'redirect_uri'  => config('services.line_notify.redirect_uri'),
+        //         'client_id'     => config('services.line_notify.client_id'),
+        //         'client_secret' => config('services.line_notify.secret')
+        //     ]
+        // ]);
         
-        $access_token = $req->input('code');
+        $access_token = $param['code'];
+        $state = $param['state'];
+        
+        if($state != $csrf){
+            return redirect()->route('calendar');
+            print("error");
+        }
         
         $user = User::find(auth::id());
         $user->line = $access_token;
