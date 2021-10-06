@@ -63,7 +63,7 @@ class LineController extends Controller
         $user = User::find($id);
         $user->line = $access_token;
         $user->save();
-        
+        dd($user);
         return view('line');
         return redirect()->route('calendar.line');
     }
