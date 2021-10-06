@@ -10,10 +10,10 @@ use App\Models\User;
 
 class LineController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     
      public function index(Request $reqest)
     {
@@ -60,8 +60,9 @@ class LineController extends Controller
         
         $access_token = json_decode($response->getBody())->access_token;
         $user = User::find($id);
+        dump($access_token);
         dump($user);
-        $user = null;
+        dump(User::find(1));
         $user->line = $access_token;
         $user->save();
         return view('line');
