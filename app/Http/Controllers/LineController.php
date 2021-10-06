@@ -65,7 +65,7 @@ class LineController extends Controller
         $user->line = (String) $access_token;
         $user->save();
         dd($user);
-        
+        return view('line');
         $state = $param['state'];
         if($state != $csrf) {
             dump("error");
