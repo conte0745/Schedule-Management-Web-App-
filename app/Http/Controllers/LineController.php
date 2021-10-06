@@ -15,8 +15,10 @@ class LineController extends Controller
         $this->middleware('auth');
     }
     
-     public function index()
+     public function index(Request $reqest)
     {
+        $param = $reqest->all();
+        dd($param);
         return view('line');
     }
 
@@ -41,20 +43,20 @@ class LineController extends Controller
         $csrf = Hash::make($token);
         $param = $reqest->all();
 
-        // $uri = 'https://notify-bot.line.me/oauth/token';
-        // $client = new Client();
-        // $response = $client->post($uri, [
-        //     'headers'     => [
-        //         'Content-Type' => 'application/x-www-form-urlencoded',
-        //     ],
-        //     'form_params' => [
-        //         'grant_type'    => 'authorization_code',
-        //         'code'          => request('code'),
-        //         'redirect_uri'  => config('services.line_notify.redirect_uri'),
-        //         'client_id'     => config('services.line_notify.client_id'),
-        //         'client_secret' => config('services.line_notify.secret')
-        //     ]
-        // ]);
+        $uri = 'https://notify-bot.line.me/oauth/token';
+        $client = new Client();
+        $response = $client->post($uri, [
+            'headers'     => [
+                'Content-Type' => 'application/x-www-form-urlencoded',
+            ],
+            'form_params' => [
+                'grant_type'    => 'authorization_code',
+                'code'          => $param['code'],
+                'redirect_uri'  => config('services.line_notify.redirect_uri'),
+                'client_id'     => config('services.line_notify.client_id'),
+                'client_secret' => config('services.line_notify.secret')
+            ]
+        ]);
         
         $access_token = $param['code'];
         $state = $param['state'];
@@ -63,10 +65,6 @@ class LineController extends Controller
             return redirect()->route('calendar');
             print("error");
         }
-        
-        $user = User::find(auth::id());
-        $user->line = $access_token;
-        $user->save();
         
         return redirect()->route('calendar.line');
     }
