@@ -29,6 +29,7 @@
 .title {
 	font-size: 2.5rem;
 	font-weight: bold;
+	margin: 10px 10px;
 }
 
 .JobTime {
@@ -60,8 +61,6 @@ table {
 .time {
 	display: inline-block;
 	font-size: 0.8rem;
-	
-	
 }
 
 .under {
@@ -71,7 +70,11 @@ table {
 .flexible {
 	display: flex;
 }
-
+@media (max-width: 767.98px){
+	.del {
+    	display: none;
+	}
+}
 .del {
 	margin-right: 5px;
 }

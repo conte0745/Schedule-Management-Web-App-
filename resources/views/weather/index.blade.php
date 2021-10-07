@@ -16,7 +16,7 @@
             <div class="card col-xl-6 main">
                 <span class="card-header">{{ $date }}</span>
                 <div class="card-body">
-                    <table class="card-text table table-sm table-bordered table-responsive">
+                    <table class="card-text text-center table table-bordered table-responsive-xl">
                         <tr class="head"><th>時間</th>
                             @foreach($attributes as $attribute)
                                 <th>{{ substr($attribute[0],0 ,2).'時' }}</th>

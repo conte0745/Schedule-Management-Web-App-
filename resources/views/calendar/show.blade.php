@@ -26,7 +26,7 @@
             </li>
         </ul>
 </div>
-<table class="table table-sm table-bordered ">
+<table class="table table-sm table-bordered">
 @foreach($days as $day)
 <td><a href="#index{{ $loop->index }}">{{ $day->format('n/j') }}</a></td>
 @endforeach
@@ -59,8 +59,8 @@
     @if($holiday->isHoliday($day))
         </div>
     @endif
-    <div class="teble-responsive">
-    <table class="table table-sm card-text ">
+    <div class="table-responsive-md">
+    <table class="table table-sm ">
         <thead border="1">
             <tr>
             @for($i=0;$i<48;$i++)
@@ -112,7 +112,6 @@
         </tbody>
         @endif
         @endforeach
-        
     </table>
     </div>   
     @endforeach
