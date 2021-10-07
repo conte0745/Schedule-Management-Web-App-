@@ -64,8 +64,8 @@ class LineController extends Controller
         $user->line = $access_token;
         $user->save();
         \Session::set('access_token', $access_token);
-        
-        return redirect('/calendar/mypage/line');
+        dd($access_token);
+        return view('line');
     }
 
     public function send()
