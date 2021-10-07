@@ -66,7 +66,7 @@
             @for($i=0;$i<48;$i++)
                 @if($i%6==0)
                     <th colspan="6">{{ $i/2 }}</th>
-                    {{ dd($weather) }}
+                    
                 @endif
             @endfor
             </tr>
