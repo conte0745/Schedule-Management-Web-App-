@@ -31,17 +31,14 @@ class LoginController extends Controller
         $user = User::where('email', $google->email)->first();
         
         if ($user == null) {
-            // $user = User::create([
-            //     'name'     => $google->name,
-            //     'email'    => $google->email,
-            //     'password' => \Hash::make(openssl_random_pseudo_bytes(30)),
-            //     'color' => '#fff8dc',
-            //     'state' => '設定しない',
-            //     'permission' => 0,
-            // ]);
-        
-            // return $user;
-            return redirect()->route('notFoundGoogle');
+            $user = User::create([
+                'name'     => $google->name,
+                'email'    => $google->email,
+                'password' => \Hash::make(openssl_random_pseudo_bytes(30)),
+                'color' => '#fff8dc',
+                'state' => '設定しない',
+                'permission' => 0,
+            ]);
         }
         // ログイン処理
         \Auth::login($user, true);
