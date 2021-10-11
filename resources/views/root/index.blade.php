@@ -2,10 +2,6 @@
 
 @section('call_css')
 <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
-
-@endsection
-@section('drop-box')
-<a class="dropdown-item card" href="{{ route('calendar') }}">カレンダー</a>
 @endsection
 
 @section('contains')
@@ -28,7 +24,9 @@
                     <span>作成者</span>
                     <table class="table table-sm table-borderless">
                         <tr>
-                            <td>{{ $one_user[0]['name'] }}</td>
+                            @foreach($one_user as $user)
+                            <td>{{ $user['name'] }}</td>
+                            @endforeach
                         </tr>
                     </table>
                 </div>
@@ -63,14 +61,16 @@
                 </tr>
                 @foreach($person as $member)
                     <tr>
-                        <td>{{ $member['name'] }}</td>
-                        <td>{{ $member['state'] }}</td>
-                        @if($root['users'][$member['id']][1]/60%60 < 10)
-                        <td>{{ floor($root['users'][$member['id']][1]/3600) }}:{{ '0'.$root['users'][$member['id']][1]/60%60 }}</td>
-                        @else
-                        <td>{{ floor($root['users'][$member['id']][1]/3600) }}:{{ $root['users'][$member['id']][1]/60%60 }}</td>
+                        @if($member['name'] != '不在')
+                            <td>{{ $member['name'] }}</td>
+                            <td>{{ $member['state'] }}</td>
+                            @if($root['users'][$member['id']][1]/60%60 < 10)
+                                <td>{{ floor($root['users'][$member['id']][1]/3600) }}:{{ '0'.$root['users'][$member['id']][1]/60%60 }}</td>
+                            @else
+                                <td>{{ floor($root['users'][$member['id']][1]/3600) }}:{{ $root['users'][$member['id']][1]/60%60 }}</td>
+                            @endif
+                                <td>{{ $root['users'][$member['id']][2] }}</td>
                         @endif
-                        <td>{{ $root['users'][$member['id']][2] }}</td>
                     </tr>
                 @endforeach
             </table>

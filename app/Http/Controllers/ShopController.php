@@ -66,7 +66,7 @@ class ShopController extends Controller
         $members = User::select('name','permission','id','state')->where('group_id',$user->group_id)->where('permission',0)->get()->toArray();
         $users = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 1)->get()->toArray();
         $one_user = User::select('name','permission','id')->where('group_id',$user->group_id)->where('permission', 2)->get()->toArray();
-        
+       
         $root = CalendarIndex::root($request->all(), new Calendar, null);
         
         return view('root/index')->with(['users' => $users, 'shop'=> $shop,'one_user' => $one_user,'members'=> $members,'root' => $root,'person' => $person]);

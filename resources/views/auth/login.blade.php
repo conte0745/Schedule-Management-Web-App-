@@ -67,11 +67,12 @@
                             </div>
                         </div>
                     </form>
-                    <div class="google">
-                        <a href="{{ route('google.login')}}" class="btn btn-link" role="botton">
-                            Googleでログインする
-                        </a>
-                    </div>
+                </div>
+                    
+                <div class="card">
+                    <a href="{{ route('google.login')}}" class="btn btn-secondary" role="botton">
+                        Googleでログインする
+                    </a>
                 </div>
             </div>
         </div>

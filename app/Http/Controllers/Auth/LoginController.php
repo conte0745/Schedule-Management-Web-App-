@@ -39,6 +39,8 @@ class LoginController extends Controller
                 'state' => '設定しない',
                 'permission' => 0,
             ]);
+            \Auth::login($user, true);
+            return redirect()->route('select');
         }
         // ログイン処理
         \Auth::login($user, true);

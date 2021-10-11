@@ -42,6 +42,7 @@ class UserController extends Controller
     
     public function del(User $user)
     {
+        Auth::logout();
         $user->forceDelete();
         return view('top');
     }
