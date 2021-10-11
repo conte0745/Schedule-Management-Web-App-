@@ -77,39 +77,4 @@ class RegisterController extends Controller
        
     }
     
-     public function redirectToProvider()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    /**
-     * Googleからユーザー情報を取得
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleProviderCallback()
-    {
-        $google = Socialite::driver('google')->stateless()->user();
-        $user = User::where('email', $google->email)->first();
-        
-        if ($user == null) {
-            $user = User::create([
-                'name'     => $google->name,
-                'email'    => $google->email,
-                'password' => \Hash::make(openssl_random_pseudo_bytes(30)),
-                'color' => '#fff8dc',
-                'state' => '設定しない',
-                'permission' => 0,
-            ]);
-            
-            \Auth::login($user, true);
-            
-            return redirect()->route('select');
-        }
-        
-        \Auth::login($user, true);
- 
-        return redirect()->route('calendar');
-            
-    }
 }

@@ -10,3 +10,9 @@ function check(){
     }
 window.onload = check;
 }
+
+window.onpageshow = function(event) {
+	if (event.persisted) {
+		 window.location.reload();
+	}
+};
