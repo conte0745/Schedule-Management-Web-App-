@@ -24,9 +24,7 @@
                     <span>作成者</span>
                     <table class="table table-sm table-borderless">
                         <tr>
-                            @foreach($one_user as $user)
-                            <td>{{ $user['name'] }}</td>
-                            @endforeach
+                            <td>{{ $one_user[0]['name'] }}</td>
                         </tr>
                     </table>
                 </div>
@@ -34,7 +32,7 @@
                     <span>共同管理者一覧</span>
                     <table class="table table-sm table-borderless">
                     @if(count($users) == 0)
-                        <tr><td>no man</td></tr>
+                        <tr><td>データがありません</td></tr>
                     @else
                         @foreach($users as $user)
                             <tr><td>{{ $user['name'] }}</td></tr>

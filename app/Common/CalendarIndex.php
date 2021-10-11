@@ -185,20 +185,26 @@ class CalendarIndex {
             $search = $calendar->select('personal_id','date','date_fin','start_time','finish_time','parent_id')->where('group_id',$group_id)
                         ->whereDate('date','>=', $firstDay)->whereDate('date','<=', $lastDay)->get()->toArray();
         }
-        for($i=0;$i<count($search);$i++){
-            $search[$i]['name'] = $users[$search[$i]['personal_id']];
-        }
         
-        $id = $search[0]['personal_id'];
-        $sum = array();
-        $cnt = 0;
-        for($i=0;$i<count($search);$i++){
-            $users[$search[$i]['personal_id']][1] += (strtotime(substr($search[$i]['finish_time'],0,5)) - strtotime(substr($search[$i]['start_time'],0,5)));
-            $users[$search[$i]['personal_id']][2] +=1;
-        }
-       
+        if($search != null) { 
+            for($i=0;$i<count($search);$i++){
+                $search[$i]['name'] = $users[$search[$i]['personal_id']];
+            }
+            
+            $id = $search[0]['personal_id'];
+            $sum = array();
+            $cnt = 0;
+            for($i=0;$i<count($search);$i++){
+                $users[$search[$i]['personal_id']][1] += (strtotime(substr($search[$i]['finish_time'],0,5)) - strtotime(substr($search[$i]['start_time'],0,5)));
+                $users[$search[$i]['personal_id']][2] +=1;
+            }
+        } 
+           
         $root = (['query' => $search, 'start' => $start, 'end' => $end, 'users' => $users]);
+        
         return $root;
+        
+        
     }
     
 }
