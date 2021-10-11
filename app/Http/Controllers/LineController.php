@@ -63,7 +63,7 @@ class LineController extends Controller
         $user = User::find(Auth::id());
         $user->line = $access_token;
         $user->save();
-        \Session::set('access_token', $access_token);
+        
         dd($access_token);
         return view('line');
     }

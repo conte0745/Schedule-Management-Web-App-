@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link href="{{ asset('google8bb6345d3a2b4c8b.html') }}"/>
         <title>Laravel</title>
 
         <!-- Fonts -->
