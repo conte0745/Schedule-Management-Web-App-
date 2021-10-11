@@ -68,7 +68,7 @@
                         </div>
                     </form>
                     <div class="google">
-                        <a href="{{ route('google.login')}}" class="btn btn-link">
+                        <a href="{{ route('google.login')}}" class="btn btn-link" role="button">
                             Googleでログインする
                         </a>
                     </div>

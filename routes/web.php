@@ -1,5 +1,4 @@
 <?php
-use App\Events\TaskAdded;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,9 +20,7 @@ Route::get('/top', function () {
     return view('top');
 })->name('top');
 
-Route::get('/register/select', function() {
-    return view('auth/select');  
-});
+Route::get('/register/select', 'SelectController@index')->name('select');
 
 Route::post('/register/select/new' , 'ShopController@new_create')->name('select.new');
 Route::post('/register/select/already' , 'ShopController@already_create')->name('select.already');
@@ -100,3 +97,7 @@ Route::group(['prefix' => 'calendar/mypage/line'], function () {
 // Google login
 Route::get('login/google', 'Auth\LoginController@redirectToProvider')->name('google.login');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
+
+Route::get('notfound', function (){
+    return view('notFoundGoogle');
+})->name('notFoundGoogle');

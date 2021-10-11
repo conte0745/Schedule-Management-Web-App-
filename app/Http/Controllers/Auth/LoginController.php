@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -26,9 +27,25 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('google')->stateless()->user();
-        dd($user);
-        // $user->token;
+        $google = Socialite::driver('google')->stateless()->user();
+        $user = User::where('email', $google->email)->first();
+        
+        if ($user == null) {
+            // $user = User::create([
+            //     'name'     => $google->name,
+            //     'email'    => $google->email,
+            //     'password' => \Hash::make(openssl_random_pseudo_bytes(30)),
+            //     'color' => '#fff8dc',
+            //     'state' => '設定しない',
+            //     'permission' => 0,
+            // ]);
+        
+            // return $user;
+            return redirect()->route('notFoundGoogle');
+        }
+        // ログイン処理
+        \Auth::login($user, true);
+        return redirect()->route('calendar');
     }
     
     /*

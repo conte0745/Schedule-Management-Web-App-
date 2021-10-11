@@ -18,7 +18,6 @@ class ShopController extends Controller
     }
     
     
-    
     protected function new_create(ShopRequest $req,Shop $shop)
     {
         $user = User::find(Auth::id());
