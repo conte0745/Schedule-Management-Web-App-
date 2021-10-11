@@ -131,7 +131,7 @@ class WeatherApi {
 		];
 	
 		$city_name = 'Tokyo';
-		$WEATHER_KEY = env('WEATHER_KEY');
+		$WEATHER_KEY = config('services.open_weather_map.api_key');
 		$url = "https://api.openweathermap.org/data/2.5/forecast?q=" . $city_name . "&appid=" . $WEATHER_KEY;
 		$context = stream_context_create([
 		    'http' => [

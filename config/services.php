@@ -34,8 +34,21 @@ return [
     'line_notify' => [
         'client_id' => env('LINE_NOTIFY_CLIENT_ID'),
         'secret'    => env('LINE_NOTIFY_CLIENT_SECRET'),
-        'redirect_uri' => env('LINE_NOTIFY_CLIENT_CALLBACK_URI')
-    ]
+        'redirect_uri' => 'https://nameless-woodland-04388.herokuapp.com/api/calendar/mypage/line',
+    ],
+    
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => 'https://nameless-woodland-04388.herokuapp.com/login/google/callback',
+    ],
+    
+    'open_weather_map' => [
+        'api_key' => env('WEATHER_KEY'),
+    ],
+    
+    
+    
 ];
 
 

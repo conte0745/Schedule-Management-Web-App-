@@ -5,9 +5,32 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Socialite;
 
 class LoginController extends Controller
 {
+        /**
+     * Googleの認証ページヘユーザーをリダイレクト
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Googleからユーザー情報を取得
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('google')->stateless()->user();
+        dd($user);
+        // $user->token;
+    }
+    
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -18,7 +41,7 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
+   
     use AuthenticatesUsers;
 
     /**
