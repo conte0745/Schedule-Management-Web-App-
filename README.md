@@ -4,8 +4,8 @@
 
 
 ## 開発環境
-- php
-- laravel
+- php7.3
+- laravel6.x
 - Vue.js
 - cloud9(AWS,ec2)
 - mairaDB(local環境)
