@@ -49,6 +49,11 @@
                             @if (Route::has('register'))
                                 <td><a href="{{ route('register') }}" class="btn btn-light btn-lg inline-block">新規登録</a></td>
                             @endif
+                            <div>
+                                <a href="{{ route('google.login')}}" class="btn btn-light btn-lg">
+                                    Googleでサインイン、サインアップする
+                                </a>
+                            </div>
                         @endauth
                         </tr>
                     </table>

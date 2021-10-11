@@ -31,7 +31,7 @@ class Calendar extends Model
      *
      * PostgreSQLの場合はコメントアウトを解除
     */
-    //protected $dateFormat = 'Y-m-d H:i:sO';
+    protected $dateFormat = 'Y-m-d H:i:sO';
     
 }
 

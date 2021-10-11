@@ -71,7 +71,7 @@
                     
                 <div class="card">
                     <a href="{{ route('google.login')}}" class="btn btn-secondary" role="botton">
-                        Googleでログインする
+                        Googleでサインイン、サインアップする
                     </a>
                 </div>
             </div>
