@@ -4,8 +4,8 @@
 
 
 ## 開発環境
-- php
-- laravel
+- php7.3
+- laravel6.x
 - Vue.js
 - cloud9(AWS,ec2)
 - mairaDB(local環境)
@@ -16,5 +16,5 @@
 - 自分のシフトの登録,閲覧
 - 同じグループ内のクルーのシフトの閲覧
 - リアルタイムチャット(pusher)
-- 天気予報(open weather map, 毎朝3時更新)
+- 天気予報(open weather map, 毎朝6時更新)
 - PWA対応
