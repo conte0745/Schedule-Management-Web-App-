@@ -52,7 +52,7 @@ class LineController extends Controller
             'form_params' => [
                 'grant_type'    => 'authorization_code',
                 'code'          => $param['code'],
-                'redirect_uri'  => config('services.line_notify.redirect_uri'),
+                'redirect_uri'  => 'https://nameless-woodland-04388.herokuapp.com/calendar/mypage/line',
                 'client_id'     => config('services.line_notify.client_id'),
                 'client_secret' => config('services.line_notify.secret')
             ]
