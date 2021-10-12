@@ -5,7 +5,8 @@
 @endsection
 
 @section('contains')
-
-        <chat-component auth={{ $auth }}></chat-component>
+<div>
+    <chat-component auth={{ $auth }}></chat-component>
+</div>
 
 @endsection

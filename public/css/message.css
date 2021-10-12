@@ -1,5 +1,7 @@
 .main{
 	font-size: 1.1rem;
+	max-width: 1920px;
+	margin: auto 0;
 }
 
 .table {

@@ -44658,7 +44658,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "card main mb-5", attrs: { id: "message" } },
+    { staticClass: "card main mx-auto", attrs: { id: "message" } },
     [
       _c("div", { staticClass: "card-header" }, [
         _c("span", { staticClass: "h1" }, [_vm._v("チャット")]),
@@ -44753,7 +44753,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "input-text fixed-bottom" }, [
+      _c("div", { staticClass: "input-text fixed-bottom mx-auto" }, [
         _c("div", { staticClass: "flexible w-100" }, [
           _c("textarea", {
             directives: [

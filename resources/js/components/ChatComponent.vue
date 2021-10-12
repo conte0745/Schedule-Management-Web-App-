@@ -1,6 +1,6 @@
 <template>
 
-<div id="message" class="card main mb-5">    
+<div id="message" class="card main mx-auto">    
     <div class="card-header">
         <span class="h1">チャット</span>
         <span class="text-muted" v-if="respons">thread</span>
@@ -23,7 +23,7 @@
         </table>
     </div>
     
-    <div class="input-text fixed-bottom">
+    <div class="input-text fixed-bottom mx-auto">
         <div class="flexible w-100">
             <textarea class="textarea" rows="2" cols=100% v-model="message" placeholder="入力してください"></textarea><br>
             <button type="button" @click="send()" class="text-btn">送信</button>

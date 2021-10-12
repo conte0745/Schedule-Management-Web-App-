@@ -75,7 +75,7 @@
         </div>
     </div>
     <div class="card col-xl-12 search">
-    <span class="card-header">Search</span>
+    <div class="card-header">Search</div>
     <div class="card-body">
         <div class="card-title"><span>勤務時間の検索</span></div>
             <form action={{ $_SERVER["REQUEST_URI"] }} method="get" id="search">
