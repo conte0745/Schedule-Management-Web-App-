@@ -88,6 +88,7 @@ Route::delete('/calendar/ajax/chat','Ajax\ChatController@del')->name('calendar.c
 // -----line notify
 Route::group(['prefix' => 'calendar/mypage/line'], function () {
     Route::get('', 'LineController@index')->name('calendar.line');
+    Route::post('', 'LineController@index');
     Route::get('/lift', 'LineController@lift')->name('calendar.line.lift');
     Route::get('/register', 'LineController@redirectToProvider')->name('calendar.line.register');
     Route::post('/send', 'LineController@send')->name('calendar.line.send');
