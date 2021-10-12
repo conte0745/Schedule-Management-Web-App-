@@ -15,7 +15,7 @@ class LineController extends Controller
         $this->middleware('auth');
     }
     
-     public function index(Request $reqest)
+     public function index(Request $request)
     {
         return view('line');
     }
@@ -39,8 +39,6 @@ class LineController extends Controller
     public function handleProviderCallback(Request $request)
     {
         
-        $token = session_id();
-        $csrf = Hash::make($token);
         $param = $request->all();
 
         $uri = 'https://notify-bot.line.me/oauth/token';
@@ -52,7 +50,7 @@ class LineController extends Controller
             'form_params' => [
                 'grant_type'    => 'authorization_code',
                 'code'          => $param['code'],
-                'redirect_uri'  => 'https://nameless-woodland-04388.herokuapp.com/calendar/mypage/line',
+                'redirect_uri'  => 'https://nameless-woodland-04388.herokuapp.com',
                 'client_id'     => config('services.line_notify.client_id'),
                 'client_secret' => config('services.line_notify.secret')
             ]
@@ -64,7 +62,7 @@ class LineController extends Controller
         $user->line = $access_token;
         $user->save();
         
-        return redirect('calendar/mypage/line');
+        return redirect('');
         
     }
 
