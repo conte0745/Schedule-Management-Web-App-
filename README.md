@@ -24,3 +24,7 @@
 
 
 ## デモ画面
+<img width="960" alt="monthly" src="https://user-images.githubusercontent.com/77208348/137287907-71206f5d-8c73-4ec2-af6f-e7e2c09caf58.png">
+<img width="960" alt="weekly" src="https://user-images.githubusercontent.com/77208348/137287930-0ff117c4-0dad-4f3c-91df-abd21a4808bf.png">
+
+
