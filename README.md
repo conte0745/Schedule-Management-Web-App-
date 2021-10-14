@@ -24,5 +24,6 @@
 
 
 ## デモ画面
-<img width="956" alt="monthly" src="https://user-images.githubusercontent.com/77208348/137288360-f5ad2a79-777e-49ce-b92d-2702b7be477a.png">
-<img width="959" alt="weekly" src="https://user-images.githubusercontent.com/77208348/137288682-78719270-7b6c-4ea9-8b1f-e3c82cf7ba19.png">
+
+![2021-10-14](https://user-images.githubusercontent.com/77208348/137289189-441327e6-b521-4fdc-b345-7853f7b52688.png)
+![2021-10-14 (2)](https://user-images.githubusercontent.com/77208348/137289183-7fac5881-4a23-440c-87b5-340986f47edd.png)
