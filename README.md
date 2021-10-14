@@ -25,5 +25,8 @@
 
 ## デモ画面
 
+- テストアカウント
+　- email a@aaaa
+　- pass 11111111　
 ![2021-10-14](https://user-images.githubusercontent.com/77208348/137289189-441327e6-b521-4fdc-b345-7853f7b52688.png)
 ![2021-10-14 (2)](https://user-images.githubusercontent.com/77208348/137289183-7fac5881-4a23-440c-87b5-340986f47edd.png)
