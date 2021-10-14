@@ -25,4 +25,4 @@
 
 ## デモ画面
 <img width="956" alt="monthly" src="https://user-images.githubusercontent.com/77208348/137288360-f5ad2a79-777e-49ce-b92d-2702b7be477a.png">
-<img width="960" alt="weekly"src="https://user-images.githubusercontent.com/77208348/137288348-9f99df1a-0dd0-4f8a-a1a0-b2160f7c6757.png">
+<img width="959" alt="weekly" src="https://user-images.githubusercontent.com/77208348/137288682-78719270-7b6c-4ea9-8b1f-e3c82cf7ba19.png">
