@@ -20,7 +20,7 @@ class ChatController extends Controller
         $pageNum = 10;
         
         $users = User::where('group_id',$group_id)->get()->toArray();
-        $chat = Chat::where('group_id',$group_id)->where('init', true)->orderBy('updated_at','DESC')->paginate($pageNum);
+        $msg = Chat::where('group_id',$group_id)->where('init', true)->orderBy('updated_at','DESC')->paginate($pageNum);
         
         
         $name = [];
@@ -28,13 +28,13 @@ class ChatController extends Controller
             $name += array($user['id'] => $user['name']);
         } 
         
-        $count = min(count($chat),$pageNum);
+        $count = min(count($msg),$pageNum);
         
         for($i=0; $i<$count; $i++){
-            $chat[$i]['name'] = $name[$chat[$i]['personal_id']];
+            $msg[$i]['name'] = $name[$msg[$i]['personal_id']];
         }
         
-        return $chat;
+        return $msg;
     }
     
     
@@ -43,15 +43,15 @@ class ChatController extends Controller
         $personal_id = Auth::id();
         $group_id = User::find($personal_id)->group_id;
        
-        $chat = new Chat;
-        $chat->body = $request->input('message');
-        $chat->personal_id = $personal_id;
-        $chat->group_id = $group_id;
-        $chat->save(); 
-        $chat->parent_id = $chat->id;
-        $chat->save();
-        broadcast(new MessageCreated($chat))->toOthers();
-        return $chat;
+        $msg = new Chat;
+        $msg->body = $request->input('message');
+        $msg->personal_id = $personal_id;
+        $msg->group_id = $group_id;
+        $msg->save(); 
+        $msg->parent_id = $msg->id;
+        $msg->save();
+        broadcast(new MessageCreated($msg))->toOthers();
+        return $msg;
     }
     
     public function replyStore(Request $request)
@@ -60,25 +60,29 @@ class ChatController extends Controller
         $group_id = User::find($personal_id)->group_id;
         $param = $request->all();
         
-        $chat2 = Chat::find($param['init']);
-        $chat = new Chat;
-        $chat->body = $param['message'];
-        $chat->personal_id = $personal_id;
-        $chat->group_id = $group_id;
-        $chat->parent_id = $param['init'];
-        $chat->init = false;
-        $chat->save();
-        $chat2->child_id = $chat->id;
-        $chat2->save();
-        broadcast(new MessageCreated($chat))->toOthers();
-        return $chat;
+        $msg2 = Chat::find($param['init']);
+        $msg = new Chat;
+        $msg->body = $param['message'];
+        $msg->personal_id = $personal_id;
+        $msg->group_id = $group_id;
+        $msg->parent_id = $param['init'];
+        $msg->init = false;
+        $msg->save();
+        $msg2->child_num += 1;
+        $msg2->save();
+        broadcast(new MessageCreated($msg))->toOthers();
+        
+        return $msg;
     }
     
     public function del(Request $req){
         $param = $req->all();
-        $chat = Chat::find($param['id']);
-        broadcast(new MessageCreated($chat))->toOthers();
-        $chat->forceDelete();
+        $msg = Chat::find($param['id']);
+        $parentMsg = Chat::find($msg->parent_id);
+        $parentMsg->child_num -= 1;
+        $parentMsg->save();
+        broadcast(new MessageCreated($msg))->toOthers();
+        $msg->forceDelete();
         
     }
     
@@ -89,19 +93,19 @@ class ChatController extends Controller
         $pageNum = 10;
        
         $users = User::where('group_id',$group_id)->get()->toArray();
-        $chat = Chat::where('parent_id', $param['id'])->orderBy('created_at','DESC')->paginate($pageNum);
+        $msg = Chat::where('parent_id', $param['id'])->orderBy('created_at','DESC')->paginate($pageNum);
         
         $name = [];
         foreach($users as $user){
             $name += array($user['id'] => $user['name']);
         } 
         
-        $count = min(count($chat),$pageNum);
+        $count = min(count($msg),$pageNum);
         
         for($i=0; $i<$count; $i++){
-            $chat[$i]['name'] = $name[$chat[$i]['personal_id']];
+            $msg[$i]['name'] = $name[$msg[$i]['personal_id']];
         }
         
-        return $chat;
+        return $msg;
     }
 }

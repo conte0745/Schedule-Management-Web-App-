@@ -1904,18 +1904,20 @@ __webpack_require__.r(__webpack_exports__);
     reply: function reply(id) {
       var _this = this;
 
-      var url = '/calendar/ajax/show/chat?id=' + id;
-      this.uri = url;
-      this.init = id;
-      axios.get(url).then(function (res) {
-        _this.messages = res.data.data;
-        _this.respons = true;
+      if (this.respons == false) {
+        var url = '/calendar/ajax/show/chat?id=' + id;
+        this.uri = url;
+        this.init = id;
+        axios.get(url).then(function (res) {
+          _this.messages = res.data.data;
+          _this.respons = true;
 
-        _this.pageNate(res.data.next_page_url, res.data.prev_page_url); // console.log(res.data);            
+          _this.pageNate(res.data.next_page_url, res.data.prev_page_url); // console.log(res.data);            
 
-      })["catch"](function (error) {
-        console.log("fail");
-      });
+        })["catch"](function (error) {
+          console.log("fail");
+        });
+      } else {}
     },
     back: function back() {
       this.respons = false;
@@ -44713,7 +44715,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("返信")]
+                      [_vm._v(_vm._s(message.child_num) + "件の返信")]
                     )
                   : _vm._e(),
                 _vm._v(" "),

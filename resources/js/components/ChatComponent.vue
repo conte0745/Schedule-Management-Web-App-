@@ -15,7 +15,7 @@
                     <span class="time text-muted">{{ message.created_at }}</span>
                     <p class="body">{{ message.body }}</p>
                     <span class="back btn btn-secondary btn-sm" @click="back()" v-if="respons">戻る</span>
-                    <span class="reply btn btn-secondary btn-sm" @click="reply(message.id)" v-if="!respons">返信</span>
+                    <span class="reply btn btn-secondary btn-sm" @click="reply(message.id)" v-if="!respons">{{ message.child_num}}件の返信</span>
                     <span class="delete btn btn-secondary btn-sm" @click="del(message.id, message.init)" v-if="(message.init) && (!respons) && (auth == message.personal_id)">削除</span>
                     <span class="delete btn btn-secondary btn-sm" @click="del(message.id, message.init)" v-if="(!message.init) && (respons) && (auth == message.personal_id)">削除</span>
                 </td>
@@ -59,19 +59,21 @@ export default {
     
     methods: { 
         reply(id) {
-            
-            let url = '/calendar/ajax/show/chat?id=' + id;
-            this.uri = url;
-            this.init = id;
-            axios.get(url).then(res => {
-                this.messages = res.data.data;
-                this.respons = true;
-                this.pageNate(res.data.next_page_url, res.data.prev_page_url);
-                // console.log(res.data);            
-            }).catch(function(error){
-                console.log("fail");
-            });
-            
+            if(this.respons == false){
+                let url = '/calendar/ajax/show/chat?id=' + id;
+                this.uri = url;
+                this.init = id;
+                axios.get(url).then(res => {
+                    this.messages = res.data.data;
+                    this.respons = true;
+                    this.pageNate(res.data.next_page_url, res.data.prev_page_url);
+                    // console.log(res.data);            
+                }).catch(function(error){
+                    console.log("fail");
+                });
+            } else {
+                
+            }
         },
         
         back() {
