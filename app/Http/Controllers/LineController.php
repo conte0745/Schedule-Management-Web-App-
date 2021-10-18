@@ -97,7 +97,6 @@ class LineController extends Controller
                 'Content-Type'  => 'application/x-www-form-urlencoded',
                 'Authorization' => 'Bearer ' . $access_token,
             ],
-            
         ]);
         
         $user->line = null;
