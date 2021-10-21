@@ -65,19 +65,6 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        
-                    @else
-                        <a href="{{ route('login') }}">ログイン</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">新規登録</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
 
             <div class="content">
                 <div class="title m-b-md">
@@ -87,6 +74,7 @@
                 <div class="links">
                     <a href="/posts">BLOG</a>
                     <a href="/calendar">しふとん</a>
+                    <a href="/toolbox/random">乱数生成</a>
                     <a href="https://github.com/conte0745/myapps">GITHUB</a>
                 </div>
             </div>

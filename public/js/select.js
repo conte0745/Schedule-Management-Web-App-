@@ -8,7 +8,7 @@ function check(){
         document.getElementById('check2').style.visibility = "";
         
     }
-window.onload = check;
+    window.onload = check;
 }
 
 window.onpageshow = function(event) {

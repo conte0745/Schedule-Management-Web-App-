@@ -16,6 +16,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/toolbox/random', 'ToolController@index')->name('random');
+
 Route::get('/top', function () {
     return view('top');
 })->name('top');
