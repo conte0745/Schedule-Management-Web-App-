@@ -36,9 +36,10 @@
 ```
 $ git clone https://github.com/conte0745/myapps.git
 $ composer update
+$ php artisan key:generate
 $ touch .env
 ```
-envファイルを記入する
+env.exampleファイルを参考に.envファイルに環境変数を記入していく。
 
 
 
