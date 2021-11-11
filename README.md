@@ -33,6 +33,13 @@
 ![2021-10-14 (2)](https://user-images.githubusercontent.com/77208348/137289183-7fac5881-4a23-440c-87b5-340986f47edd.png)
 
 ## 環境構築
-'''
-git clone 
-'''
+```
+$ git clone https://github.com/conte0745/myapps.git
+$ composer update
+$ touch .env
+```
+envファイルを記入する
+
+
+
+
