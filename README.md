@@ -35,7 +35,7 @@
 ## 環境構築
 ```
 $ git clone https://github.com/conte0745/myapps.git
-$ composer update
+$ composer install
 $ php artisan key:generate
 $ touch .env
 ```
