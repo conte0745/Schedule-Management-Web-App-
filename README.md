@@ -38,8 +38,12 @@
   - mysql/mysql-server:8.0
 
 ## 環境構築
+前提：[mkcert](https://github.com/FiloSottile/mkcert)がインストールされているとする。  
 ```
 $ git clone https://github.com/conte0745/myapps.git
+$ cd myapps
+$ mkcert -install
+$ mkcert -cert-file ./infra/nginx/localhost.pem -key-file ./infra/nginx/localhost-key.pem localhost
 $ docker compose up -d
 ```
 コンテナ内のworkディレクトリで
