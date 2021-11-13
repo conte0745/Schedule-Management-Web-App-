@@ -51,3 +51,7 @@ env.exampleファイルを参考に.envファイルに環境変数を記入し�
 - Bootstrap
 - MySQL
 - nginx
+
+## インフラの参考
+- [localhostのSSL化](https://qiita.com/ucan-lab/items/c7f0690227ce7da4a172)
+- [Docker環境構築](https://qiita.com/ucan-lab/items/56c9dc3cf2e6762672f4)
