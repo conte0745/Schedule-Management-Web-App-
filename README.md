@@ -31,7 +31,7 @@
 - Bootstrap
 - MySQL
 - nginx
-- Docker
+- Docker(ホストはMacOS.以下使用イメージ)
   - php:7.4-fpm-buster
   - node:16-alpine
   - nginx:1.20-alpine
