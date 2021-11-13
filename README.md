@@ -7,8 +7,7 @@
 - php7.4
 - laravel6.x
 - Vue.js
-- mairaDB(local環境)
-- postgres(heroku環境)
+- postgres(本番環境)
 
 ## 機能
 - 会員登録、ログイン、Googleでログイン
