@@ -24,6 +24,14 @@
 ![2021-10-14](https://user-images.githubusercontent.com/77208348/137289189-441327e6-b521-4fdc-b345-7853f7b52688.png)
 ![2021-10-14 (2)](https://user-images.githubusercontent.com/77208348/137289183-7fac5881-4a23-440c-87b5-340986f47edd.png)
 
+## 開発環境
+- php7.4
+- laravel6.x
+- Vue.js
+- Bootstrap
+- MySQL
+- nginx
+
 ## 環境構築
 ```
 $ git clone https://github.com/conte0745/myapps.git
@@ -41,16 +49,11 @@ env.exampleファイルを参考に.envファイルに環境変数を記入し�
 - [Google login](https://developers.google.com/identity/sign-in/web/sign-in?authuser=1)
 - [Google mail](https://support.google.com/mail/answer/7126229?hl=ja)
 - [PUSHER](https://pusher.com)
-- [LINE](https://notify-bot.line.me/)
+- [LINE](https://notify-bot.line.me/). 
 
+全て記入した上でSSL化したlocalhostにアクセスすれば完了する（はず）.   
+https://localhost
 
-## 開発環境
-- php7.4
-- laravel6.x
-- Vue.js
-- Bootstrap
-- MySQL
-- nginx
 
 ## インフラの参考
 - [localhostのSSL化](https://qiita.com/ucan-lab/items/c7f0690227ce7da4a172)
