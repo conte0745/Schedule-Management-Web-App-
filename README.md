@@ -7,9 +7,7 @@
 - php7.4
 - laravel6.x
 - Vue.js
-- cloud9(EC2[amazon linux2])
-- mairaDB(local環境)
-- postgres(heroku環境)
+- postgres(本番環境)
 
 ## 機能
 - 会員登録、ログイン、Googleでログイン
@@ -35,11 +33,21 @@
 ## 環境構築
 ```
 $ git clone https://github.com/conte0745/myapps.git
-$ composer install
-$ php artisan key:generate
-$ touch .env
+$ docker compose up -d
 ```
-env.exampleファイルを参考に.envファイルに環境変数を記入していく。
+コンテナ内のworkディレクトリで
+```
+$ cp .env.example .env
+$ php artisan key:generate
+$ php artisan migrate
+$ php artisan api:weather 
+```
+env.exampleファイルを参考に.envファイルに環境変数を記入していく。以下使用したAPI。  
+- [OpenWeatherMap](https://openweathermap.org/forecast5)
+- [Google login](https://developers.google.com/identity/sign-in/web/sign-in?authuser=1)
+- [Google mail](https://support.google.com/mail/answer/7126229?hl=ja)
+- [PUSHER](https://pusher.com)
+- [LINE](https://notify-bot.line.me/)
 
 
 
