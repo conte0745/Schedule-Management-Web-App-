@@ -27,8 +27,8 @@
 
 ## 開発環境
 - php7.4
-- laravel6.x
-- Vue.js
+- laravel 8.x
+- Vue.js 2.5
 - Bootstrap
 - MySQL
 - nginx
@@ -40,7 +40,7 @@
 
 ## 環境構築
 前提：[mkcert](https://github.com/FiloSottile/mkcert)がインストールされているとする。  
-```
+```php
 $ git clone https://github.com/conte0745/myapps.git
 $ cd myapps
 $ mkcert -install
